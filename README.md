@@ -64,7 +64,7 @@
 
 - tcsetattr : comme tcgetattr mais il accepte des options en paramètres en + 
  
-#####termcap library
+##### termcap library
 
 - tgetent : 
 
