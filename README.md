@@ -63,8 +63,8 @@
 - tcgetattr : remplit une structure "termios" d'informations sur un terminal depuis un fd
 
 - tcsetattr : comme tcgetattr mais il accepte des options en paramètres en + 
-
----- termcap library
+ 
+#####termcap library
 
 - tgetent : 
 
@@ -72,7 +72,7 @@
 
 - tgetnum : 
 
--tgetstr : 
+- tgetstr : 
 
 - tgoto :
 
