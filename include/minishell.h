@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/13 15:43:50 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/04/13 18:40:32 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h> 
-#include "get_next_line.h"
+#include "../libft/inc/libft.h"
 
 typedef struct s_env
 {
@@ -28,6 +28,12 @@ typedef struct s_env
 
 void ft_putstr(char *str);
 
+/*
+** prompt
+*/ 
+
+void prompt(void);
+void display_prompt(void);
 
 /*
 ** env

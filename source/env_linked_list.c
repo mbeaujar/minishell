@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   linked_list_env.c                                  :+:      :+:    :+:   */
+/*   env_linked_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/11 00:12:30 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/13 15:39:21 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/04/13 18:17:20 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
 t_env *newlstenv(char *env)
 {
@@ -20,8 +20,19 @@ t_env *newlstenv(char *env)
 
 	if (!(new = malloc(sizeof(t_env) * 1)))
 		return (NULL);
-	new->name = env;
-	new->value = env;
+	if (!(name = return_env_name(env)))
+	{
+		free(new);
+		return (NULL);
+	}
+	if (!(value = return_env_value(env)))
+	{
+		free(new);
+		free(name);
+		return (NULL);
+	}
+	new->name = name;
+	new->value = value;
 	new->next = NULL;
 	return (new);
 }

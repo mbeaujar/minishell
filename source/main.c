@@ -6,43 +6,12 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:05 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/13 15:45:27 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/04/13 18:17:31 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../include/minishell.h"
 
-void display_prompt(void)
-{
-	ft_putstr("minishell $> ");
-}
-
-void prompt(void)
-{
-	int ret;
-	char *str;
-
-	ret = 1;
-	str = NULL;
-	while (ret)
-	{
-		display_prompt();
-		ret = get_next_line(0, &str);
-		if (ret == -1)
-		{
-			// Tout free avant l'exit
-			exit(1);
-		}
-		if (ret == 0)
-		{
-			// Tout free avant l'exit
-			ft_putstr("exit\n");
-			exit(2);
-		}
-		printf("'%s'\n", str);
-		free(str);
-	}
-}
 
 // envp = toutes les variable d'environnement
 
