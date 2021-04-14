@@ -6,9 +6,9 @@
 
    - tuto écrire son propre shell : https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
   
- #### Doc : 
- 
-  - fork : crée un process child qui est une copie du process parent 
+#### Doc :
+
+- fork : crée un process child qui est une copie du process parent 
 
 - wait : suspend le processus appelant jusqu'à ce que l'un de ses childs se termine
 
@@ -21,7 +21,7 @@
 - signal : gestion de signaux, en fonction du gestionnaire il peut ignoré comme faire des actions en fonction des signaux
 
 - kill : envoi un signal à un processus, le signal dépend du pid
-Ï
+
 - getcwd : copie le chemin d'accès absolu du répertoire de travail courant dans la chaîne pointée par buf, qui est de longueur size
 
 - chdir : remplace le répertoire de travail courant du processus appelant par celui indiqué dans le chemin path -- utile pour la commande "cd"

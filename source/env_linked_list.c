@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/11 00:12:30 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/13 18:17:20 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/04/14 16:46:30 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,18 @@ void freelstenv(t_env *head)
 		head = head->next;
 		free(tmp);
 	}
+}
+
+t_env *search_env(t_env *head, char *env_name)
+{
+	size_t len;
+	
+	len = ft_strlen(env_name) + 1;
+	while (head)
+	{
+		if (ft_strncmp(head->name, env_name, len))
+			return (head);
+		head = head->next;
+	}
+	return (NULL);
 }

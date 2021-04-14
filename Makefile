@@ -11,7 +11,8 @@ SRCS =  prompt.c \
 	env_create.c \
 	env_linked_list.c \
 	env_parsing.c \
-	test.c
+	test.c \
+	builtin_cd.c 
 
 OBJ = ${SRCS:.c=.o}
 
@@ -35,10 +36,10 @@ test : $(OBJS_TEST)
 clean : 
 	@$(RM) $(NAME)
 	@$(RM) $(NAME_TEST)
-	@$(RM) $(OBJS)
-	@$(RM) $(OBJS_TEST)
 
 fclean : clean
+	@$(RM) $(OBJS)
+	@$(RM) $(OBJS_TEST)
 #	@make fclean -C libft
 
 re : fclean all

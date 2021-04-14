@@ -27,3 +27,18 @@ Test(env, value)
 	free(value);
 	cr_assert(!diff);
 }
+
+Test(path, absolu)
+{
+	char cwd[PATH_MAX];
+	int diff;
+
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+		diff = 0;
+	else
+	{
+		//printf("%s\n", cwd);
+		diff = 1;
+	}
+	cr_assert(diff);
+}
