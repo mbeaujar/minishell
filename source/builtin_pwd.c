@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 20:19:32 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/15 21:55:57 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/04/15 22:15:51 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void refresh_pwd(t_var *var)
 
 	if (!(cwd = malloc(sizeof(char) * (PATH_MAX + 1))))
 		return;
-	getcwd(cwd, sizeof(cwd)) 
+	getcwd(cwd, sizeof(cwd)); 
 	//if (getcwd(cwd, sizeof(cwd)))
 	//{
 		new_value = refresh_value_pwd(cwd);
