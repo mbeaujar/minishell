@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 16:40:30 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/14 17:01:06 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/04/15 19:43:49 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void display_prompt(void)
 	ft_putstr_fd("minishell $> ", 0);
 }
 
-void prompt(t_env *head)
+void prompt(t_var *var)
 {
 	int ret;
 	char *str;
@@ -31,17 +31,20 @@ void prompt(t_env *head)
 		if (ret == -1)
 		{
 			// Tout free avant l'exit
-			freelstenv(head);
+			freelstenv(var->head);
 			exit(1);
 		}
 		if (ret == 0)
 		{
 			// Tout free avant l'exit
-			freelstenv(head);
+			freelstenv(var->head);
 			ft_putstr_fd("exit\n", 0);
 			exit(2);
 		}
-		cd(head, str);
+		if (!ft_strncmp(str, "cd", 2))
+			cd(var, str);
+		if (!ft_strncmp(str, "pwd", 4) || !ft_strncmp(str, "PWD", 4))
+			pwd(var->head);
 		printf("'%s'\n", str);
 		free(str);
 	}

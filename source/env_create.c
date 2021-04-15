@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/11 00:12:14 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/13 18:17:16 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/04/15 17:36:50 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,30 @@ t_env *fill_env(char **envp)
 	}
 	printlstenv(head);
 	return (head);
+}
+
+void delete_env(t_var *var, t_env *to_delete)
+{
+	t_env *tmp;
+	t_env *head;
+
+	head = var->head;
+	if (to_delete->name != NULL)
+		free(to_delete->name);
+	if (to_delete->value != NULL)
+		free(to_delete->value);
+	if (var->head == to_delete)
+	{
+		tmp = var->head;
+		var->head = var->head->next;
+		free(tmp);
+		return;
+	}
+	while (head->next != NULL && head->next != to_delete)
+		head = head->next;
+	if (head->next == NULL)
+		return;
+	tmp = head->next;
+	head->next = head->next->next;
+	free(tmp);
 }

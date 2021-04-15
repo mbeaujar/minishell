@@ -12,7 +12,8 @@ SRCS =  prompt.c \
 	env_linked_list.c \
 	env_parsing.c \
 	test.c \
-	builtin_cd.c 
+	builtin_cd.c \
+	builtin_pwd.c
 
 OBJ = ${SRCS:.c=.o}
 
@@ -31,7 +32,9 @@ $(NAME) : $(OBJS)
 	@$(CC) $(CLFAGS) $(OBJS) $(INCLUDE) -o $(NAME)
 
 test : $(OBJS_TEST)
-	@$(CC) $(OBJS_TEST) $(INCLUDE) -lcriterion -o $(NAME_TEST)
+	@$(CC) $(OBJS_TEST) -lcriterion $(INCLUDE) -o $(NAME_TEST)
+
+# --verbose
 
 clean : 
 	@$(RM) $(NAME)

@@ -6,37 +6,13 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 14:09:30 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/14 17:03:36 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/04/15 21:37:37 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/*
-** actualise la variable d'environnement PWD
-*/
-
-void refresh_pwd(t_env *head)
-{
-	char *cwd;
-	t_env *pwd;
-	errno = 0;
-
-	if (!(cwd = malloc(sizeof(char) * (PATH_MAX + 1))))
-		return;
-	pwd = search_env(head, "PWD");
-	if (getcwd(cwd, sizeof(cwd)))
-	{
-		free(pwd->value);
-		pwd->value = cwd;
-	}
-}
-
-/*
-** Execute la commande cd
-*/
-
-void change_directory(t_env *head, char *path)
+void change_directory(t_var *var, char *path)
 {
 	char *ret_error;
 	int ret;
@@ -48,14 +24,10 @@ void change_directory(t_env *head, char *path)
 		ft_putstr_fd(ret_error, 0);
 		return ;
 	}
-	refresh_pwd(head);
+	refresh_pwd(var);
 }
 
-/*
-** Parse la commande pour récupérer le path
-*/
-
-void cd(t_env *head, char *cmd)
+void cd(t_var *var, char *cmd)
 {
 	int i;
 
@@ -65,6 +37,5 @@ void cd(t_env *head, char *cmd)
 	while (cmd[i] && cmd[i] == ' ')
 		i++;
 	printf("chemin de cd : %s\n", cmd + i);
-	change_directory(head, cmd + i);
+	change_directory(var, cmd + i);
 }
-

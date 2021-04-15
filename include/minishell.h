@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/14 17:02:05 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/04/15 19:41:15 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #include <string.h>
 
 # ifndef PATH_MAX
-#  define PATH_MAX 4096
+#  define PATH_MAX 1024
 # endif 
 
 typedef struct s_env
@@ -33,24 +33,54 @@ typedef struct s_env
 	struct s_env *next;
 } t_env;
 
+typedef struct s_var
+{
+	t_env *head;
+}		t_var;
+
+
 void ft_putstr(char *str);
 
-void prompt(t_env *head);
+void prompt(t_var *var);
 void display_prompt(void);
 
+/*
+** env_create.c
+*/
 
 t_env *fill_env(char **envp);
+void delete_env(t_var *var, t_env *to_delete);
+
+/*
+** env_linked_list.c
+*/
+
+t_env *newlstenv(char *env);
 void addlstenv(t_env **head, char *env);
-void freelstenv(t_env *head);
 void printlstenv(t_env *head);
-char *return_env_name(char *env);
-char *return_env_value(char *env);
+void freelstenv(t_env *head);
 t_env *search_env(t_env *head, char *env_name);
 
-void change_directory(t_env *head, char *path);
-void cd(t_env *head, char *cmd);
+/*
+** env_parsing.c
+*/
 
-char *get_absolu_path(char *str, size_t size);
+char *return_env_name(char *env);
+char *return_env_value(char *env);
 
+/*
+** builtin_cd.c
+*/
+
+void refresh_pwd(t_var *var);
+void change_directory(t_var *var, char *path);
+void cd(t_var *var, char *cmd);
+void pwd(t_env *head);
+
+/*
+** main.c 
+*/
+
+void printerrno(void);
 
 #endif 

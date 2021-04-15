@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/11 00:12:30 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/14 16:46:30 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/04/15 21:44:28 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void printlstenv(t_env *head)
 {
 	while (head)
 	{
-		//printf("%s\n", head->data);
+		printf("name : '%s' value : '%s'\n", head->name, head->value);
 		head = head->next;
 	}
 }
@@ -80,7 +80,7 @@ t_env *search_env(t_env *head, char *env_name)
 	len = ft_strlen(env_name) + 1;
 	while (head)
 	{
-		if (ft_strncmp(head->name, env_name, len))
+		if (!ft_strncmp(head->name, env_name, len))
 			return (head);
 		head = head->next;
 	}

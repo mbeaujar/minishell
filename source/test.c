@@ -1,6 +1,13 @@
 #include <criterion/criterion.h>
 #include "../include/minishell.h"
-#include <string.h>
+#include <signal.h>
+
+/*
+Test(category, nom, .signal = SIGSEGV)
+{
+	// .signal = SIGSEGV , pour compter les segfaults comme valide
+}
+*/
 
 Test(env, name)
 {
@@ -28,6 +35,27 @@ Test(env, value)
 	cr_assert(!diff);
 }
 
+Test(env, search)
+{
+	char *expected;
+	t_env *head;
+	t_env *pwd;
+	char *output;
+	int diff;
+
+	head = newlstenv("USER=mbeaujar");
+	addlstenv(&head, "PWD=/Users/toto/minishell");
+	addlstenv(&head, "EMAIL=toto@gmail.com");
+
+	expected = "/Users/toto/minishell";
+	pwd = search_env(head, "PWD");
+	output = pwd->value;
+	diff = strcmp(expected, output);
+	if (diff != 0)
+		printf("env, search : %s\n", output);
+	cr_assert(!diff);
+}
+
 Test(path, absolu)
 {
 	char cwd[PATH_MAX];
@@ -41,4 +69,12 @@ Test(path, absolu)
 		diff = 1;
 	}
 	cr_assert(diff);
+}
+
+Test(path, max)
+{
+	#ifndef PATH_MAX
+		cr_asser(0);
+	#endif
+	cr_assert(1); 
 }

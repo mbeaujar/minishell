@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbeaujar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 15:33:11 by mbeaujar          #+#    #+#             */
-/*   Updated: 2020/12/27 15:11:13 by beaujardm        ###   ########.fr       */
+/*   Updated: 2021/04/14 23:43:31 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ char		*ft_strjoin_gnl(char *s1, char *s2)
 		return (NULL);
 	if (!(tab = malloc(sizeof(char) * ((ft_strlen_gnl(s1) + ft_strlen_gnl(s2)) + 1))))
 		return (NULL);
-	if (!tab)
-		return (0);
 	ft_memmove_gnl(tab, s1, ft_strlen_gnl(s1));
 	ft_memmove_gnl(tab + ft_strlen_gnl(s1), s2, ft_strlen_gnl(s2));
 	tab[(ft_strlen_gnl(s1) + ft_strlen_gnl(s2))] = '\0';
