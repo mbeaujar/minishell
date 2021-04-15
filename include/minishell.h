@@ -6,7 +6,11 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/04/15 19:41:15 by mbeaujar         ###   ########.fr       */
+=======
+/*   Updated: 2021/04/14 17:02:05 by mbeaujar         ###   ########.fr       */
+>>>>>>> 1593b8990e85ca14bffb4c4b82c7f4607143f2be
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +27,11 @@
 #include <string.h>
 
 # ifndef PATH_MAX
+<<<<<<< HEAD
 #  define PATH_MAX 1024
+=======
+#  define PATH_MAX 4096
+>>>>>>> 1593b8990e85ca14bffb4c4b82c7f4607143f2be
 # endif 
 
 typedef struct s_env
@@ -38,6 +46,7 @@ typedef struct s_var
 	t_env *head;
 }		t_var;
 
+<<<<<<< HEAD
 
 void ft_putstr(char *str);
 
@@ -47,6 +56,11 @@ void display_prompt(void);
 /*
 ** env_create.c
 */
+=======
+void prompt(t_env *head);
+void display_prompt(void);
+
+>>>>>>> 1593b8990e85ca14bffb4c4b82c7f4607143f2be
 
 t_env *fill_env(char **envp);
 void delete_env(t_var *var, t_env *to_delete);
@@ -67,6 +81,12 @@ t_env *search_env(t_env *head, char *env_name);
 
 char *return_env_name(char *env);
 char *return_env_value(char *env);
+t_env *search_env(t_env *head, char *env_name);
+
+void change_directory(t_env *head, char *path);
+void cd(t_env *head, char *cmd);
+
+char *get_absolu_path(char *str, size_t size);
 
 /*
 ** builtin_cd.c
