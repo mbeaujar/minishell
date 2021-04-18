@@ -78,3 +78,38 @@ Test(path, max)
 	#endif
 	cr_assert(1); 
 }
+
+Test(search, replace)
+{
+	char *s;
+	char *search;
+	char *replace;
+	char *expected;
+	int diff;
+
+	search = "$USER";
+	replace = "mbeaujar";
+	s = ft_strdup("je suis $USER.");
+	expected = "je suis mbeaujar.";
+	s = search_and_replace(s, search, replace, 1);
+	if (s == NULL)
+		cr_assert(0);
+	printf("str : %s\n", s);
+	diff = strcmp(expected, s);
+	free(s);
+	cr_assert(!diff);
+}
+
+Test(search, where)
+{
+	int expected;
+	int output;
+	char *s;
+	char *search;
+
+	s = "Je suis $USER.";
+	search = "$USER";
+	output = search_where(s, search);
+	expected = 8;
+	cr_assert(expected == output);
+}

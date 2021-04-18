@@ -13,7 +13,8 @@ SRCS =  prompt.c \
 	env_parsing.c \
 	test.c \
 	builtin_cd.c \
-	builtin_pwd.c
+	builtin_pwd.c \
+	utils.c
 
 OBJ = ${SRCS:.c=.o}
 

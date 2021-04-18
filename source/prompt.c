@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 16:40:30 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/15 22:25:23 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/04/18 17:04:17 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,26 @@ void display_prompt(void)
 	ft_putstr_fd("minishell $> ", 0);
 }
 
-void prompt(t_var *var)
+void ls_for_check(char *str, char **envp)
+{
+	char **args;
+	int pid;
+
+	args = malloc(sizeof(char*) * (2));
+	args[0] = str;
+	args[1] = 0;
+	pid = -1;
+	pid = fork();
+	if (pid == 0)
+	{
+		execve("/bin/ls", args, envp);
+		exit(0);
+	}
+	wait(&pid);
+	free(args);
+}
+
+void prompt(t_var *var, char **envp)
 {
 	int ret;
 	char *str;
@@ -41,10 +60,16 @@ void prompt(t_var *var)
 			ft_putstr_fd("exit\n", 0);
 			exit(2);
 		}
+		if (!ft_strncmp(str, "echo $?", 8))
+		{
+			printf("echo $? = %d\n", errno);
+		}
 		if (!ft_strncmp(str, "cd", 2))
 			cd(var, str);
 		if (!ft_strncmp(str, "pwd", 4) || !ft_strncmp(str, "PWD", 4))
 			pwd(var->head);
+		if (str[0] == 'l' && str[1] == 's')
+			ls_for_check(str, envp);
 		printf("'%s'\n", str);
 		free(str);
 	}

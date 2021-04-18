@@ -2,9 +2,17 @@
 
 #### lien :
 
+	- quotes : https://www.gnu.org/software/bash/manual/bash.html#Double-Quotes
+
    - redirection : https://putaindecode.io/articles/maitriser-les-redirections-shell/
 
    - tuto écrire son propre shell : https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
+
+   bash : https://learnxinyminutes.com/docs/bash/
+
+   algo : https://fr.wikipedia.org/wiki/Algorithme_Shunting-yard
+
+   algo : https://fr.wikipedia.org/wiki/Arbre_de_la_syntaxe_abstraite
   
 #### Doc :
 

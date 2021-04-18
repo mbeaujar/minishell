@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:05 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/15 22:24:54 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/04/18 16:50:37 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,7 @@
 
 // envp = toutes les variable d'environnement
 
-void printerrno(void)
-{
-	char *error;
 
-	error = strerror(errno);
-	ft_putstr_fd(error, 0);
-	ft_putchar_fd('\n', 0);
-}
 
 int main(int argc, char **argv, char **envp)
 {
@@ -36,7 +29,7 @@ int main(int argc, char **argv, char **envp)
 		test = search_env(var.head, "PWD");
 		if (test)
 			printf("TEST NAME : '%s' VALUE : '%s'\n", test->name, test->value);*/
-		prompt(&var);
+		prompt(&var, envp);
 		freelstenv(var.head);
 	}
 	// head = NULL;
