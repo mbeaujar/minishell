@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/18 16:52:12 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/04/19 00:19:12 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,14 @@ typedef struct s_var
 	t_env *head;
 }		t_var;
 
-
+/* typedef struct s_command
+{
+	char *first;
+	char *second;
+	int pipe;
+	struct s_command *next;
+} t_cmd;
+ */
 void ft_putstr(char *str);
 
 void display_prompt(void);
@@ -93,5 +100,9 @@ void printerrno(void);
 char *search_and_replace(char *s, char *search, char *replace, int leak);
 int search_where(char *s, char *search);
 void prompt(t_var *var, char **envp);
+int test_fork(void);
+int is_inside(char *s, char im_here);
+
+void unset(t_var *var, char *path);
 
 #endif 

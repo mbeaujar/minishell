@@ -1,20 +1,52 @@
-# minishell
+# MINISHELL
 
-#### lien :
+## LIEN :
 
-	- quotes : https://www.gnu.org/software/bash/manual/bash.html#Double-Quotes
+- quotes : https://www.gnu.org/software/bash/manual/bash.html#Double-Quotes
 
-   - redirection : https://putaindecode.io/articles/maitriser-les-redirections-shell/
+- redirection : https://putaindecode.io/articles/maitriser-les-redirections-shell/
 
-   - tuto écrire son propre shell : https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
+- tuto écrire son propre shell : https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
 
-   bash : https://learnxinyminutes.com/docs/bash/
+- bash : https://learnxinyminutes.com/docs/bash/
 
-   algo : https://fr.wikipedia.org/wiki/Algorithme_Shunting-yard
+- algo : https://fr.wikipedia.org/wiki/Algorithme_Shunting-yard
 
-   algo : https://fr.wikipedia.org/wiki/Arbre_de_la_syntaxe_abstraite
+- algo : https://fr.wikipedia.org/wiki/Arbre_de_la_syntaxe_abstraite
+
+
+## BUILTIN : 
+
+ - ~ : 
+    - echo ~     : /Users/beaujardmael
+	- cd ~       : cd /Users/beaujardmael
+	- cd         : cd /Users/beaujardmael
+	- $HOME      : /Users/beaujardmael
+
+- cd : 
+	- cd refresh la variable $PWD, unset ou pas
+	- cd .. minishell : cd ..
+	- cd .. je suis un test : cd ..
+	- Uniquement le premier argument 
+
+- pwd : 
+	- zsh : affiche la variable $PWD
+	- bash : affiche le chemin pwd même si la variable est unset
+
+- unset : 
+	- unset les variables en arguments
+
+- export : 
+	- export : affiche les variables mais triée en fonction du nom
+	- affiche les variables qui n'ont pas de values
+	- export VAR : crée une variable sans value si elle n'existe pas sinon ne fais rien
+	- RA= : RA=""
+	- export RA : RA
+
+- env : 
+	
   
-#### Doc :
+## DOC :
 
 - fork : crée un process child qui est une copie du process parent 
 

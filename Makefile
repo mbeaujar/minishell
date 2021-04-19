@@ -14,7 +14,8 @@ SRCS =  prompt.c \
 	test.c \
 	builtin_cd.c \
 	builtin_pwd.c \
-	utils.c
+	builtin_unset.c \
+	utils.c  
 
 OBJ = ${SRCS:.c=.o}
 

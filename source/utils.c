@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 16:55:29 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/18 16:45:38 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/04/19 00:05:02 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,15 @@ char *search_and_replace(char *s, char *search, char *replace, int leak)
 	if (leak)
 		free(s);
 	return (str);
+}
+
+int is_inside(char *s, char im_here)
+{
+	while (*s)
+	{
+		if (*s == im_here)
+			return (1);
+		s++;
+	}
+	return (0);
 }

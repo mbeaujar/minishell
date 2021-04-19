@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 16:40:30 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/18 17:04:17 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/04/19 00:20:05 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void prompt(t_var *var, char **envp)
 			pwd(var->head);
 		if (str[0] == 'l' && str[1] == 's')
 			ls_for_check(str, envp);
+		if (!ft_strncmp(str, "unset ", 6))
+			unset(var, str);
 		printf("'%s'\n", str);
 		free(str);
 	}
