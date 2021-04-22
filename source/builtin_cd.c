@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 14:09:30 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/19 00:14:38 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/04/21 18:27:52 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@ void change_directory(t_var *var, char *path)
 	}
 	refresh_pwd(var);
 }
-
-// cd sans argument et ~ : dirige au path de la variable $HOME
-// cd /
 
 void cd(t_var *var, char *path)
 {

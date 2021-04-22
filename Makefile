@@ -8,9 +8,9 @@ SRCS_DIRECTORY=source/
 OBJS_DIRECTORY=objects/
 SRCS =  prompt.c \
 	main.c \
-	env_create.c \
+	env_gestion.c \
 	env_linked_list.c \
-	env_parsing.c \
+	env_split.c \
 	test.c \
 	builtin_cd.c \
 	builtin_pwd.c \
