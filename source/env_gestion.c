@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_create.c                                       :+:      :+:    :+:   */
+/*   env_gestion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/11 00:12:14 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/15 17:36:50 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/04/23 21:36:28 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,28 @@ void delete_env(t_var *var, t_env *to_delete)
 	tmp = head->next;
 	head->next = head->next->next;
 	free(tmp);
+}
+
+int is_value(char *env)
+{
+	while (*env)
+	{
+		if (*env == '=')
+			return (1);
+		env++;
+	}
+	return (0);
+}
+
+t_env *newexport(char *env)
+{
+	t_env *new;
+
+	if (!(new = malloc(sizeof(t_env) * 1)))
+		return (NULL);
+	new->name = env;
+	new->value = NULL;
+	new->export = 0;
+	new->next = NULL;
+	return(new);
 }

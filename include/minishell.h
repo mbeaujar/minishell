@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/19 00:19:12 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/04/23 17:33:51 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,20 @@
 #include <limits.h>
 #include <errno.h>
 #include <string.h>
+#include <curses.h>
+#include <term.h>
 
 # ifndef PATH_MAX
 #  define PATH_MAX 1024
 # endif 
 
-typedef struct s_env
+typedef struct	s_env
 {
-	char *name;
-	char *value;
-	struct s_env *next;
+	char			*name;
+	char			*value;
+	int				export;
+	int				env;
+	struct s_env	*next;
 } t_env;
 
 typedef struct s_var
@@ -61,7 +65,7 @@ void delete_env(t_var *var, t_env *to_delete);
 ** env_linked_list.c
 */
 
-t_env *newlstenv(char *env);
+t_env *createlstenv(char *env);
 void addlstenv(t_env **head, char *env);
 void printlstenv(t_env *head);
 void freelstenv(t_env *head);
@@ -104,5 +108,7 @@ int test_fork(void);
 int is_inside(char *s, char im_here);
 
 void unset(t_var *var, char *path);
+int is_value(char *env);
+t_env	*newexport(char *env);
 
 #endif 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_parsing.c                                      :+:      :+:    :+:   */
+/*   env_split.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:25:55 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/15 16:59:06 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/04/23 18:05:20 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char *return_env_name(char *env)
 		name[i] = env[i];
 		i++;
 	}
+	name[i] = 0;
 	return (name);
 }
 
@@ -37,7 +38,7 @@ char *return_env_value(char *env)
 	char	*value;
 	
 	i = 0;
-	while (*env != '=')
+	while (*env && *env != '=')
 		env++;
 	if (!(value = malloc(sizeof(char) * ((int)ft_strlen(++env) + 1))))
 		return (NULL);
@@ -47,5 +48,6 @@ char *return_env_value(char *env)
 		i++;
 		env++;
 	}
+	value[i] = 0;
 	return (value);
 }

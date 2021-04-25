@@ -1,0 +1,85 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   termcaps.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: beaujardmael <beaujardmael@student.42.f    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/23 16:11:10 by mbeaujar          #+#    #+#             */
+/*   Updated: 2021/04/25 14:46:52 by beaujardmae      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../include/minishell.h"
+
+int init_termcaps(void)
+{
+	int ret;
+	char *term_type;
+
+	term_type = getenv("TERM");
+	if (!term_type)
+	{
+		ft_putstr_fd("TERM must be set (see 'env').\n", 0);
+		return (-1);
+	}
+	ret = tgetent(NULL, term_type);
+	if (ret == -1)
+	{
+		ft_putstr_fd("Could not acces to the termcap database.\n", 0);
+		return (-1);
+	}
+	else if (ret == 0)
+	{
+		ft_putstr_fd("Terminal type '%s' is not defined in termcap database.\n", 0);
+		return(-1);
+	}
+	return (0);
+}
+
+int display_termcap(int c)
+{
+	char cast;
+	
+	cast = (char)c;
+	return (write(1, &cast, 1));
+}
+
+void create_termcap(char *termcap)
+{
+	char *new_termcap;
+	
+	new_termcap = tgetstr(termcap, NULL);
+	tputs(new_termcap, 1, display_termcap);
+}
+
+void termcaps(void)
+{
+
+}
+
+void read_stdin(void)
+{
+	char c;
+	int ret;
+
+	ret = 1;
+	while (ret)
+	{
+		if ((ret = read(0, &c, 1)) == -1)
+		{
+			printf("error\n");
+			exit(0);
+		}
+	}
+}
+
+int main(int agrc, char **argv)
+{
+	
+	init_termcaps();
+	create_termcap("cl");
+	//read_stdin();
+	//printf("buffer : '%s'\n", buffer);
+	return (0);
+}

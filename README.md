@@ -14,6 +14,12 @@
 
 - algo : https://fr.wikipedia.org/wiki/Arbre_de_la_syntaxe_abstraite
 
+- env : https://fr.wikipedia.org/wiki/Env
+
+- parsing : https://mywiki.wooledge.org/BashParser#:~:text=Bash%20always%20reads%20your%20script,with%20a%20literal%20newline%20inbetween
+
+https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html
+
   
 ## DOC :
 
@@ -69,11 +75,11 @@
 
 - getenv : prend une variable d'env et retourne la value de la variable dans un char *
 
+##### termcap library
+
 - tcgetattr : remplit une structure "termios" d'informations sur un terminal depuis un fd
 
 - tcsetattr : comme tcgetattr mais il accepte des options en paramètres en + 
- 
-##### termcap library
 
 - tgetent : 
 
@@ -83,6 +89,6 @@
 
 - tgetstr : 
 
-- tgoto :
+- tgoto : déplacer le curseur a des coordonnées 
 
 - tputs : 

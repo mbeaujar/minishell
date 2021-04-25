@@ -31,10 +31,10 @@ $(OBJS_DIRECTORY)%.o : $(SRCS_DIRECTORY)%.c
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	@$(CC) $(CLFAGS) $(OBJS) $(INCLUDE) -o $(NAME)
+	@$(CC) $(CLFAGS) $(OBJS) -lncurses $(INCLUDE) -o $(NAME)
 
 test : $(OBJS_TEST)
-	@$(CC) $(OBJS_TEST) -lcriterion $(INCLUDE) -o $(NAME_TEST)
+	@$(CC) $(OBJS_TEST) -lcriterion -lncurses $(INCLUDE) -o $(NAME_TEST)
 
 # --verbose
 

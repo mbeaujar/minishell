@@ -18,6 +18,8 @@
 
 	- cd -- cd $HOME
 
+	- cd - -- cd $OLDPWD // ! bash: cd: OLDPWD not set
+
 - unset : détruit une variable et son contenue // elle n'apparait plus dans env et export
 
 	- prend en argument le nom des variables à unset 
@@ -41,3 +43,18 @@
 - env : affiche les variables export qui ont une valeur
 	
 	- env -- affiche les variables d'environnement qui ont une value et sont export de façon non trié 
+
+	-- env TEST=OUI -- affiche la variable 'TEST' avec la value 'OUI' dans env MAIS si on retape la commande la variable 'TEST' ne reste pas
+
+
+- Exemple : comande -- output
+
+	export RA="" -- affiche dans export 'export RA="" ' -- affiche dans env 'RA='
+	export RA    -- affiche dans export 'export RA' -- affiche rien dans env
+	export RA=salut RO=je RI=un RP=test  -- affiche dans export et env les 3 variables avec leurs values
+
+
+
+
+
+notes : 

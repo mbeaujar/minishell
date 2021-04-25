@@ -6,13 +6,13 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/11 00:12:30 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/22 01:48:43 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/04/22 23:09:01 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_env *newlstenv(char *env)
+t_env *createlstenv(char *env)
 {
 	t_env *new;
 	char *name;
@@ -33,6 +33,7 @@ t_env *newlstenv(char *env)
 	}
 	new->name = name;
 	new->value = value;
+	new->export = 0;
 	new->next = NULL;
 	return (new);
 }
@@ -43,13 +44,16 @@ void addlstenv(t_env **head, char *env)
 
 	if (!*head)
 	{
-		*head = newlstenv(env);
+		if (is_value(env))
+			*head = createlstenv(env);
+		else
+			
 		return ;
 	}
 	tmp = *head;
 	while (tmp->next)
 		tmp = tmp->next;
-	tmp->next = newlstenv(env);
+	tmp->next = createlstenv(env);
 }
 
 void printlstenv(t_env *head)
