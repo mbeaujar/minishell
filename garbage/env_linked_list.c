@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_linked_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaujardmael <beaujardmael@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/11 00:12:30 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/22 23:09:01 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/04/27 22:11:15 by beaujardmae      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void addlstenv(t_env **head, char *env)
 		if (is_value(env))
 			*head = createlstenv(env);
 		else
-			
-		return ;
+
+			return;
 	}
 	tmp = *head;
 	while (tmp->next)
@@ -80,7 +80,7 @@ void freelstenv(t_env *head)
 t_env *search_env(t_env *head, char *env_name)
 {
 	size_t len;
-	
+
 	len = ft_strlen(env_name) + 1;
 	while (head)
 	{

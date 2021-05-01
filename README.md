@@ -2,6 +2,10 @@
 
 ## LIEN :
 
+- table ascii ctrl : http://www.physics.udel.edu/~watson/scen103/ascii.html
+
+- termcaps list : http://manpages.ubuntu.com/manpages/bionic/fr/man5/termcap.5.html
+
 - quotes : https://www.gnu.org/software/bash/manual/bash.html#Double-Quotes
 
 - redirection : https://putaindecode.io/articles/maitriser-les-redirections-shell/
@@ -19,6 +23,8 @@
 - parsing : https://mywiki.wooledge.org/BashParser#:~:text=Bash%20always%20reads%20your%20script,with%20a%20literal%20newline%20inbetween
 
 https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html
+
+termcap : https://www.gnu.org/software/termutils/manual/termcap-1.3/html_chapter/termcap_4.html
 
   
 ## DOC :

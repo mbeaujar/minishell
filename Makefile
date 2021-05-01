@@ -5,17 +5,17 @@ RM=rm -f
 CFLAGS = -Wall -Wextra -Werror
 INCLUDE= -Llibft -lft
 SRCS_DIRECTORY=source/
+HEADER=include
 OBJS_DIRECTORY=objects/
-SRCS =  prompt.c \
-	main.c \
-	env_gestion.c \
-	env_linked_list.c \
-	env_split.c \
-	test.c \
-	builtin_cd.c \
-	builtin_pwd.c \
-	builtin_unset.c \
-	utils.c  
+SRCS =  prompt/arrow.c \
+		prompt/buffer.c \
+		prompt/ctrl-key.c \
+		prompt/display.c \
+		prompt/key.c \
+		prompt/linked_list.c \
+		prompt/prompt.c \
+		prompt/termcaps.c \
+		prompt/termios.c 
 
 OBJ = ${SRCS:.c=.o}
 
@@ -26,7 +26,7 @@ OBJS = $(addprefix $(OBJS_DIRECTORY), $(filter-out test.o,$(OBJ)))
 OBJS_TEST = $(filter-out $(OBJS_DIRECTORY)main.o,$(OBJ_TEST))
 
 $(OBJS_DIRECTORY)%.o : $(SRCS_DIRECTORY)%.c
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -I$(HEADER) -c $< -o $@
 
 all : $(NAME)
 

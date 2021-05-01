@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   termcaps.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaujardmael <beaujardmael@student.42.f    +#+  +:+       +#+        */
+/*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 16:11:10 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/25 14:46:52 by beaujardmae      ###   ########.fr       */
+/*   Updated: 2021/04/30 20:15:43 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 int init_termcaps(void)
 {
@@ -32,7 +32,7 @@ int init_termcaps(void)
 	else if (ret == 0)
 	{
 		ft_putstr_fd("Terminal type '%s' is not defined in termcap database.\n", 0);
-		return(-1);
+		return (-1);
 	}
 	return (0);
 }
@@ -40,7 +40,7 @@ int init_termcaps(void)
 int display_termcap(int c)
 {
 	char cast;
-	
+
 	cast = (char)c;
 	return (write(1, &cast, 1));
 }
@@ -48,38 +48,25 @@ int display_termcap(int c)
 void create_termcap(char *termcap)
 {
 	char *new_termcap;
-	
+
 	new_termcap = tgetstr(termcap, NULL);
 	tputs(new_termcap, 1, display_termcap);
 }
 
-void termcaps(void)
+int main(int argc, char **argv)
 {
+	t_prompt prompt;
 
-}
 
-void read_stdin(void)
-{
-	char c;
-	int ret;
+	(void)argc;
+	(void)argv;
+	tcgetattr(STDIN_FILENO, &prompt.orig_termios);
+	// check error tcgetattr
+	prompt.raw = prompt.orig_termios;
 
-	ret = 1;
-	while (ret)
-	{
-		if ((ret = read(0, &c, 1)) == -1)
-		{
-			printf("error\n");
-			exit(0);
-		}
-	}
-}
-
-int main(int agrc, char **argv)
-{
-	
 	init_termcaps();
-	create_termcap("cl");
-	//read_stdin();
-	//printf("buffer : '%s'\n", buffer);
+	enablerawmode(prompt.raw);
+	read_stdin(&prompt);
+	disablerawmode(prompt.orig_termios);
 	return (0);
 }

@@ -1,0 +1,80 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   linked_list.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/29 19:04:55 by beaujardmae       #+#    #+#             */
+/*   Updated: 2021/04/30 20:15:33 by mbeaujar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+t_buffer *newlstbuffer(char *buff)
+{
+    t_buffer *new;
+
+    if (!(new = malloc(sizeof(t_buffer) * 1)))
+        return (NULL);
+    new->buff = buff;
+    new->buff[0] = 0;
+    new->len = 10;
+    new->modified = 0;
+    new->strlen = 0;
+    new->previous = NULL;
+    new->next = NULL;
+    return (new);    
+}
+
+void lstaddfrontbuffer(t_buffer **head, t_buffer *new)
+{
+    t_buffer *tmp;
+    
+    if (!*head)
+    {
+        *head = new;
+        return;
+    }
+    tmp = *head;
+    while (tmp->previous)
+        tmp = tmp->previous;
+    tmp->previous = new;
+    new->next = tmp;
+    *head = new;
+}
+
+void printlstbuffer(t_buffer *head)
+{
+    int i;
+
+    i = 0;
+    while (head->next)
+        head = head->next;
+    while (head)
+    {
+        ft_putstr_fd("\t", STDIN_FILENO);
+        ft_putnbr_fd(i, STDIN_FILENO);
+        ft_putstr_fd("\t", STDIN_FILENO);
+        ft_putstr_fd(head->buff, STDIN_FILENO);
+        ft_putchar_fd('\n', STDIN_FILENO);
+        i++;
+        head = head->previous;
+    }
+}
+
+void freelstbuffer(t_buffer *head)
+{
+    t_buffer *tmp;
+
+    while (head)
+        head = head->previous;
+    while (head)
+    {
+        tmp = head;
+        head = head->next;
+        free(tmp->buff);
+        free(tmp);
+    }
+}

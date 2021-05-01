@@ -57,4 +57,7 @@
 
 
 
-notes : 
+ - notes : 
+
+
+	- test tricky : < Makefile cat | cat 

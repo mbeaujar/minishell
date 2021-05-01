@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beaujardmael <beaujardmael@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 16:26:54 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/17 16:44:26 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/04/25 17:35:49 by beaujardmae      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,4 +17,4 @@
 void export(t_var *var)
 {
 	
-} 
+}

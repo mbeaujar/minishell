@@ -6,74 +6,28 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/23 17:33:51 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/04/30 20:07:38 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h> 
-#include "../libft/inc/libft.h"
-#include <limits.h>
-#include <errno.h>
-#include <string.h>
-#include <curses.h>
-#include <term.h>
+#include "struct.h"
 
-# ifndef PATH_MAX
-#  define PATH_MAX 1024
-# endif 
-
-typedef struct	s_env
-{
-	char			*name;
-	char			*value;
-	int				export;
-	int				env;
-	struct s_env	*next;
-} t_env;
-
-typedef struct s_var
-{
-	t_env *head;
-}		t_var;
-
-/* typedef struct s_command
-{
-	char *first;
-	char *second;
-	int pipe;
-	struct s_command *next;
-} t_cmd;
- */
 void ft_putstr(char *str);
 
-void display_prompt(void);
+//void display_prompt(void);
 
-/*
-** env_create.c
-*/
 
 t_env *fill_env(char **envp);
 void delete_env(t_var *var, t_env *to_delete);
-
-/*
-** env_linked_list.c
-*/
 
 t_env *createlstenv(char *env);
 void addlstenv(t_env **head, char *env);
 void printlstenv(t_env *head);
 void freelstenv(t_env *head);
 t_env *search_env(t_env *head, char *env_name);
-
-/*
-** env_parsing.c
-*/
 
 char *return_env_name(char *env);
 char *return_env_value(char *env);
@@ -84,9 +38,6 @@ void cd(t_var *var, char *cmd);
 
 char *get_absolu_path(char *str, size_t size);
 
-/*
-** builtin_cd.c
-*/
 
 
 char *refresh_value_pwd(char *cwd);
@@ -95,10 +46,6 @@ void refresh_pwd(t_var *var);
 void change_directory(t_var *var, char *path);
 void cd(t_var *var, char *cmd);
 void pwd(t_env *head);
-
-/*
-** main.c 
-*/
 
 void printerrno(void);
 char *search_and_replace(char *s, char *search, char *replace, int leak);
@@ -110,5 +57,34 @@ int is_inside(char *s, char im_here);
 void unset(t_var *var, char *path);
 int is_value(char *env);
 t_env	*newexport(char *env);
+
+
+// ----------------------------------- //
+
+void enablerawmode(struct termios raw);
+void disablerawmode(struct termios orig_termios);
+void read_stdin(t_prompt *prompt);
+void create_termcap(char *termcap);
+
+t_buffer *newlstbuffer(char *buff);
+void lstaddfrontbuffer(t_buffer **head, t_buffer *new);
+void freelstbuffer(t_buffer *head);
+void printlstbuffer(t_buffer *head);
+
+void expand_buffer(t_prompt *prompt, char c);
+void decrease_buffer(t_prompt *prompt);
+void display_prompt(t_prompt *prompt);
+void isctrl(t_prompt *prompt, char c);
+
+char *new_size_buffer(t_prompt *prompt, char c, char *str, int len);
+void lstaddnewbuffer(t_buffer **head, t_buffer *new);
+t_buffer *g_buffer(int state, t_buffer *buff);
+void reset_buffer(t_prompt *prompt);
+char arrow_key(char c, t_prompt *prompt);
+void display_prompt(t_prompt *prompt);
+void display_buffer(t_prompt *prompt);
+void delete_char_prompt(t_prompt *prompt);
+void execute_commande(t_prompt *prompt);
+char read_key(t_prompt *prompt);
 
 #endif 
