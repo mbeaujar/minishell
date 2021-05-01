@@ -51,7 +51,7 @@ void isctrl(t_prompt *prompt, char c)
     {
         if (prompt->modified)
             g_buffer(FREE, NULL);
-        write(STDIN_FILENO, "exit\n", 6);
+        write(STDIN_FILENO, "exit\n", 5);
         printf("\n");
         freelstbuffer(&prompt->buffer);
         printlstbuffer(prompt->buffer);

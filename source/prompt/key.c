@@ -57,7 +57,7 @@ void execute_commande(t_prompt *prompt)
         {
             lstaddfrontbuffer(&prompt->buffer, newlstbuffer(ft_calloc(10, sizeof(char))));
             g_buffer(FREE, NULL);
-            g_buffer(GET, prompt->buffer);
+            g_buffer(SET, prompt->buffer);
         }
         else
         {
