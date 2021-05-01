@@ -49,8 +49,12 @@ void isctrl(t_prompt *prompt, char c)
     }
     if (c == (('d') & 0x1f) && prompt->buffer->buff[0] == 0)
     {
+        if (prompt->modified)
+            g_buffer(FREE, NULL);
         write(STDIN_FILENO, "exit\n", 6);
-        freelstbuffer(prompt->buffer);
+        printf("\n");
+        freelstbuffer(&prompt->buffer);
+        printlstbuffer(prompt->buffer);
         disablerawmode(prompt->orig_termios);
         exit(3);
     }
@@ -82,7 +86,9 @@ t_buffer *g_buffer(int state, t_buffer *buffer)
         if (global != NULL)
         {
             free(global->buff);
+            global->buff = NULL;
             free(global);
+            global = NULL;
         }
     }
     return (global);

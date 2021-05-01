@@ -45,11 +45,25 @@ void lstaddfrontbuffer(t_buffer **head, t_buffer *new)
     *head = new;
 }
 
+void printbuffer(char *str)
+{
+    if (!str)
+        return ;
+    while (*str)
+    {
+        if (*str > 0)
+            ft_putchar_fd(*str, STDIN_FILENO);
+        str++;
+    }
+}
+
 void printlstbuffer(t_buffer *head)
 {
     int i;
 
     i = 0;
+    if (!head)
+        return ;
     while (head->next)
         head = head->next;
     while (head)
@@ -57,18 +71,20 @@ void printlstbuffer(t_buffer *head)
         ft_putstr_fd("\t", STDIN_FILENO);
         ft_putnbr_fd(i, STDIN_FILENO);
         ft_putstr_fd("\t", STDIN_FILENO);
-        ft_putstr_fd(head->buff, STDIN_FILENO);
+        printbuffer(head->buff);
         ft_putchar_fd('\n', STDIN_FILENO);
         i++;
         head = head->previous;
     }
 }
 
-void freelstbuffer(t_buffer *head)
+void freelstbuffer(t_buffer **begin)
 {
     t_buffer *tmp;
+    t_buffer *head;
 
-    while (head)
+    head = *begin;
+    while (head->previous)
         head = head->previous;
     while (head)
     {
@@ -77,4 +93,5 @@ void freelstbuffer(t_buffer *head)
         free(tmp->buff);
         free(tmp);
     }
+    *begin = NULL;
 }

@@ -12,7 +12,6 @@
 
 #include "minishell.h"
 
-
 void reset_buffer(t_prompt *prompt)
 {
     t_buffer *old;
@@ -47,8 +46,6 @@ void read_stdin(t_prompt *prompt)
     while (loop)
     {
         c = read_key(prompt);
-        if (c == 27)
-            printf("'%c'\n", c);
         if (ft_isprint(c))
         {
             write(STDIN_FILENO, &c, 1);
@@ -62,5 +59,5 @@ void read_stdin(t_prompt *prompt)
         if (c == ENTER)
             execute_commande(prompt);
     }
-    freelstbuffer(prompt->buffer);
+    freelstbuffer(&prompt->buffer);
 }

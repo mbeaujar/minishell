@@ -14,6 +14,8 @@
 
 void change_buffer(t_prompt *prompt, t_buffer *new)
 {
+    if (prompt->modified)
+        g_buffer(FREE, NULL);
     prompt->modified = 1;
     prompt->buffer = new;
     g_buffer(SET, prompt->buffer);

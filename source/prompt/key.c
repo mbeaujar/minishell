@@ -27,6 +27,10 @@ char read_key(t_prompt *prompt)
     {
         if (ret == -1 && errno != EAGAIN)
         {
+            printlstbuffer(prompt->buffer);
+            if (prompt->modified)
+                g_buffer(FREE, NULL);
+            freelstbuffer(&prompt->buffer);
             disablerawmode(prompt->orig_termios);
             exit(4);
         }
@@ -50,15 +54,20 @@ void execute_commande(t_prompt *prompt)
     if (prompt->buffer->buff[0] != 0)
     {
         if (!prompt->buffer->previous)
+        {
             lstaddfrontbuffer(&prompt->buffer, newlstbuffer(ft_calloc(10, sizeof(char))));
+            g_buffer(FREE, NULL);
+            g_buffer(GET, prompt->buffer);
+        }
         else
         {
             reset_buffer(prompt);
+            g_buffer(SET, prompt->buffer);
         }
     }
     printf("\n");
     printlstbuffer(prompt->buffer);
     ft_putchar_fd('\n', STDIN_FILENO);
     display_prompt(prompt);
-    prompt->modified = 0;
+    prompt->modified = 1;
 }

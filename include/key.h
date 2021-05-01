@@ -36,6 +36,7 @@
 # define GET 0
 # define SET 1
 # define FREE 2
+
 /* # define TOP 9165
 # define BOT 9166
 # define LEFT 9168
@@ -48,5 +49,7 @@
 // cl -- clear term
 // nd -- move cursor right
 // ce -- delete to end line
+
+
 
 #endif 

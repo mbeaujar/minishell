@@ -14,7 +14,7 @@
 
 void display_buffer(t_prompt *prompt)
 {
-    ft_putstr_fd(prompt->buffer->buff, STDIN_FILENO);
+    printbuffer(prompt->buffer->buff);
     prompt->indice = prompt->buffer->strlen;
 }
 

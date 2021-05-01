@@ -60,6 +60,7 @@ int main(int argc, char **argv)
 
 	(void)argc;
 	(void)argv;
+	// isatty -- check le fd 
 	tcgetattr(STDIN_FILENO, &prompt.orig_termios);
 	// check error tcgetattr
 	prompt.raw = prompt.orig_termios;

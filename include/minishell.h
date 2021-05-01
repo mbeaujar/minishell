@@ -68,7 +68,7 @@ void create_termcap(char *termcap);
 
 t_buffer *newlstbuffer(char *buff);
 void lstaddfrontbuffer(t_buffer **head, t_buffer *new);
-void freelstbuffer(t_buffer *head);
+void freelstbuffer(t_buffer **begin);
 void printlstbuffer(t_buffer *head);
 
 void expand_buffer(t_prompt *prompt, char c);
@@ -86,5 +86,6 @@ void display_buffer(t_prompt *prompt);
 void delete_char_prompt(t_prompt *prompt);
 void execute_commande(t_prompt *prompt);
 char read_key(t_prompt *prompt);
+void printbuffer(char *str);
 
 #endif 
