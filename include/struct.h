@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 22:43:04 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/05/02 15:09:26 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/02 15:26:59 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct	s_env
 {
 	char			*name;
 	char			*value;
+	int				index;
 	struct s_env	*next;
 } t_env;
 

@@ -7,6 +7,8 @@ test
 
 # Object files
 #*.o
+*2.o
+*3.o
 *.ko
 *.obj
 *.elf

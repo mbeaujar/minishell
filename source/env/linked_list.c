@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 13:50:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/02 15:17:17 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/02 15:29:47 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_env *newlstenv(char *env)
 	}
 	new->name = name;
 	new->value = value;
+    new->index = 0;
 	new->next = NULL;
 	return (new);
 }
@@ -46,12 +47,15 @@ void addlstenv(t_env **head, char *env)
 		if (is_value(env))
 			*head = newlstenv(env);
 		else
-			return;
+			*head = newlstenvnull(env);
 	}
 	tmp = *head;
 	while (tmp->next)
 		tmp = tmp->next;
-	tmp->next = newlstenv(env);
+    if (is_value(env))
+	    tmp->next = newlstenv(env);
+    else
+        tmp->next = newlstenvnull(env);
 }
 
 void printlstenv(t_env *head)

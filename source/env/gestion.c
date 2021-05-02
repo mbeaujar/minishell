@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:33:00 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/02 15:17:31 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/02 15:29:04 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,17 @@ int is_value(char *env)
 		env++;
 	}
 	return (0);
+}
+
+t_env *newlstenvnull(char *env)
+{
+	t_env *new;
+
+	if (!(new = malloc(sizeof(t_env) * 1)))
+		return (NULL);
+	new->name = env;
+	new->value = NULL;
+	new->index = 0;
+	new->next = NULL;
+	return(new);
 }

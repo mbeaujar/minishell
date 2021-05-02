@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/02 15:17:41 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/02 15:29:14 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ t_env *search_env(t_env *head, char *env_name);
 char *return_env_name(char *env);
 char *return_env_value(char *env);
 int is_value(char *env);
+t_env *newlstenvnull(char *env);
+
 
 /*
 ** PROMPT 

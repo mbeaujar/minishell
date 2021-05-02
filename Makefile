@@ -6,6 +6,8 @@ CFLAGS = -Wall -Wextra -Werror -g
 INCLUDE= -Llibft -lft
 SRCS_DIRECTORY=source/
 HEADER=include
+LIBFT=ft
+FILE_LIB=libft/libft.a
 OBJS_DIRECTORY=objects/
 SRCS =  main.c \
 		prompt/arrow.c \
@@ -32,7 +34,12 @@ OBJS_TEST = $(filter-out $(OBJS_DIRECTORY)main.o,$(OBJ_TEST))
 $(OBJS_DIRECTORY)%.o : $(SRCS_DIRECTORY)%.c
 	@$(CC) $(CFLAGS) $< -I$(HEADER) -c -o $@
 
-all : $(NAME)
+all : $(FILE_LIB) $(NAME)
+
+$(FILE_LIB) : 
+ifeq ("$(wildcard $(FILE_LIB))","")
+	@make -C libft
+endif
 
 $(NAME) : $(OBJS)
 	@$(CC) $(CLFAGS) $(OBJS) -lncurses $(INCLUDE) -o $(NAME)
@@ -47,6 +54,9 @@ clean :
 	@$(RM) $(NAME_TEST)
 
 fclean : clean
+ifeq ("$(wildcard $(FILE_LIB))","$(FILE_LIB)")
+	@make fclean -C libft
+endif
 	@$(RM) $(OBJS)
 	@$(RM) $(OBJS_TEST)
 #	@make fclean -C libft
