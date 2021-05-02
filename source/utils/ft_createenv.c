@@ -1,38 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd.c                                              :+:      :+:    :+:   */
+/*   ft_createenv.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/02 15:50:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/02 16:10:32 by mbeaujar         ###   ########.fr       */
+/*   Created: 2021/05/02 16:22:36 by mbeaujar          #+#    #+#             */
+/*   Updated: 2021/05/02 16:26:24 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-** affiche le message d'errno
+** crée une variable non définie
 */
 
-void printerrno_fd(int fd)
+void ft_createenv(t_prompt *prompt, char *s1, char *s2)
 {
-    char *ret_error;
+    char *env;
+    int len_s1;
 
-    ret_error = strerror(errno);
-    ft_putendl_fd(ret_error, fd);
-    return ;
-}
-
-/*
-** chaque commande envoyé dans le prompt arrive ici 
-** cmd est une copie avec strdup 
-*/
-
-void cmd(t_prompt *prompt, char *cmd)
-{
-    (void)prompt;
-    printf("\nla commande : '%s'\n", cmd);
-    free(cmd);
+    len_s1 = (int)ft_strlen(s1);
+    if (!(env = malloc(sizeof(char) *  (len_s1 + (int)ft_strlen(s2) + 1))))
+        return ;
+    ft_strlcpy(env, s1, len_s1);
+    ft_strjoin(env, s2);
+    free(s2);
+    addlstenv(&prompt->env, env);
 }

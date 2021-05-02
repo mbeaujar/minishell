@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/02 15:55:03 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/02 16:26:51 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 */
 
 void cmd(t_prompt *prompt, char *cmd);
+void printerrno_fd(int fd);
 
 /*
 ** ENV
@@ -72,5 +73,12 @@ void execute_commande(t_prompt *prompt);
 char read_key(t_prompt *prompt);
 void printbuffer(char *str);
 
+
+/*
+** UTILS 
+*/
+
+char *ft_realloc(char *str);
+void ft_createenv(t_prompt *prompt, char *s1, char *s2);
 
 #endif 

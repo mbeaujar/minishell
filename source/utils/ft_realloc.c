@@ -1,38 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd.c                                              :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/02 15:50:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/02 16:10:32 by mbeaujar         ###   ########.fr       */
+/*   Created: 2021/05/02 16:17:11 by mbeaujar          #+#    #+#             */
+/*   Updated: 2021/05/02 16:18:43 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-** affiche le message d'errno
+** realloue une chaine à la bonne taille
 */
 
-void printerrno_fd(int fd)
+char *ft_realloc(char *str)
 {
-    char *ret_error;
+    char *new;
+    int i;
 
-    ret_error = strerror(errno);
-    ft_putendl_fd(ret_error, fd);
-    return ;
-}
-
-/*
-** chaque commande envoyé dans le prompt arrive ici 
-** cmd est une copie avec strdup 
-*/
-
-void cmd(t_prompt *prompt, char *cmd)
-{
-    (void)prompt;
-    printf("\nla commande : '%s'\n", cmd);
-    free(cmd);
+    i = 0;
+    while (str[i])
+        i++;
+    if (!(new = malloc(sizeof(char) * (i + 1))))
+        return (NULL);
+    i = 0;
+    while (str[i])
+    {
+        new[i] = str[i];
+        i++;
+    }
+    new[i] = 0;
+    free(str);
+    return (new);
 }
