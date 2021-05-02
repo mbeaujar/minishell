@@ -7,7 +7,8 @@ INCLUDE= -Llibft -lft
 SRCS_DIRECTORY=source/
 HEADER=include
 OBJS_DIRECTORY=objects/
-SRCS =  prompt/arrow.c \
+SRCS =  main.c \
+		prompt/arrow.c \
 		prompt/buffer.c \
 		prompt/ctrl-key.c \
 		prompt/display.c \
@@ -15,7 +16,10 @@ SRCS =  prompt/arrow.c \
 		prompt/linked_list.c \
 		prompt/prompt.c \
 		prompt/termcaps.c \
-		prompt/termios.c 
+		prompt/termios.c \
+		env/gestion.c \
+		env/linked_list.c \
+		env/split.c 
 
 OBJ = ${SRCS:.c=.o}
 

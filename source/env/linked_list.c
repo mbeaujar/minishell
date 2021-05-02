@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_linked_list.c                                  :+:      :+:    :+:   */
+/*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beaujardmael <beaujardmael@student.42.f    +#+  +:+       +#+        */
+/*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/11 00:12:30 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/27 22:11:15 by beaujardmae      ###   ########.fr       */
+/*   Created: 2021/05/02 13:50:37 by mbeaujar          #+#    #+#             */
+/*   Updated: 2021/05/02 15:17:17 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
-t_env *createlstenv(char *env)
+t_env *newlstenv(char *env)
 {
 	t_env *new;
 	char *name;
@@ -33,7 +33,6 @@ t_env *createlstenv(char *env)
 	}
 	new->name = name;
 	new->value = value;
-	new->export = 0;
 	new->next = NULL;
 	return (new);
 }
@@ -45,15 +44,14 @@ void addlstenv(t_env **head, char *env)
 	if (!*head)
 	{
 		if (is_value(env))
-			*head = createlstenv(env);
+			*head = newlstenv(env);
 		else
-
 			return;
 	}
 	tmp = *head;
 	while (tmp->next)
 		tmp = tmp->next;
-	tmp->next = createlstenv(env);
+	tmp->next = newlstenv(env);
 }
 
 void printlstenv(t_env *head)
@@ -73,6 +71,9 @@ void freelstenv(t_env *head)
 	{
 		tmp = head;
 		head = head->next;
+        if (tmp->value)
+            free(tmp->value);
+        free(tmp->name);
 		free(tmp);
 	}
 }

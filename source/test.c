@@ -9,3 +9,8 @@ Test(category, nom, .signal = SIGSEGV)
 	cr_assert(0 == false);
 }
 */
+
+Test(env, delete)
+{
+	
+}

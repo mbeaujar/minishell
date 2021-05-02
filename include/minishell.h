@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/30 20:07:38 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/02 15:17:41 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,52 +15,28 @@
 
 #include "struct.h"
 
-void ft_putstr(char *str);
+//void ft_putstr(char *str);
 
-//void display_prompt(void);
-
+/*
+** ENV
+*/
 
 t_env *fill_env(char **envp);
 void delete_env(t_var *var, t_env *to_delete);
-
-t_env *createlstenv(char *env);
+t_env *newlstenv(char *env);
 void addlstenv(t_env **head, char *env);
 void printlstenv(t_env *head);
 void freelstenv(t_env *head);
 t_env *search_env(t_env *head, char *env_name);
-
 char *return_env_name(char *env);
 char *return_env_value(char *env);
-t_env *search_env(t_env *head, char *env_name);
-
-void change_directory(t_var *var, char *path);
-void cd(t_var *var, char *cmd);
-
-char *get_absolu_path(char *str, size_t size);
-
-
-
-char *refresh_value_pwd(char *cwd);
-void create_pwd(t_var *var, char *cwd, char *name);
-void refresh_pwd(t_var *var);
-void change_directory(t_var *var, char *path);
-void cd(t_var *var, char *cmd);
-void pwd(t_env *head);
-
-void printerrno(void);
-char *search_and_replace(char *s, char *search, char *replace, int leak);
-int search_where(char *s, char *search);
-void prompt(t_var *var, char **envp);
-int test_fork(void);
-int is_inside(char *s, char im_here);
-
-void unset(t_var *var, char *path);
 int is_value(char *env);
-t_env	*newexport(char *env);
 
+/*
+** PROMPT 
+*/
 
-// ----------------------------------- //
-
+int init_termcaps(void);
 void enablerawmode(struct termios raw);
 void disablerawmode(struct termios orig_termios);
 void read_stdin(t_prompt *prompt);
@@ -87,5 +63,6 @@ void delete_char_prompt(t_prompt *prompt);
 void execute_commande(t_prompt *prompt);
 char read_key(t_prompt *prompt);
 void printbuffer(char *str);
+
 
 #endif 
