@@ -10,6 +10,7 @@ LIBFT=ft
 FILE_LIB=libft/libft.a
 OBJS_DIRECTORY=objects/
 SRCS =  main.c \
+		cmd.c \
 		prompt/arrow.c \
 		prompt/buffer.c \
 		prompt/ctrl-key.c \

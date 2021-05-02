@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/02 15:29:14 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/02 15:55:03 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,17 @@
 //void ft_putstr(char *str);
 
 /*
+** SOURCE
+*/
+
+void cmd(t_prompt *prompt, char *cmd);
+
+/*
 ** ENV
 */
 
 t_env *fill_env(char **envp);
-void delete_env(t_var *var, t_env *to_delete);
+void delete_env(t_prompt *var, t_env *to_delete);
 t_env *newlstenv(char *env);
 void addlstenv(t_env **head, char *env);
 void printlstenv(t_env *head);

@@ -6,14 +6,12 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 22:44:15 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/04/30 19:57:09 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/02 15:43:34 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEY_H
 # define KEY_H
-
-
 
 #include <unistd.h>
 #include <stdio.h>
