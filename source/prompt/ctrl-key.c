@@ -6,9 +6,10 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 18:39:11 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/02 21:43:04 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/03 20:14:23 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -69,7 +70,7 @@ t_buffer *g_buffer(int state, t_buffer *buffer)
 {
     static t_buffer *global = NULL;
 
-    if (state == 1)
+    if (state == SET)
     {
         if (!(global = malloc(sizeof(t_buffer) * 1)))
             return (NULL);
@@ -80,7 +81,7 @@ t_buffer *g_buffer(int state, t_buffer *buffer)
         global->next = buffer->next;
         global->previous = buffer->previous;
     }
-    if (state == 2)
+    if (state == FREE)
     {
         if (global != NULL)
         {

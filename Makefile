@@ -14,6 +14,7 @@ SRCS =  main.c \
 		test.c \
 		builtin/cd.c \
 		builtin/unset.c \
+		prompt/setup.c \
 		prompt/arrow.c \
 		prompt/buffer.c \
 		prompt/ctrl-key.c \

@@ -6,9 +6,10 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/03 19:19:42 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/03 20:14:36 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -55,6 +56,8 @@ char **new_table_env(t_env *head);
 /*
 ** PROMPT 
 */
+
+void setup(t_prompt *prompt, int argc, char **argv);
 
 int init_termcaps(void);
 void enablerawmode(struct termios raw);
