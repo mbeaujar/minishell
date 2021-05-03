@@ -54,7 +54,7 @@ endif
 $(NAME) : $(OBJS)
 	@$(CC) $(CLFAGS) $(OBJS) -lncurses $(INCLUDE) -o $(NAME)
 
-test : $(OBJS_TEST)
+test : $(FILE_LIB) $(OBJS_TEST)
 	@$(CC) $(OBJS_TEST) -lcriterion -lncurses $(INCLUDE) -o $(NAME_TEST)
 
 # --verbose

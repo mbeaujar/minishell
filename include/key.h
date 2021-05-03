@@ -23,6 +23,8 @@
 #include <string.h>
 #include <curses.h>
 #include <term.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 # ifndef PATH_MAX
 #  define PATH_MAX 1024
