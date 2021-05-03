@@ -1,16 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   search_and_replace.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/17 16:55:29 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/04/19 00:05:02 by mbeaujar         ###   ########.fr       */
+/*   Created: 2021/05/03 21:22:56 by mbeaujar          #+#    #+#             */
+/*   Updated: 2021/05/03 21:23:39 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
+
+/*
+** Version non normée qui n'est pas utilisé dans le code
+** utile pour remplacer les $PWD par leurs values 
+*/
+
 
 int search_where(char *s, char *search)
 {

@@ -1,6 +1,7 @@
 # Executable
 minishell
 test
+a.out
 
 # Prerequisites
 *.d
