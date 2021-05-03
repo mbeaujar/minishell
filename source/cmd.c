@@ -6,11 +6,38 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:50:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/02 16:10:32 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/03 19:40:12 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** fonction pour debug cd 
+*/
+
+void ls_for_check(t_prompt *prompt, char *str)
+{
+	char **args;
+	int pid;
+    char **envp;
+
+    envp = new_table_env(prompt->env);
+	args = malloc(sizeof(char*) * (2));
+	args[0] = str;
+	args[1] = 0;
+	pid = -1;
+	pid = fork();
+	if (pid == 0)
+	{
+		execve("/bin/ls", args, envp);
+		exit(0);
+	}
+	wait(&pid);
+	free(args);
+    free_tab(envp);
+}
+
 
 /*
 ** affiche le message d'errno
@@ -32,7 +59,34 @@ void printerrno_fd(int fd)
 
 void cmd(t_prompt *prompt, char *cmd)
 {
-    (void)prompt;
+    t_env *search;
+
+    
     printf("\nla commande : '%s'\n", cmd);
+    if (ft_strncmp(cmd, "cd", 2) == 0)
+        cd(prompt, cmd);
+    // debug check OLDPWD
+    if (ft_strncmp(cmd, "echo $OLDPWD", 12) == 0)
+    {
+        search = search_env(prompt->env, "OLDPWD");
+        if (search)
+            printf("name : '%s' value : '%s'\n", search->name, search->value);
+        else
+            printf("NULL\n");
+    }
+    // debug check PWD
+    if (ft_strncmp(cmd, "echo $PWD", 9) == 0)
+    {
+        search = search_env(prompt->env, "PWD");
+        if (search)
+            printf("name : '%s' value : '%s'\n", search->name, search->value);
+        else
+            printf("NULL\n");
+    }
+    // debug check cd
+    if (ft_strncmp(cmd, "ls", 2) == 0)
+        ls_for_check(prompt, cmd);
+    if (ft_strncmp(cmd, "unset", 5) == 0)
+        unset(prompt, cmd);
     free(cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/02 16:26:51 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/03 19:19:42 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,20 @@ void cmd(t_prompt *prompt, char *cmd);
 void printerrno_fd(int fd);
 
 /*
+** BUILTIN 
+*/
+
+void    cd(t_prompt *prompt, char *args);
+void unset(t_prompt *var, char *path);
+
+/*
 ** ENV
 */
 
-t_env *fill_env(char **envp);
+t_env *fill_env(char **envp, t_prompt *prompt);
 void delete_env(t_prompt *var, t_env *to_delete);
 t_env *newlstenv(char *env);
-void addlstenv(t_env **head, char *env);
+int addlstenv(t_env **head, char *env);
 void printlstenv(t_env *head);
 void freelstenv(t_env *head);
 t_env *search_env(t_env *head, char *env_name);
@@ -39,6 +46,10 @@ char *return_env_name(char *env);
 char *return_env_value(char *env);
 int is_value(char *env);
 t_env *newlstenvnull(char *env);
+int sizelstenv(t_env *head);
+
+void free_tab(char **envp);
+char **new_table_env(t_env *head);
 
 
 /*
@@ -79,6 +90,7 @@ void printbuffer(char *str);
 */
 
 char *ft_realloc(char *str);
-void ft_createenv(t_prompt *prompt, char *s1, char *s2);
+char *ft_create_env(char *s1, char *s2, int state);
+char		*ft_strjoin_env(char const *s1, char const *s2);
 
 #endif 

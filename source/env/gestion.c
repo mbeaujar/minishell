@@ -6,74 +6,49 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:33:00 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/02 15:44:17 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/03 18:50:30 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env *fill_env(char **envp)
+void free_tab(char **envp)
 {
 	int i;
-	t_env *head;
 
 	i = 0;
-	head = NULL;
+	if (!*envp || envp == NULL || !envp)
+		return ;
 	while (envp[i])
 	{
-		addlstenv(&head, envp[i]);
+		free(envp[i]);
 		i++;
 	}
-	printlstenv(head);
-	return (head);
+	free(envp);
 }
 
-void delete_env(t_prompt *var, t_env *to_delete)
+char **new_table_env(t_env *head)
 {
-	t_env *tmp;
-	t_env *head;
+    char **envp;
+	int i;
+	int l;
 
-	head = var->env;
-	if (to_delete->name != NULL)
-		free(to_delete->name);
-	if (to_delete->value != NULL)
-		free(to_delete->value);
-	if (var->env == to_delete)
-	{
-		tmp = var->env;
-		var->env = var->env->next;
-		free(tmp);
-		return;
-	}
-	while (head->next != NULL && head->next != to_delete)
-		head = head->next;
-	if (head->next == NULL)
-		return;
-	tmp = head->next;
-	head->next = head->next->next;
-	free(tmp);
-}
-
-int is_value(char *env)
-{
-	while (*env)
-	{
-		if (*env == '=')
-			return (1);
-		env++;
-	}
-	return (0);
-}
-
-t_env *newlstenvnull(char *env)
-{
-	t_env *new;
-
-	if (!(new = malloc(sizeof(t_env) * 1)))
+	l = sizelstenv(head);
+	if (!l)
 		return (NULL);
-	new->name = env;
-	new->value = NULL;
-	new->index = 0;
-	new->next = NULL;
-	return(new);
+	i = 0;
+	if (!(envp = malloc(sizeof(char*) * (l + 1))))
+		return (NULL);
+	while (i < l && head)
+	{
+		if (!(envp[i] = ft_strjoin_env(head->name, head->value)))
+		{
+			free_tab(envp);
+			return (NULL);
+		}
+		i++;
+		head = head->next;
+	}
+	envp[i] = 0;
+	return (envp);
 }

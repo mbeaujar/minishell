@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 22:43:04 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/05/02 15:43:48 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/03 17:39:07 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_prompt
 	int  indice;
 	int limit_buffer;
 	int modified;
+	char **envp;
 	t_env *env;
 } t_prompt;
 

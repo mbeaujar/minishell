@@ -2,7 +2,7 @@ NAME=minishell
 NAME_TEST=test
 CC=clang
 RM=rm -f
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
 INCLUDE= -Llibft -lft
 SRCS_DIRECTORY=source/
 HEADER=include
@@ -11,6 +11,9 @@ FILE_LIB=libft/libft.a
 OBJS_DIRECTORY=objects/
 SRCS =  main.c \
 		cmd.c \
+		test.c \
+		builtin/cd.c \
+		builtin/unset.c \
 		prompt/arrow.c \
 		prompt/buffer.c \
 		prompt/ctrl-key.c \
@@ -22,7 +25,11 @@ SRCS =  main.c \
 		prompt/termios.c \
 		env/gestion.c \
 		env/linked_list.c \
-		env/split.c 
+		env/split.c \
+		env/create.c \
+		utils/ft_create_env.c \
+		utils/ft_realloc.c \
+		utils/ft_strjoin_env.c 
 
 OBJ = ${SRCS:.c=.o}
 
@@ -55,11 +62,13 @@ clean :
 	@$(RM) $(NAME_TEST)
 
 fclean : clean
-ifeq ("$(wildcard $(FILE_LIB))","$(FILE_LIB)")
-	@make fclean -C libft
-endif
 	@$(RM) $(OBJS)
 	@$(RM) $(OBJS_TEST)
 #	@make fclean -C libft
+
+clear : 
+ifeq ("$(wildcard $(FILE_LIB))","$(FILE_LIB)")
+	@make fclean -C libft
+endif
 
 re : fclean all

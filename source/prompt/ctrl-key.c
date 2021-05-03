@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 18:39:11 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/02 13:51:00 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/02 21:43:04 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,8 @@ void isctrl(t_prompt *prompt, char c)
         write(STDIN_FILENO, "exit\n", 5);
         printf("\n");
         freelstbuffer(&prompt->buffer);
-        printlstbuffer(prompt->buffer);
         disablerawmode(prompt->orig_termios);
-        exit(3);
+        exit(4);
     }
     if (c == (('l') & 0x1f))
     {

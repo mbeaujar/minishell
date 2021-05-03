@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 22:44:15 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/05/02 15:43:34 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/03 19:16:05 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,16 @@
 # define DELETE 127
 # define ENTER 13
 # define ARROW 27
+
 # define GET 0
 # define SET 1
 # define FREE 2
+
+# define FREE_NOT 0
+# define FREE_S1 1
+# define FREE_S2 2
+# define FREE_ALL 3
+
 
 /* # define TOP 9165
 # define BOT 9166

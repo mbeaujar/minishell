@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:17:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/02 14:27:59 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/03 17:45:29 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,15 @@ char *return_env_value(char *env)
 	}
 	value[i] = 0;
 	return (value);
+}
+
+int is_value(char *env)
+{
+	while (*env)
+	{
+		if (*env == '=')
+			return (1);
+		env++;
+	}
+	return (0);
 }

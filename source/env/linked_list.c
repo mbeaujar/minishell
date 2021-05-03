@@ -6,57 +6,11 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 13:50:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/02 15:29:47 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/03 17:45:07 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-t_env *newlstenv(char *env)
-{
-	t_env *new;
-	char *name;
-	char *value;
-
-	if (!(new = malloc(sizeof(t_env) * 1)))
-		return (NULL);
-	if (!(name = return_env_name(env)))
-	{
-		free(new);
-		return (NULL);
-	}
-	if (!(value = return_env_value(env)))
-	{
-		free(new);
-		free(name);
-		return (NULL);
-	}
-	new->name = name;
-	new->value = value;
-    new->index = 0;
-	new->next = NULL;
-	return (new);
-}
-
-void addlstenv(t_env **head, char *env)
-{
-	t_env *tmp;
-
-	if (!*head)
-	{
-		if (is_value(env))
-			*head = newlstenv(env);
-		else
-			*head = newlstenvnull(env);
-	}
-	tmp = *head;
-	while (tmp->next)
-		tmp = tmp->next;
-    if (is_value(env))
-	    tmp->next = newlstenv(env);
-    else
-        tmp->next = newlstenvnull(env);
-}
 
 void printlstenv(t_env *head)
 {
@@ -75,9 +29,9 @@ void freelstenv(t_env *head)
 	{
 		tmp = head;
 		head = head->next;
-        if (tmp->value)
-            free(tmp->value);
-        free(tmp->name);
+		if (tmp->value)
+			free(tmp->value);
+		free(tmp->name);
 		free(tmp);
 	}
 }
@@ -94,4 +48,52 @@ t_env *search_env(t_env *head, char *env_name)
 		head = head->next;
 	}
 	return (NULL);
+}
+
+t_env *fill_env(char **envp, t_prompt *prompt)
+{
+	int i;
+	t_env *head;
+
+	i = 0;
+	head = NULL;
+	while (envp[i])
+	{
+		if (!(addlstenv(&head, envp[i])))
+		{
+			freelstenv(head);
+			freelstbuffer(&prompt->buffer);
+			disablerawmode(prompt->orig_termios);
+			exit(5);
+		}
+		i++;
+	}
+	printlstenv(head);
+	return (head);
+}
+
+void delete_env(t_prompt *var, t_env *to_delete)
+{
+	t_env *tmp;
+	t_env *head;
+
+	head = var->env;
+	if (to_delete->name != NULL)
+		free(to_delete->name);
+	if (to_delete->value != NULL)
+		free(to_delete->value);
+	if (var->env == to_delete)
+	{
+		tmp = var->env;
+		var->env = var->env->next;
+		free(tmp);
+		return;
+	}
+	while (head->next != NULL && head->next != to_delete)
+		head = head->next;
+	if (head->next == NULL)
+		return;
+	tmp = head->next;
+	head->next = head->next->next;
+	free(tmp);
 }
