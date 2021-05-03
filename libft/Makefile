@@ -1,4 +1,12 @@
-NAME = libft.a
+UNAME=$(shell uname)
+
+ifeq ($(UNAME), Darwin)
+       NAME = libftmacos.a
+endif
+ifeq ($(UNAME), Linux)
+       NAME = libftlinux.a
+endif
+
 CC = gcc 
 CFLAGS = -Wall -Wextra -Werror
 INC = inc

@@ -1,13 +1,22 @@
+UNAME=$(shell uname)
+
+ifeq ($(UNAME), Darwin)
+	LIBFT=ftmacos
+endif
+ifeq ($(UNAME), Linux)
+	LIBFT=ftlinux
+endif
+
 NAME=minishell
 NAME_TEST=test
 CC=clang
 RM=rm -f
 CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
-INCLUDE= -Llibft -lft
 SRCS_DIRECTORY=source/
 HEADER=include
-LIBFT=ft
-FILE_LIB=libft/libft.a
+PATH_LIB=libft/
+FILE_LIB= $(addprefix $(PATH_LIB), lib$(LIBFT).a)
+#FILE_LIB=libft/libft.a
 OBJS_DIRECTORY=objects/
 SRCS =  main.c \
 		cmd.c \
@@ -48,14 +57,14 @@ all : $(FILE_LIB) $(NAME)
 
 $(FILE_LIB) : 
 ifeq ("$(wildcard $(FILE_LIB))","")
-	@make -C libft
+	@make re -C libft
 endif
 
 $(NAME) : $(OBJS)
-	@$(CC) $(CLFAGS) $(OBJS) -lncurses $(INCLUDE) -o $(NAME)
+	@$(CC) $(CLFAGS) $(OBJS) -lncurses -L$(PATH_LIB) -l$(LIBFT) -o $(NAME)
 
 test : $(FILE_LIB) $(OBJS_TEST)
-	@$(CC) $(OBJS_TEST) -lcriterion -lncurses $(INCLUDE) -o $(NAME_TEST)
+	@$(CC) $(OBJS_TEST) -lcriterion -lncurses -L$(PATH_LIB) -l$(LIBFT) -o $(NAME_TEST)
 
 # --verbose
 
