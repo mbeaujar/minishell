@@ -63,8 +63,11 @@ endif
 $(NAME) : $(OBJS)
 	@$(CC) $(CLFAGS) $(OBJS) -lncurses -L$(PATH_LIB) -l$(LIBFT) -o $(NAME)
 
-test : fclean $(FILE_LIB) $(OBJS_TEST)
+action : fclean test
+
+test : $(FILE_LIB) $(OBJS_TEST)
 	@$(CC) $(OBJS_TEST) -lcriterion -lncurses -L$(PATH_LIB) -l$(LIBFT) -o $(NAME_TEST)
+
 
 # --verbose
 
