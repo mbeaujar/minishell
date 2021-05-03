@@ -57,13 +57,13 @@ all : $(FILE_LIB) $(NAME)
 
 $(FILE_LIB) : 
 ifeq ("$(wildcard $(FILE_LIB))","")
-	@make re -C libft
+	@make re -C $(PATH_LIB)
 endif
 
 $(NAME) : $(OBJS)
 	@$(CC) $(CLFAGS) $(OBJS) -lncurses -L$(PATH_LIB) -l$(LIBFT) -o $(NAME)
 
-test : $(FILE_LIB) $(OBJS_TEST)
+test : fclean $(FILE_LIB) $(OBJS_TEST)
 	@$(CC) $(OBJS_TEST) -lcriterion -lncurses -L$(PATH_LIB) -l$(LIBFT) -o $(NAME_TEST)
 
 # --verbose
@@ -79,7 +79,7 @@ fclean : clean
 
 clear : 
 ifeq ("$(wildcard $(FILE_LIB))","$(FILE_LIB)")
-	@make fclean -C libft
+	@make fclean -C $(PATH_LIB)
 endif
 
 re : fclean all
