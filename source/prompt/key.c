@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atinseau <atinseau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 19:51:16 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/03 12:13:31 by atinseau         ###   ########.fr       */
+/*   Updated: 2021/05/03 21:17:51 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void execute_commande(t_prompt *prompt)
         }
     }
     printf("\n");
-    if(prompt->setup.debug == 1) {
+    if (prompt->setup.debug == 1)
+    {
         printlstbuffer(prompt->buffer);
         ft_putchar_fd('\n', STDIN_FILENO);
     }

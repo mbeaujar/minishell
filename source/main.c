@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:10:06 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/03 20:16:48 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/03 21:19:35 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
     (void)envp;
+
 	// check PATH si elle existe 
 	// si non alors chercher le chemin dans /etc/environment
 

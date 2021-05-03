@@ -6,8 +6,26 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 16:09:32 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/02 16:09:39 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/03 21:11:28 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void pwd(void)
+{
+    char *cwd;
+
+    if (!(cwd = malloc(sizeof(char) * (PATH_MAX + 1))))
+        return ;
+    if (getcwd(cwd, PATH_MAX))
+    {
+        printf("%s\n", cwd);
+        free(cwd);
+    }
+    else
+    {
+        free(cwd);
+        printerrno_fd(STDOUT_FILENO);
+    }
+}

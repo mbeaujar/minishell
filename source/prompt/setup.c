@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atinseau <atinseau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 12:02:07 by atinseau          #+#    #+#             */
-/*   Updated: 2021/05/03 12:09:53 by atinseau         ###   ########.fr       */
+/*   Updated: 2021/05/03 21:19:49 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,13 @@ void setup(t_prompt *prompt, int argc, char **argv)
     int i;
     (void)prompt;
     
-    i = 0;
-    if(argc != 1)
+    i = 1;
+    prompt->setup.debug = 0;
+    if (argc != 1)
     {
-        i++;
-        while(i < argc) {
-            if(ft_strncmp("--debug", argv[i], 7) == 0)
+        while (i < argc)
+        {
+            if (ft_strncmp("--debug", argv[i], 8) == 0)
             {
                 prompt->setup.debug = 1;
             }

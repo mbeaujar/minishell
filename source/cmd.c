@@ -6,14 +6,15 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:50:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/03 20:13:53 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/03 21:21:10 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-** fonction pour debug cd 
+** fonction pour debug cd
+** fonction type pour les commandes non builtin
 */
 
 void ls_for_check(t_prompt *prompt, char *str)
@@ -61,8 +62,8 @@ void cmd(t_prompt *prompt, char *cmd)
 {
     t_env *search;
 
-    
-    printf("\nla commande : '%s'\n", cmd);
+    if (prompt->setup.debug == 1)
+        printf("\nla commande : '%s'\n", cmd);
     if (ft_strncmp(cmd, "cd", 2) == 0)
         cd(prompt, cmd);
     // debug check OLDPWD
@@ -88,5 +89,7 @@ void cmd(t_prompt *prompt, char *cmd)
         ls_for_check(prompt, cmd);
     if (ft_strncmp(cmd, "unset", 5) == 0)
         unset(prompt, cmd);
+    if (ft_strncmp(cmd, "pwd", 3) == 0)
+        pwd();
     free(cmd);
 }
