@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:10:06 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/03 20:14:12 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/03 20:16:48 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ int main(int argc, char **argv, char **envp)
 	t_prompt prompt;
 	(void)argc;
 	(void)argv;
-<<<<<<< HEAD
-=======
     (void)envp;
 	// check PATH si elle existe 
 	// si non alors chercher le chemin dans /etc/environment
@@ -53,7 +51,6 @@ int main(int argc, char **argv, char **envp)
 	//settings minishell
 	setup(&prompt, argc, argv);
 
->>>>>>> 8dcc78ff322511c999664f35d2c5ce523228b7d8
 	// isatty -- check si le fd link à un terminal 
 
 	tcgetattr(STDIN_FILENO, &prompt.orig_termios);
