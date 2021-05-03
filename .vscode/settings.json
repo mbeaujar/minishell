@@ -3,6 +3,8 @@
         "algorithm": "cpp",
         "functional": "cpp",
         "memory": "cpp",
-        "streambuf": "cpp"
+        "streambuf": "cpp",
+        "criterion.h": "c",
+        "minishell.h": "c"
     }
 }

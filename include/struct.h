@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atinseau <atinseau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 22:43:04 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/05/02 15:43:48 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/03 12:09:17 by atinseau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ typedef struct s_buffer
 	struct s_buffer *next;
 }				t_buffer;
 
+typedef struct s_setup
+{
+	int debug;
+} t_setup;
+
 typedef struct s_prompt
 {
 	struct termios raw;
@@ -42,6 +47,7 @@ typedef struct s_prompt
 	int limit_buffer;
 	int modified;
 	t_env *env;
+	t_setup setup;
 } t_prompt;
 
 

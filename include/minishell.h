@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atinseau <atinseau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/02 16:26:51 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/03 12:06:26 by atinseau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ t_env *newlstenvnull(char *env);
 /*
 ** PROMPT 
 */
+
+void setup(t_prompt *prompt, int argc, char **argv);
 
 int init_termcaps(void);
 void enablerawmode(struct termios raw);

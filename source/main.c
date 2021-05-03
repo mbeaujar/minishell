@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: atinseau <atinseau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:10:06 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/02 15:32:58 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/03 12:06:49 by atinseau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 int main(int argc, char **argv, char **envp)
 {
 	t_prompt prompt;
-
-
 	(void)argc;
 	(void)argv;
     (void)envp;
 	// check PATH si elle existe 
 	// si non alors chercher le chemin dans /etc/environment
+
+	//settings minishell
+	setup(&prompt, argc, argv);
 
 	// isatty -- check si le fd link à un terminal 
 	tcgetattr(STDIN_FILENO, &prompt.orig_termios);
