@@ -32,13 +32,7 @@
 
 	- export -- affiche les env trié par ascii
 	- export RA -- affiche RA dans les exports
-	- RO=salut -- affiche pas RO dans les exports
-	- RO=salut && export RO -- affiche RO dans les exports avec sa value
 
-	- RO=salut -- définie la value 'salut' pour la variable 'RO' mais elle n'est pas affiché dans export ni env 
-	pour afficher une variable dans env ou export il faut l'export
-
-	- RA= yo -- bash: yo: command not found
 
 - env : affiche les variables export qui ont une valeur
 	

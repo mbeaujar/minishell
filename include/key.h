@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 22:44:15 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/05/03 19:16:05 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/05 17:05:49 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #include <term.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <signal.h>
 
 # ifndef PATH_MAX
 #  define PATH_MAX 1024

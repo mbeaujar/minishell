@@ -6,11 +6,18 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:28:25 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/03 21:51:58 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/05 17:10:36 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+
+/*
+** cd ~     -- le tildes "~" est interpété au niveau du parsing
+** cd       -- cd $HOME
+** cd /     -- fonctionne de base
+*/
 
 void refresh_pwd(t_prompt *prompt, char *name)
 {
@@ -27,7 +34,8 @@ void refresh_pwd(t_prompt *prompt, char *name)
             addlstenv(&prompt->env, ft_create_env(name, cwd, FREE_S2));
         else
         {
-            free(search->value);
+            if (search->value != NULL)
+                free(search->value);
             search->value = cwd;
         }
     }
@@ -42,14 +50,15 @@ void change_directory(t_prompt *prompt, char *path)
 {
     int ret;
     errno = 0;
-
-    (void)prompt;
-    //refresh_oldpwd();
+    
     refresh_pwd(prompt, "OLDPWD");
     if ((ret = chdir(path)) == -1)
+    {
+        prompt->returned = 1;
         return (printerrno_fd(0));
-    //refresh_pwd();
+    }
     refresh_pwd(prompt, "PWD");
+    prompt->returned = 0;
 }
 
 void cd(t_prompt *prompt, char *args)

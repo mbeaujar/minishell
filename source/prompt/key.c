@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 19:51:16 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/03 21:51:18 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/05 17:12:44 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ char read_key(t_prompt *prompt)
         if (ret == -1 && errno != EAGAIN)
         {
             printlstbuffer(prompt->buffer);
-            if (prompt->modified)
-                g_buffer(FREE, NULL);
+            g_buffer(FREE, NULL);
             freelstbuffer(&prompt->buffer);
             disablerawmode(prompt->orig_termios);
             exit(4);
@@ -51,6 +50,7 @@ void delete_char_prompt(t_prompt *prompt)
 
 void execute_commande(t_prompt *prompt)
 {
+    ft_putchar_fd('\n', STDOUT_FILENO);
     if (prompt->buffer->buff[0] != 0)
     {
         if (!prompt->buffer->previous)
@@ -69,12 +69,10 @@ void execute_commande(t_prompt *prompt)
             g_buffer(SET, prompt->buffer);
         }
     }
-    printf("\n");
     if (prompt->setup.debug == 1)
     {
         printlstbuffer(prompt->buffer);
-        ft_putchar_fd('\n', STDIN_FILENO);
+        ft_putchar_fd('\n', STDOUT_FILENO);
     }
     display_prompt(prompt);
-    prompt->modified = 1;
 }

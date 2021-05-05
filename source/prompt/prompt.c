@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atinseau <atinseau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 19:15:27 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/05/02 17:30:35 by atinseau         ###   ########.fr       */
+/*   Updated: 2021/05/04 17:57:33 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void read_stdin(t_prompt *prompt)
 {
     char c;
     
-    prompt->modified = 1;
     display_prompt(prompt);
     prompt->buffer = newlstbuffer(ft_calloc(10, sizeof(char)));
     g_buffer(SET, prompt->buffer);

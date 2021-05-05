@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 19:47:29 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/01 00:38:19 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/04 17:55:24 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 void change_buffer(t_prompt *prompt, t_buffer *new)
 {
-    if (prompt->modified)
-        g_buffer(FREE, NULL);
-    prompt->modified = 1;
+    g_buffer(FREE, NULL);
     prompt->buffer = new;
     g_buffer(SET, prompt->buffer);
     create_termcap("dl");
