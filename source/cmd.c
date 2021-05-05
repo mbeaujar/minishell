@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:50:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/05 17:11:48 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/05 17:31:03 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,9 @@ void ls_for_check(t_prompt *prompt, char *str)
         //signal(SIGTERM, signhandler);
         /* 		if (execve("/bin/ls", args, envp) == -1)
             printerrno_fd(STDIN_FILENO); */
-        execve("/bin/ls", args, envp);
-        printf("oui\n");
         exit(0);
     }
     wait(&pid);
-    printf("errno : %d\n", errno);
-    if (errno != 0)
-        printf("nono\n");
     free(args);
     free_tab(envp);
 }
