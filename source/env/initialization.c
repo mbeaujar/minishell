@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/06 20:26:51 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/04 19:15:46 by mbeaujar         ###   ########.fr       */
+/*   Created: 2021/05/04 17:50:00 by mbeaujar          #+#    #+#             */
+/*   Updated: 2021/05/04 19:27:00 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/libft.h"
+#include "minishell.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
-{
-	t_list	*tmp;
+/*
+**  check si PATH existe 
+**  si non alors chercher le chemin dans /etc/environment
+*/
 
-	if (!del)
-		return ;
-	while (*lst)
-	{
-		del((*lst)->content);
-		tmp = *lst;
-		*lst = tmp->next;
-		free(tmp);
-	}
-	*lst = NULL;
-}
+/*
+** check si SHLVL existe
+** si non alors la set à 1
+*/

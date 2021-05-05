@@ -6,12 +6,21 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:10:06 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/03 21:19:35 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/05 17:10:04 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
+
+
+/*
+** tildes est interpréter que seul ou au début d'un chemin relatif
+**
+**  ~ 		-- valide
+**  ~/..  	-- valide
+**  ./~/.   -- non valide
+*/
 
 
 /*
@@ -22,34 +31,20 @@
 **   disablerawmode
 */
 
-void link_terminal(void)
+void init_prompt(t_prompt *prompt)
 {
-	int i;
-
-	i = 0;
-	while (i < 3)
-	{
-		errno = 0;
-		if (!(isatty(i)))
-		{
-			// printerrno_fd(????);
-			exit(i);
-		}
-		i++;
-	}
+	prompt->buffer = NULL;
+	prompt->indice = 0;
+	prompt->env = NULL;
+	prompt->returned = 0;
 }
 
 int main(int argc, char **argv, char **envp)
 {
 	t_prompt prompt;
-	(void)argc;
-	(void)argv;
-    (void)envp;
-
-	// check PATH si elle existe 
-	// si non alors chercher le chemin dans /etc/environment
 
 	//settings minishell
+	init_prompt(&prompt);
 	setup(&prompt, argc, argv);
 
 	// isatty -- check si le fd link à un terminal 
@@ -70,8 +65,7 @@ int main(int argc, char **argv, char **envp)
 
 
 	read_stdin(&prompt);
-    if (prompt.modified)
-        g_buffer(FREE, NULL);
+    g_buffer(FREE, NULL);
     freelstbuffer(&prompt.buffer);
 	disablerawmode(prompt.orig_termios);
 	return (0);

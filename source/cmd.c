@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:50:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/03 21:21:10 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/05 17:11:48 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,47 @@
 ** fonction type pour les commandes non builtin
 */
 
+void signhandler(int signal)
+{
+    printf("oui\n");
+    if (signal)
+    {
+        if (errno != 0)
+            printerrno_fd(STDOUT_FILENO);
+    }
+    exit(0);
+}
+
 void ls_for_check(t_prompt *prompt, char *str)
 {
-	char **args;
-	int pid;
+    char **args;
+    int pid;
     char **envp;
 
     envp = new_table_env(prompt->env);
-	args = malloc(sizeof(char*) * (2));
-	args[0] = str;
-	args[1] = 0;
-	pid = -1;
-	pid = fork();
-	if (pid == 0)
-	{
-		execve("/bin/ls", args, envp);
-		exit(0);
-	}
-	wait(&pid);
-	free(args);
+    args = malloc(sizeof(char *) * (2));
+    args[0] = str;
+    args[1] = 0;
+    printf("%s\n", str);
+    errno = 0;
+    pid = -1;
+    pid = fork();
+    if (pid == 0)
+    {
+        //signal(SIGTERM, signhandler);
+        /* 		if (execve("/bin/ls", args, envp) == -1)
+            printerrno_fd(STDIN_FILENO); */
+        execve("/bin/ls", args, envp);
+        printf("oui\n");
+        exit(0);
+    }
+    wait(&pid);
+    printf("errno : %d\n", errno);
+    if (errno != 0)
+        printf("nono\n");
+    free(args);
     free_tab(envp);
 }
-
 
 /*
 ** affiche le message d'errno
@@ -50,7 +69,7 @@ void printerrno_fd(int fd)
 
     ret_error = strerror(errno);
     ft_putendl_fd(ret_error, fd);
-    return ;
+    return;
 }
 
 /*
@@ -84,9 +103,14 @@ void cmd(t_prompt *prompt, char *cmd)
         else
             printf("NULL\n");
     }
+    // debug check $?
+    if (ft_strncmp(cmd, "echo $?", 7) == 0)
+    {
+        printf("%d\n", prompt->returned);
+    }
     // debug check cd
     if (ft_strncmp(cmd, "ls", 2) == 0)
-        ls_for_check(prompt, cmd);
+        ls_for_check(prompt, cmd + 3);
     if (ft_strncmp(cmd, "unset", 5) == 0)
         unset(prompt, cmd);
     if (ft_strncmp(cmd, "pwd", 3) == 0)

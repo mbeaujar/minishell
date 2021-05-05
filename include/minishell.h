@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/03 21:11:39 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/04 17:51:20 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 # define MINISHELL_H
 
 #include "struct.h"
-
-//void ft_putstr(char *str);
 
 /*
 ** SOURCE

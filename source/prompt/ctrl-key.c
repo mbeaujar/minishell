@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 18:39:11 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/03 20:16:35 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/04 17:56:17 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ void isctrl(t_prompt *prompt, char c)
     }
     if (c == (('d') & 0x1f) && prompt->buffer->buff[0] == 0)
     {
-        if (prompt->modified)
-            g_buffer(FREE, NULL);
+        g_buffer(FREE, NULL);
         write(STDIN_FILENO, "exit\n", 5);
         printf("\n");
         freelstbuffer(&prompt->buffer);
