@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 13:50:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/04 17:40:49 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/06 17:53:12 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ t_env *fill_env(char **envp, t_prompt *prompt)
 		}
 		i++;
 	}
-	printlstenv(head);
+/* 	if (prompt->setup.debug == 1)
+		printlstenv(head); */
 	return (head);
 }
 

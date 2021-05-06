@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:28:32 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/04 19:31:22 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/06 15:42:41 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 ** export RE=''     -- ajoute RE=""
 */
 
-void export(t_prompt *prompt, char *args)
+void export(t_prompt *prompt, char **args)
 {
     
 }

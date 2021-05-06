@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/04 17:51:20 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/06 18:59:32 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void printerrno_fd(int fd);
 ** BUILTIN 
 */
 
-void    cd(t_prompt *prompt, char *args);
+void cd(t_prompt *prompt, char **args);
 void unset(t_prompt *var, char *path);
 void pwd(void);
 
@@ -59,6 +59,7 @@ char **new_table_env(t_env *head);
 void setup(t_prompt *prompt, int argc, char **argv);
 
 int init_termcaps(void);
+int display_termcap(int c);
 void enablerawmode(struct termios raw);
 void disablerawmode(struct termios orig_termios);
 void read_stdin(t_prompt *prompt);
@@ -85,6 +86,8 @@ void delete_char_prompt(t_prompt *prompt);
 void execute_commande(t_prompt *prompt);
 char read_key(t_prompt *prompt);
 void printbuffer(char *str);
+void debug_prompt(t_buffer *buffer, int indice);
+void new_line(t_prompt *prompt);
 
 
 /*
@@ -94,5 +97,6 @@ void printbuffer(char *str);
 char *ft_realloc(char *str);
 char *ft_create_env(char *s1, char *s2, int state);
 char		*ft_strjoin_env(char const *s1, char const *s2);
+int ft_strlen_tab(char **str);
 
 #endif 

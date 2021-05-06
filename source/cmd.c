@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:50:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/05 17:31:03 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/06 18:25:56 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,33 @@ void signhandler(int signal)
     exit(0);
 }
 
-void ls_for_check(t_prompt *prompt, char *str)
+void ls_for_check(t_prompt *prompt, char **args)
 {
-    char **args;
+    //char **args;
     int pid;
     char **envp;
 
     envp = new_table_env(prompt->env);
-    args = malloc(sizeof(char *) * (2));
-    args[0] = str;
-    args[1] = 0;
-    printf("%s\n", str);
+/*     args = malloc(sizeof(char *) * (3));
+    args[0] = "ls";
+    args[1] = ft_strdup(str);
+    args[2] = 0; */
+    if (prompt->setup.debug == 1)
+        printf("%s\n", args[1]);
     errno = 0;
     pid = -1;
     pid = fork();
     if (pid == 0)
     {
         //signal(SIGTERM, signhandler);
-        /* 		if (execve("/bin/ls", args, envp) == -1)
-            printerrno_fd(STDIN_FILENO); */
+        if (execve("/bin/ls", args, envp) == -1)
+            printerrno_fd(STDIN_FILENO);
+        printf("je suis la\n");
         exit(0);
     }
     wait(&pid);
-    free(args);
+    //free(args[1]);
+    //free(args);
     free_tab(envp);
 }
 
@@ -72,16 +76,9 @@ void printerrno_fd(int fd)
 ** cmd est une copie avec strdup 
 */
 
-void cmd(t_prompt *prompt, char *cmd)
+void debug(t_prompt *prompt, char **cmd, t_env *search)
 {
-    t_env *search;
-
-    if (prompt->setup.debug == 1)
-        printf("\nla commande : '%s'\n", cmd);
-    if (ft_strncmp(cmd, "cd", 2) == 0)
-        cd(prompt, cmd);
-    // debug check OLDPWD
-    if (ft_strncmp(cmd, "echo $OLDPWD", 12) == 0)
+    if (*cmd[1] && ft_strncmp(cmd[1], "$OLDPWD", 7) == 0)
     {
         search = search_env(prompt->env, "OLDPWD");
         if (search)
@@ -89,8 +86,7 @@ void cmd(t_prompt *prompt, char *cmd)
         else
             printf("NULL\n");
     }
-    // debug check PWD
-    if (ft_strncmp(cmd, "echo $PWD", 9) == 0)
+    if (ft_strncmp(cmd[1], "$PWD", 4) == 0)
     {
         search = search_env(prompt->env, "PWD");
         if (search)
@@ -98,17 +94,37 @@ void cmd(t_prompt *prompt, char *cmd)
         else
             printf("NULL\n");
     }
-    // debug check $?
-    if (ft_strncmp(cmd, "echo $?", 7) == 0)
+    if (ft_strncmp(cmd[1], "$?", 2) == 0)
     {
         printf("%d\n", prompt->returned);
     }
-    // debug check cd
-    if (ft_strncmp(cmd, "ls", 2) == 0)
-        ls_for_check(prompt, cmd + 3);
+    if (ft_strncmp(cmd[0], "ls", 2) == 0)
+        ls_for_check(prompt, cmd);
+}
+
+void cmd(t_prompt *prompt, char *cmd)
+{
+    t_env *search;
+    char **args;
+
+    search = NULL;
+    args = ft_split(cmd, ' ');
+/*     args = malloc(sizeof(char*) * 2);
+    if (!args)
+        return ;
+    args[0] = cmd;
+    args[1] = 0; */
+    if (prompt->setup.debug == 1)
+        printf("\nla commande : '%s'\n", cmd);
+   // debug(prompt, args, search);
+    if (ft_strncmp(cmd, "cd", 2) == 0)
+        cd(prompt, args);
+    if (ft_strncmp(cmd, "history", 7) == 0)
+        printlstbuffer(prompt->buffer);
     if (ft_strncmp(cmd, "unset", 5) == 0)
         unset(prompt, cmd);
     if (ft_strncmp(cmd, "pwd", 3) == 0)
         pwd();
     free(cmd);
+    free_tab(args);
 }

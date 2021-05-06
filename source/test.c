@@ -97,3 +97,17 @@ Test(env, create_env)
 	free(env);
 	cr_expect(!diff);
 }
+
+Test(prompt, buffer)
+{
+	t_prompt prompt;
+
+	prompt.indice = 2;
+	char *str = ft_strdup("bonjour");
+	int len = 40;
+	char *output = new_size_buffer(&prompt, 'i', str, len);
+	char *expected = "boinjour";
+	int diff = strcmp(expected, output);
+	cr_expect(!diff);
+	free(output);
+}

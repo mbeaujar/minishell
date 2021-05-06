@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 15:52:12 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/05 16:08:36 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/06 20:30:12 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ void arguments_env(t_prompt *prompt, char *args)
     
 }
 
-void env(t_prompt *prompt, char *args)
+void env(t_prompt *prompt, char **args)
 {
-       
+    if (ft_strlen_tab(args) == 1)
+    {
+        return ; 
+    }
 }

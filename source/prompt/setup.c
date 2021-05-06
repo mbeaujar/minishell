@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 12:02:07 by atinseau          #+#    #+#             */
-/*   Updated: 2021/05/03 21:19:49 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/06 18:13:09 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,15 @@ void setup(t_prompt *prompt, int argc, char **argv)
     }
 }
 
+
+void debug_prompt(t_buffer *buffer, int indice)
+{
+    printf("\n");
+    printf("buffer : '%s'\n", buffer->buff);
+    printf("len : %d\n", buffer->len);
+    printf("stlren : %d\n", buffer->strlen);
+    printf("modified : %d\n", buffer->modified);
+    printf("indice : %d\n", indice);
+}
 
 

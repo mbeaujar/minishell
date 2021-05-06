@@ -6,17 +6,17 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:28:25 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/05 17:10:36 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/06 16:18:17 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
 /*
-** cd ~     -- le tildes "~" est interpété au niveau du parsing
-** cd       -- cd $HOME
-** cd /     -- fonctionne de base
+** cd ~         -- le tildes "~" est interpété au niveau du parsing
+** cd           -- cd $HOME
+** cd /         -- fonctionne de base
+** cd .. toto   -- bash: cd: too many arguments
 */
 
 void refresh_pwd(t_prompt *prompt, char *name)
@@ -61,16 +61,14 @@ void change_directory(t_prompt *prompt, char *path)
     prompt->returned = 0;
 }
 
-void cd(t_prompt *prompt, char *args)
+void cd(t_prompt *prompt, char **args)
 {
-    int i;
-
-    i = 0;
-    while (args[i] && args[i] != ' ')
-        i++;
-    while (args[i] && args[i] == ' ')
-        i++;
+    if (ft_strlen_tab(args) >= 1)
+    {
+        ft_putstr_fd("bash: cd: too many arguments", STDOUT_FILENO);
+        return ;
+    }
     if (prompt->setup.debug)
-        printf("cd : '%s'\n", args + i);
-    change_directory(prompt, args + i);
+        printf("cd : '%s'\n", args[1]);
+    change_directory(prompt, args[1]);
 }

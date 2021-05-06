@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_strlen_tab.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/02 14:28:28 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/06 22:54:20 by mbeaujar         ###   ########.fr       */
+/*   Created: 2021/05/05 18:35:26 by mbeaujar          #+#    #+#             */
+/*   Updated: 2021/05/05 18:36:10 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void echo(t_prompt *prompt, char **args)
+int ft_strlen_tab(char **str)
 {
-    
+    int i;
+
+    i = 0;
+    if (!*str)
+        return (0);
+    while (str[i])
+        i++;
+    return (0);
 }

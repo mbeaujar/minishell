@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 18:39:11 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/04 17:56:17 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/06 18:18:03 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,11 @@ void isctrl(t_prompt *prompt, char c)
         display_prompt(prompt);
         display_buffer(prompt);
     }
+/*     if (c == 'o')
+    {
+        char *cm_cap = tgetstr("cm", NULL);
+        tputs(tgoto(cm_cap, 5, 5), 1, display_termcap);
+    } */
 }
 
 t_buffer *g_buffer(int state, t_buffer *buffer)

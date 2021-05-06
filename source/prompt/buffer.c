@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 21:41:05 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/04/30 20:14:52 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/06 19:23:33 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ char *new_size_buffer(t_prompt *prompt, char c, char *str, int len)
         else
             i++;
     }
+    if (j == prompt->indice)
+        new[j++] = c;
     new[j] = 0;
     free(str);
     return (new);
@@ -63,8 +65,9 @@ void expand_buffer(t_prompt *prompt, char c)
             prompt->buffer->len *= 2;
         prompt->buffer->buff = new_size_buffer(prompt, c, prompt->buffer->buff, prompt->buffer->len);
         prompt->buffer->strlen = (int)ft_strlen(prompt->buffer->buff);
+        new_line(prompt);
     }
-    if (prompt->indice == prompt->buffer->strlen)
+    else if (prompt->indice == prompt->buffer->strlen)
     {
         prompt->buffer->buff[prompt->buffer->strlen++] = c;
         prompt->buffer->buff[prompt->buffer->strlen] = 0;
@@ -73,8 +76,9 @@ void expand_buffer(t_prompt *prompt, char c)
     {
         prompt->buffer->buff = new_size_buffer(prompt, c, prompt->buffer->buff, prompt->buffer->len);
         prompt->buffer->strlen = (int)ft_strlen(prompt->buffer->buff);
+        new_line(prompt);
     }
-    prompt->buffer->modified = 1;
+    prompt->buffer->modified = 0;
     prompt->indice++;
 }
 

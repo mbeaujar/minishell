@@ -77,7 +77,7 @@ termcap : https://www.gnu.org/software/termutils/manual/termcap-1.3/html_chapter
 
 - ttyslot : renvoie la position de l'entrée du terminal en cours dans un fichier
 
-- ioctl : Contrôler les périphériques (pas bien compris)
+- ioctl : Contrôler les périphériques (pas bien compris) -- utile pour avoir la taille du terminal
 
 - getenv : prend une variable d'env et retourne la value de la variable dans un char *
 

@@ -40,7 +40,8 @@ SRCS =  main.c \
 		env/create.c \
 		utils/ft_create_env.c \
 		utils/ft_realloc.c \
-		utils/ft_strjoin_env.c 
+		utils/ft_strjoin_env.c \
+		utils/ft_strlen_tab.c
 
 OBJ = ${SRCS:.c=.o}
 

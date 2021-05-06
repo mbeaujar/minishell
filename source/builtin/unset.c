@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:28:35 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/03 19:01:18 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/06 20:30:31 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,3 +35,21 @@ void unset(t_prompt *var, char *path)
 	}
     free_tab(unset);
 }
+
+/* void unset(t_prompt *var, char **unset)
+{
+	int i;
+	t_env *to_delete;
+
+	i = 0;
+	while (unset[i])
+	{
+		to_delete = search_env(var->env, unset[i]);
+		if (to_delete)
+		{
+			printf("delete : '%s'\n", to_delete->name);
+			delete_env(var, to_delete);
+		}
+		i++;
+	}
+} */

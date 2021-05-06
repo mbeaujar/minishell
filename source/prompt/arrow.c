@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 19:47:29 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/04 17:55:24 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/06 19:33:58 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ char arrow_key(char c, t_prompt *prompt)
         change_buffer(prompt, prompt->buffer->next);
     if (seq[0] == '[' && seq[1] == 'B' && prompt->buffer->previous != NULL)
         change_buffer(prompt, prompt->buffer->previous);
-    if (seq[0] == '[' && seq[1] == 'C' && (prompt->indice + 1) < prompt->buffer->strlen)
+    if (seq[0] == '[' && seq[1] == 'C' && (prompt->indice + 1) <= prompt->buffer->strlen)
     {
+        // ft_printf("'%d'", prompt->indice);
         prompt->indice++;
         create_termcap("nd");
     }
@@ -45,4 +46,20 @@ char arrow_key(char c, t_prompt *prompt)
         create_termcap("le");
     }
     return (c);
+}
+
+void new_line(t_prompt *prompt)
+{
+    int old_indice;
+    int len;
+
+    old_indice = prompt->indice + 1;
+    create_termcap("dl");
+    //printf("\n");
+    display_prompt(prompt);
+    display_buffer(prompt);
+    len = prompt->buffer->strlen - old_indice;
+    prompt->indice = old_indice - 1;
+    while (len--)
+        create_termcap("le");
 }
