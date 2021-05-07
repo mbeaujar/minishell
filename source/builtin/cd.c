@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthurtinseau <arthurtinseau@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:28:25 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/06 16:18:17 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/07 19:27:25 by arthurtinse      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void cd(t_prompt *prompt, char **args)
 {
     if (ft_strlen_tab(args) >= 1)
     {
-        ft_putstr_fd("bash: cd: too many arguments", STDOUT_FILENO);
+        ft_putstr_fd("bash: cd: too many arguments\n", STDOUT_FILENO);
         return ;
     }
     if (prompt->setup.debug)
