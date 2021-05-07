@@ -6,7 +6,7 @@
 /*   By: arthurtinseau <arthurtinseau@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:28:25 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/07 19:27:25 by arthurtinse      ###   ########.fr       */
+/*   Updated: 2021/05/07 20:17:23 by arthurtinse      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void change_directory(t_prompt *prompt, char *path)
 
 void cd(t_prompt *prompt, char **args)
 {
-    if (ft_strlen_tab(args) >= 1)
+    if (ft_strlen_tab(args) > 2)
     {
         ft_putstr_fd("bash: cd: too many arguments\n", STDOUT_FILENO);
         return ;
