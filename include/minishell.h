@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthurtinseau <arthurtinseau@student.42    +#+  +:+       +#+        */
+/*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/07 20:34:05 by arthurtinse      ###   ########.fr       */
+/*   Updated: 2021/05/07 22:15:45 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void printerrno_fd(int fd);
 */
 
 void cd(t_prompt *prompt, char **args);
-void unset(t_prompt *var, char *path);
-void pwd(void);
+void unset(t_prompt *var, char **unset);
+void pwd(t_prompt *prompt);
 void env(t_prompt *prompt, char **args);
 char *check_args(char **args, int (*fct)());
 void export(t_prompt *prompt, char **args);

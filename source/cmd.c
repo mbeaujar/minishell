@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd.c                                              :+:      :+:    :+:   */
+/*   args.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:50:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/07 21:41:38 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/07 22:16:24 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ void signhandler(int signal)
     }
     exit(0);
 }
+
+/*
+** ls   -- segfault
+** ls . -- valid
+*/
 
 void ls_for_check(t_prompt *prompt, char **args)
 {
@@ -70,12 +75,12 @@ void printerrno_fd(int fd)
 
 /*
 ** chaque commande envoyé dans le prompt arrive ici 
-** cmd est une copie avec strdup 
+** args est une copie avec strdup 
 */
 
-void debug(t_prompt *prompt, char **cmd, t_env *search)
+void debug(t_prompt *prompt, char **args, t_env *search)
 {
-    if (*cmd[1] && ft_strncmp(cmd[1], "$OLDPWD", 7) == 0)
+    if (*args[1] && ft_strncmp(args[1], "$OLDPWD", 7) == 0)
     {
         search = search_env(prompt->env, "OLDPWD");
         if (search)
@@ -83,7 +88,7 @@ void debug(t_prompt *prompt, char **cmd, t_env *search)
         else
             printf("NULL\n");
     }
-    if (ft_strncmp(cmd[1], "$PWD", 4) == 0)
+    if (ft_strncmp(args[1], "$PWD", 4) == 0)
     {
         search = search_env(prompt->env, "PWD");
         if (search)
@@ -91,12 +96,12 @@ void debug(t_prompt *prompt, char **cmd, t_env *search)
         else
             printf("NULL\n");
     }
-    if (ft_strncmp(cmd[1], "$?", 2) == 0)
+    if (ft_strncmp(args[1], "$?", 2) == 0)
     {
         printf("%d\n", prompt->returned);
     }
-    if (ft_strncmp(cmd[0], "ls", 2) == 0)
-        ls_for_check(prompt, cmd);
+    if (ft_strncmp(args[0], "ls", 2) == 0)
+        ls_for_check(prompt, args);
 }
 
 void cmd(t_prompt *prompt, char *cmd)
@@ -106,29 +111,25 @@ void cmd(t_prompt *prompt, char *cmd)
 
     search = NULL;
     args = ft_split(cmd, ' ');
-    /*     args = malloc(sizeof(char*) * 2);
-    if (!args)
-        return ;
-    args[0] = cmd;
-    args[1] = 0; */
+
     if (prompt->setup.debug == 1)
         printf("\nla commande : '%s'\n", cmd);
-    // debug(prompt, args, search);
+    debug(prompt, args, search);
     if (ft_strncmp(args[0], "exit", 4) == 0)
         exitt(prompt, args);
     if (ft_strncmp(args[0], "env", 3) == 0)
         env(prompt, args);
     if (ft_strncmp(args[0], "export", 6) == 0)
         export(prompt, args);
-    if (ft_strncmp(cmd, "cd", 2) == 0)
+    if (ft_strncmp(args[0], "cd", 2) == 0)
         cd(prompt, args);
-    if (ft_strncmp(cmd, "history", 7) == 0)
+    if (ft_strncmp(args[0], "history", 7) == 0)
         printlstbuffer(prompt->buffer);
-    if (ft_strncmp(cmd, "unset", 5) == 0)
-        unset(prompt, cmd);
-    if (ft_strncmp(cmd, "pwd", 3) == 0)
-        pwd();
-    if (ft_strncmp(cmd, "echo", 4) == 0)
+    if (ft_strncmp(args[0], "unset", 5) == 0)
+        unset(prompt, args);
+    if (ft_strncmp(args[0], "pwd", 3) == 0)
+        pwd(prompt);
+    if (ft_strncmp(args[0], "echo", 4) == 0)
         echoo(prompt, args);
     
     free(cmd);

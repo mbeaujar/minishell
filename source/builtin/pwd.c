@@ -6,13 +6,13 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 16:09:32 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/06 20:30:21 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/07 22:05:28 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void pwd(void)
+void pwd(t_prompt *prompt)
 {
     char *cwd;
 
@@ -20,11 +20,13 @@ void pwd(void)
         return ;
     if (getcwd(cwd, PATH_MAX))
     {
-        printf("%s\n", cwd);
+        prompt->returned = 0;
+        ft_putstr_fd(cwd, STDOUT_FILENO);
         free(cwd);
     }
     else
     {
+        prompt->returned = 1;
         free(cwd);
         printerrno_fd(STDOUT_FILENO);
     }

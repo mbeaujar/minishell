@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 19:04:55 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/05/04 17:57:26 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/07 22:23:03 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void printbuffer(char *str)
     while (*str)
     {
         if (*str > 0)
-            ft_putchar_fd(*str, STDIN_FILENO);
+            ft_putchar_fd(*str, STDOUT_FILENO);
         str++;
     }
 }
@@ -68,13 +68,13 @@ void printlstbuffer(t_buffer *head)
         head = head->next;
     while (head)
     {
-        ft_putstr_fd("\t", STDIN_FILENO);
-        ft_putnbr_fd(i, STDIN_FILENO);
+        ft_putstr_fd("\t", STDOUT_FILENO);
+        ft_putnbr_fd(i, STDOUT_FILENO);
         if (head->modified == 1)
-        ft_putchar_fd('*', STDIN_FILENO);
-        ft_putstr_fd("\t", STDIN_FILENO);
+        ft_putchar_fd('*', STDOUT_FILENO);
+        ft_putstr_fd("\t", STDOUT_FILENO);
         printbuffer(head->buff);
-        ft_putchar_fd('\n', STDIN_FILENO);
+        ft_putchar_fd('\n', STDOUT_FILENO);
         i++;
         head = head->previous;
     }

@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 19:47:29 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/06 19:33:58 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/07 22:23:22 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void change_buffer(t_prompt *prompt, t_buffer *new)
     prompt->buffer = new;
     g_buffer(SET, prompt->buffer);
     create_termcap("dl");
-    ft_putstr_fd("minishell &> ", STDIN_FILENO);
+    ft_putstr_fd("minishell &> ", STDOUT_FILENO);
     display_buffer(prompt);
 }
 
@@ -55,7 +55,6 @@ void new_line(t_prompt *prompt)
 
     old_indice = prompt->indice + 1;
     create_termcap("dl");
-    //printf("\n");
     display_prompt(prompt);
     display_buffer(prompt);
     len = prompt->buffer->strlen - old_indice;

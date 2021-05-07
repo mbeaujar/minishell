@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 18:39:11 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/06 18:18:03 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/07 22:22:13 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void isctrl(t_prompt *prompt, char c)
 {
     if (c == (('c') & 0x1f))
     {
-        write(STDIN_FILENO, "^C\n", 3);
+        write(STDOUT_FILENO, "^C\n", 3);
         if (!prompt->buffer->previous)
             prompt->buffer->buff[0] = 0;
         else
@@ -51,8 +51,7 @@ void isctrl(t_prompt *prompt, char c)
     if (c == (('d') & 0x1f) && prompt->buffer->buff[0] == 0)
     {
         g_buffer(FREE, NULL);
-        write(STDIN_FILENO, "exit\n", 5);
-        printf("\n");
+        write(STDOUT_FILENO, "exit\n", 5);
         freelstbuffer(&prompt->buffer);
         disablerawmode(prompt->orig_termios);
         exit(4);
@@ -63,11 +62,6 @@ void isctrl(t_prompt *prompt, char c)
         display_prompt(prompt);
         display_buffer(prompt);
     }
-/*     if (c == 'o')
-    {
-        char *cm_cap = tgetstr("cm", NULL);
-        tputs(tgoto(cm_cap, 5, 5), 1, display_termcap);
-    } */
 }
 
 t_buffer *g_buffer(int state, t_buffer *buffer)

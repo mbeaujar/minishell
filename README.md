@@ -26,6 +26,12 @@ https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html
 
 termcap : https://www.gnu.org/software/termutils/manual/termcap-1.3/html_chapter/termcap_4.html
 
+special shell variables : https://tldp.org/LDP/abs/html/refcards.html#AEN22006
+
+exit status : https://tldp.org/LDP/abs/html/exit-status.html#EXSREF
+
+special characters : https://tldp.org/LDP/abs/html/special-chars.html
+
   
 ## DOC :
 

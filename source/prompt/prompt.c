@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 19:15:27 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/05/04 17:57:33 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/07 22:24:14 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void read_stdin(t_prompt *prompt)
         c = read_key(prompt);
         if (ft_isprint(c))
         {
-            write(STDIN_FILENO, &c, 1);
+            write(STDOUT_FILENO, &c, 1);
             expand_buffer(prompt, c);
         }
         if (c == DELETE)
