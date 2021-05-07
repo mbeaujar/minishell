@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:10:06 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/05 17:10:04 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/06 23:17:28 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,6 @@ int main(int argc, char **argv, char **envp)
 
 	prompt.env = fill_env(envp, &prompt);	
 	// recup les env 
-
-	// check PATH si elle existe 
-	// si non alors chercher le chemin dans /etc/environment
-
 
 	read_stdin(&prompt);
     g_buffer(FREE, NULL);

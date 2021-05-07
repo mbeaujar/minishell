@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 15:52:12 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/06 20:30:12 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/07 17:08:45 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,49 @@ void display_env(t_env *head)
     }
 }
 
-void arguments_env(t_prompt *prompt, char *args)
+void arguments_env(char **args)
 {
-    
+    int i;
+
+    i = 1;
+    while (args[i])
+    {
+        ft_putstr_fd(args[i], STDOUT_FILENO);
+        ft_putchar_fd('\n', STDOUT_FILENO);
+        i++;
+    }
+}
+
+char  *check_args(char **args)
+{
+    int i;
+
+    i = 1;
+    while (args[i])
+    {
+        if (is_value(args[i]) == 0)
+            return (args[i]);
+        i++;
+    }
+    return (NULL);
 }
 
 void env(t_prompt *prompt, char **args)
 {
-    if (ft_strlen_tab(args) == 1)
+    int len;
+    char *ret;
+
+    //ft_printtab(args);
+    len = ft_strlen_tab(args);
+    if (len == 1)
+        return ;
+    if ((ret = check_args(args)) != NULL)
     {
-        return ; 
+        ft_putstr_fd("env: '", STDOUT_FILENO);
+        ft_putstr_fd(ret, STDOUT_FILENO);
+        ft_putstr_fd("': No such file or directory\n", STDOUT_FILENO);
+        return ;
     }
+    display_env(prompt->env);
+    arguments_env(args);
 }

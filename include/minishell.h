@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/06 18:59:32 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/07 16:34:00 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void printerrno_fd(int fd);
 void cd(t_prompt *prompt, char **args);
 void unset(t_prompt *var, char *path);
 void pwd(void);
+void env(t_prompt *prompt, char **args);
 
 /*
 ** ENV
@@ -98,5 +99,6 @@ char *ft_realloc(char *str);
 char *ft_create_env(char *s1, char *s2, int state);
 char		*ft_strjoin_env(char const *s1, char const *s2);
 int ft_strlen_tab(char **str);
+void ft_printtab(char **args);
 
 #endif 
