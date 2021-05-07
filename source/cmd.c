@@ -6,7 +6,7 @@
 /*   By: arthurtinseau <arthurtinseau@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:50:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/07 20:17:19 by arthurtinse      ###   ########.fr       */
+/*   Updated: 2021/05/07 20:34:12 by arthurtinse      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,9 @@ void cmd(t_prompt *prompt, char *cmd)
         unset(prompt, cmd);
     if (ft_strncmp(cmd, "pwd", 3) == 0)
         pwd();
+    if (ft_strncmp(cmd, "echo", 4) == 0)
+        echoo(prompt, args);
+    
     free(cmd);
     free_tab(args);
 }
