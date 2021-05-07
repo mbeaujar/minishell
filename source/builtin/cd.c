@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:28:25 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/07 19:15:40 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/07 21:45:01 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void cd(t_prompt *prompt, char **args)
 {
     if (ft_strlen_tab(args) > 2)
     {
-        ft_putstr_fd("bash: cd: too many arguments", STDOUT_FILENO);
+        ft_putstr_fd("bash: cd: too many arguments\n", STDOUT_FILENO);
         return ;
     }
     if (prompt->setup.debug)

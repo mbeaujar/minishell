@@ -6,9 +6,10 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:50:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/07 20:17:00 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/07 21:41:38 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -127,6 +128,9 @@ void cmd(t_prompt *prompt, char *cmd)
         unset(prompt, cmd);
     if (ft_strncmp(cmd, "pwd", 3) == 0)
         pwd();
+    if (ft_strncmp(cmd, "echo", 4) == 0)
+        echoo(prompt, args);
+    
     free(cmd);
     free_tab(args);
 }

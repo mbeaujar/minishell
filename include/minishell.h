@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arthurtinseau <arthurtinseau@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/07 19:52:23 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/07 20:34:05 by arthurtinse      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void env(t_prompt *prompt, char **args);
 char *check_args(char **args, int (*fct)());
 void export(t_prompt *prompt, char **args);
 void exitt(t_prompt *prompt, char **args);
+void echoo(t_prompt *prompt, char **args);
 
 /*
 ** ENV
