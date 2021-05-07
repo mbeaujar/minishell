@@ -25,6 +25,7 @@ SRCS =  main.c \
 		builtin/unset.c \
 		builtin/pwd.c \
 		builtin/env.c \
+		builtin/export.c \
 		prompt/setup.c \
 		prompt/arrow.c \
 		prompt/buffer.c \
@@ -43,7 +44,10 @@ SRCS =  main.c \
 		utils/ft_realloc.c \
 		utils/ft_strjoin_env.c \
 		utils/ft_strlen_tab.c \
-		utils/ft_printtab.c
+		utils/ft_printtab.c \
+		utils/ft_strcmp.c \
+		utils/search_min.c \
+		utils/export.c
 
 OBJ = ${SRCS:.c=.o}
 

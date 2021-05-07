@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:50:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/07 16:31:17 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/07 18:53:40 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ void cmd(t_prompt *prompt, char *cmd)
     // debug(prompt, args, search);
     if (ft_strncmp(args[0], "env", 3) == 0)
         env(prompt, args);
+    if (ft_strncmp(args[0], "export", 6) == 0)
+        export(prompt, args);
     if (ft_strncmp(cmd, "cd", 2) == 0)
         cd(prompt, args);
     if (ft_strncmp(cmd, "history", 7) == 0)

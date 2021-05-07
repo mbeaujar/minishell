@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:10:06 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/06 23:17:28 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/07 17:43:54 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@
 **   freelstenv
 **   freelstbuffer
 **   disablerawmode
+*/
+
+/*
+** check les signaux sur un fork
+** cmd : 'cat'
+** la boucle infinie s'arrete avec ctrl+c ??
 */
 
 void init_prompt(t_prompt *prompt)
