@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialization.c                                   :+:      :+:    :+:   */
+/*   ft_printtab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/04 17:50:00 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/07 17:19:13 by mbeaujar         ###   ########.fr       */
+/*   Created: 2021/05/07 16:33:12 by mbeaujar          #+#    #+#             */
+/*   Updated: 2021/05/07 16:35:05 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-**  check si PATH existe 
-**  si non alors chercher le chemin dans /etc/environment
-*/
+void ft_printtab(char **args)
+{
+    int i;
 
-/*
-** check si SHLVL existe
-** si non alors la set à 1
-*/
-
-/*
-** mettre l'index de la variable _ à -2
-*/
+    i = 0;
+    while (args[i])
+    {
+        ft_putstr_fd(args[i++], STDOUT_FILENO);
+        ft_putchar_fd('\n', STDOUT_FILENO);
+    }
+}

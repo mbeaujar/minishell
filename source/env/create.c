@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 17:44:01 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/03 18:50:15 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/07 18:16:16 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_env *newlstenv(char *env)
 	}
 	new->name = name;
 	new->value = value;
-	new->index = 0;
+	new->index = -1;
 	new->next = NULL;
 	return (new);
 }
@@ -84,7 +84,7 @@ t_env *newlstenvnull(char *env)
 		return (NULL);
 	new->name = env;
 	new->value = NULL;
-	new->index = 0;
+	new->index = -1;
 	new->next = NULL;
 	return(new);
 }

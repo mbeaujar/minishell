@@ -6,7 +6,7 @@
 /*   By: arthurtinseau <arthurtinseau@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:10:06 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/06 23:04:53 by arthurtinse      ###   ########.fr       */
+/*   Updated: 2021/05/07 19:26:17 by arthurtinse      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@
 **   freelstenv
 **   freelstbuffer
 **   disablerawmode
+*/
+
+/*
+** check les signaux sur un fork
+** cmd : 'cat'
+** la boucle infinie s'arrete avec ctrl+c ??
 */
 
 void init_prompt(t_prompt *prompt)
@@ -59,10 +65,6 @@ int main(int argc, char **argv, char **envp)
 
 	prompt.env = fill_env(envp, &prompt);	
 	// recup les env 
-
-	// check PATH si elle existe 
-	// si non alors chercher le chemin dans /etc/environment
-
 
 	read_stdin(&prompt);
     g_buffer(FREE, NULL);

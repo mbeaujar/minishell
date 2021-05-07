@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:50:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/06 18:25:56 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/07 18:53:40 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void ls_for_check(t_prompt *prompt, char **args)
     char **envp;
 
     envp = new_table_env(prompt->env);
-/*     args = malloc(sizeof(char *) * (3));
+    /*     args = malloc(sizeof(char *) * (3));
     args[0] = "ls";
     args[1] = ft_strdup(str);
     args[2] = 0; */
@@ -109,14 +109,18 @@ void cmd(t_prompt *prompt, char *cmd)
 
     search = NULL;
     args = ft_split(cmd, ' ');
-/*     args = malloc(sizeof(char*) * 2);
+    /*     args = malloc(sizeof(char*) * 2);
     if (!args)
         return ;
     args[0] = cmd;
     args[1] = 0; */
     if (prompt->setup.debug == 1)
         printf("\nla commande : '%s'\n", cmd);
-   // debug(prompt, args, search);
+    // debug(prompt, args, search);
+    if (ft_strncmp(args[0], "env", 3) == 0)
+        env(prompt, args);
+    if (ft_strncmp(args[0], "export", 6) == 0)
+        export(prompt, args);
     if (ft_strncmp(cmd, "cd", 2) == 0)
         cd(prompt, args);
     if (ft_strncmp(cmd, "history", 7) == 0)

@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialization.c                                   :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/04 17:50:00 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/07 17:19:13 by mbeaujar         ###   ########.fr       */
+/*   Created: 2021/05/07 17:45:08 by mbeaujar          #+#    #+#             */
+/*   Updated: 2021/05/07 17:45:41 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-**  check si PATH existe 
-**  si non alors chercher le chemin dans /etc/environment
-*/
+int	ft_strcmp(char *s1, char *s2)
+{
+	int i;
 
-/*
-** check si SHLVL existe
-** si non alors la set à 1
-*/
-
-/*
-** mettre l'index de la variable _ à -2
-*/
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return (s1[i] - s2[i]);
+}

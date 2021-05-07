@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 18:35:26 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/05 18:36:10 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/07 18:14:32 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ int ft_strlen_tab(char **str)
         return (0);
     while (str[i])
         i++;
-    return (0);
+    return (i);
 }

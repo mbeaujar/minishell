@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialization.c                                   :+:      :+:    :+:   */
+/*   search_min.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/04 17:50:00 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/07 17:19:13 by mbeaujar         ###   ########.fr       */
+/*   Created: 2021/05/07 18:08:23 by mbeaujar          #+#    #+#             */
+/*   Updated: 2021/05/07 18:08:47 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-**  check si PATH existe 
-**  si non alors chercher le chemin dans /etc/environment
-*/
+t_env *search_min(t_env *head)
+{
+    t_env *find;
 
-/*
-** check si SHLVL existe
-** si non alors la set à 1
-*/
-
-/*
-** mettre l'index de la variable _ à -2
-*/
+    while (head && head->index != -1)
+        head = head->next;
+    find = head;
+    while (head)
+    {
+        if (head->index == -1 && (ft_strcmp(find->name, head->name)) > 0)
+            find = head;
+        head = head->next;
+    }
+    return (find);
+}

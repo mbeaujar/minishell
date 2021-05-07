@@ -24,6 +24,16 @@ t_prompt create_prompt_with_env(void)
 	return (prompt);
 }
 
+Test(export, search)
+{
+	char *expected = "MAIL";
+	t_prompt prompt = create_prompt_with_env();
+	t_env *find = search_min(prompt.env);
+	int diff = ft_strcmp(expected, find->name);
+	freelstenv(prompt.env);
+	cr_expect(diff == 0);
+}
+
 Test(env, delete)
 {
 	
@@ -110,4 +120,29 @@ Test(prompt, buffer)
 	int diff = strcmp(expected, output);
 	cr_expect(!diff);
 	free(output);
+}
+
+Test(export, strcmp)
+{
+	char s1[] = "USER";
+	char s2[] = "MAIL";
+	int diff = ft_strcmp(s1, s2);
+	//printf("diff : %d\n", diff);
+	cr_expect(diff > 0);
+}
+
+Test(env, create_env_null)
+{
+	t_env *head;
+
+	head = NULL;
+	char str[] = "RA";
+	addlstenv(&head, ft_strdup(str));
+	if (head == NULL)
+		cr_assert(0);
+	printf("name : %s value : %s\n", head->name, head->value);
+	int diff = ft_strcmp(head->name, str);
+	cr_expect(diff == 0);
+	free(head->name);
+	free(head);
 }
