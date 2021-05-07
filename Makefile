@@ -26,6 +26,7 @@ SRCS =  main.c \
 		builtin/pwd.c \
 		builtin/env.c \
 		builtin/export.c \
+		builtin/exit.c \
 		prompt/setup.c \
 		prompt/arrow.c \
 		prompt/buffer.c \

@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 15:52:12 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/07 18:15:00 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/07 20:11:50 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 ** env RO=salut RA  -- env: 'RA': No such file or directory
 ** env RE=          -- affiche 'RE=' dans env mais que temporairement
 */
-
 
 void display_env(t_env *head)
 {
@@ -50,14 +49,14 @@ void arguments_env(char **args)
     }
 }
 
-char  *check_args(char **args)
+char *check_args(char **args, int (*fct)())
 {
     int i;
 
     i = 1;
     while (args[i])
     {
-        if (is_value(args[i]) == 0)
+        if (fct(args[i]) == 0)
             return (args[i]);
         i++;
     }
@@ -76,7 +75,7 @@ void env(t_prompt *prompt, char **args)
         display_env(prompt->env);
         return ;
     }
-    if ((ret = check_args(args)) != NULL)
+    if ((ret = check_args(args, is_value)) != NULL)
     {
         ft_putstr_fd("env: '", STDOUT_FILENO);
         ft_putstr_fd(ret, STDOUT_FILENO);

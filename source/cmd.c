@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:50:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/07 18:53:40 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/07 20:13:39 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,6 @@ void ls_for_check(t_prompt *prompt, char **args)
     char **envp;
 
     envp = new_table_env(prompt->env);
-    /*     args = malloc(sizeof(char *) * (3));
-    args[0] = "ls";
-    args[1] = ft_strdup(str);
-    args[2] = 0; */
     if (prompt->setup.debug == 1)
         printf("%s\n", args[1]);
     errno = 0;
@@ -117,6 +113,8 @@ void cmd(t_prompt *prompt, char *cmd)
     if (prompt->setup.debug == 1)
         printf("\nla commande : '%s'\n", cmd);
     // debug(prompt, args, search);
+    if (ft_strncmp(args[0], "exit", 4) == 0)
+        exitt(prompt, args);
     if (ft_strncmp(args[0], "env", 3) == 0)
         env(prompt, args);
     if (ft_strncmp(args[0], "export", 6) == 0)

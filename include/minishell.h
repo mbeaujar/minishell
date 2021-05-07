@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/07 18:45:12 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/07 19:52:23 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ void cd(t_prompt *prompt, char **args);
 void unset(t_prompt *var, char *path);
 void pwd(void);
 void env(t_prompt *prompt, char **args);
+char *check_args(char **args, int (*fct)());
 void export(t_prompt *prompt, char **args);
+void exitt(t_prompt *prompt, char **args);
 
 /*
 ** ENV
