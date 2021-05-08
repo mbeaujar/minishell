@@ -55,7 +55,7 @@ void execute_commande(t_prompt *prompt)
     {
         if (!prompt->buffer->previous)
         {
-            // envoyer la commande au reste du programme
+            prompt->buffer->modified = 0;
             cmd(prompt, ft_strdup(prompt->buffer->buff));
             lstaddfrontbuffer(&prompt->buffer, newlstbuffer(ft_calloc(10, sizeof(char))));
             g_buffer(FREE, NULL);
@@ -63,7 +63,7 @@ void execute_commande(t_prompt *prompt)
         }
         else
         {
-            // envoyer la commande au reste du programme
+            prompt->buffer->modified = 0;
             cmd(prompt, ft_strdup(prompt->buffer->buff));
             reset_buffer(prompt);
             g_buffer(SET, prompt->buffer);

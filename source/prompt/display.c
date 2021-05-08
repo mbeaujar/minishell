@@ -15,7 +15,7 @@
 void display_buffer(t_prompt *prompt)
 {
     printbuffer(prompt->buffer->buff);
-    prompt->indice = prompt->buffer->strlen - 1;
+    prompt->indice = prompt->buffer->strlen;
 }
 
 void display_prompt(t_prompt *prompt)

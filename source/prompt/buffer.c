@@ -78,7 +78,7 @@ void expand_buffer(t_prompt *prompt, char c)
         prompt->buffer->strlen = (int)ft_strlen(prompt->buffer->buff);
         new_line(prompt);
     }
-    prompt->buffer->modified = 0;
+    prompt->buffer->modified = 1;
     prompt->indice++;
 }
 
