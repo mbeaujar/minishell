@@ -30,6 +30,7 @@ void reset_buffer(t_prompt *prompt)
     prompt->buffer->strlen = new->strlen;
     prompt->buffer->len = new->len;
     prompt->buffer->modified = new->modified;
+    free(new);
     lstaddfrontbuffer(&prompt->buffer, newlstbuffer(ft_calloc(10, sizeof(char))));
 }
 

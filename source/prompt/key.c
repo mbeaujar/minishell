@@ -63,9 +63,11 @@ void execute_commande(t_prompt *prompt)
         }
         else
         {
+            printlstbuffer(prompt->buffer);
             prompt->buffer->modified = 0;
             cmd(prompt, ft_strdup(prompt->buffer->buff));
             reset_buffer(prompt);
+            printlstbuffer(prompt->buffer);
             g_buffer(SET, prompt->buffer);
         }
     }
