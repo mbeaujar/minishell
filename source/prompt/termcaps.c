@@ -51,4 +51,5 @@ void create_termcap(char *termcap)
 
 	new_termcap = tgetstr(termcap, NULL);
 	tputs(new_termcap, 1, display_termcap);
+	//free(new_termcap);
 }

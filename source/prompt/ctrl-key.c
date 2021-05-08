@@ -53,6 +53,7 @@ void isctrl(t_prompt *prompt, char c)
         g_buffer(FREE, NULL);
         write(STDOUT_FILENO, "exit\n", 5);
         freelstbuffer(&prompt->buffer);
+        freelstenv(prompt->env);
         disablerawmode(prompt->orig_termios);
         exit(4);
     }

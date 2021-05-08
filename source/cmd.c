@@ -106,15 +106,17 @@ void debug(t_prompt *prompt, char **args, t_env *search)
 
 void cmd(t_prompt *prompt, char *cmd)
 {
-    t_env *search;
+    //(void)prompt;
+     t_env *search;
     char **args;
 
     search = NULL;
     args = ft_split(cmd, ' ');
-
+    //printf("%s\n", cmd);
     if (prompt->setup.debug == 1)
         printf("\nla commande : '%s'\n", cmd);
-    debug(prompt, args, search);
+    if (args[1])
+        debug(prompt, args, search);
     if (ft_strncmp(args[0], "exit", 4) == 0)
         exitt(prompt, args);
     if (ft_strncmp(args[0], "env", 3) == 0)
@@ -133,5 +135,5 @@ void cmd(t_prompt *prompt, char *cmd)
         echoo(prompt, args);
     
     free(cmd);
-    free_tab(args);
+    free_tab(args); 
 }
