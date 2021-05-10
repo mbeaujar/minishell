@@ -140,9 +140,47 @@ Test(env, create_env_null)
 	addlstenv(&head, ft_strdup(str));
 	if (head == NULL)
 		cr_assert(0);
-	printf("name : %s value : %s\n", head->name, head->value);
+	//printf("name : %s value : %s\n", head->name, head->value);
 	int diff = ft_strcmp(head->name, str);
 	cr_expect(diff == 0);
 	free(head->name);
 	free(head);
+}
+
+Test(lexer_token, create_token_simple)
+{
+    char str[] = "< Makefile cat | cat";
+	char *expected[] = { "<",  "Makefile", 
+						"cat", "|", "cat", NULL };
+    t_lexer *head = lexer(str);
+    //printlstlexer(head);
+	t_lexer *tmp = head;
+	for (int i = 0; expected[i]; i++)
+	{
+		//printf("s : %s tok : %s\n", expected[i], tmp->token);
+		if (ft_strcmp(expected[i], tmp->token) != 0)
+			cr_expect(0);
+		tmp = tmp->next;
+	}
+	cr_expect(1);
+    freelstlexer(&head);
+}
+
+Test(lexer_token, create_token_difficutl)
+{
+    char str[] = "ls bon\" jour\" 'je suis la''oui' \"moi    aussi\"";
+	char *expected[] = { "ls",  "bon\" jour\"", 
+						"'je suis la''oui'", "\"moi    aussi\"", NULL };
+    t_lexer *head = lexer(str);
+    //printlstlexer(head);
+	t_lexer *tmp = head;
+	for (int i = 0; expected[i]; i++)
+	{
+		//printf("s : %s tok : %s\n", expected[i], tmp->token);
+		if (ft_strcmp(expected[i], tmp->token) != 0)
+			cr_expect(0);
+		tmp = tmp->next;
+	}
+	cr_expect(1);
+    freelstlexer(&head);
 }

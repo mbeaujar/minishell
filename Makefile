@@ -49,7 +49,9 @@ SRCS =  main.c \
 		utils/ft_printtab.c \
 		utils/ft_strcmp.c \
 		utils/search_min.c \
-		utils/export.c
+		utils/export.c \
+		lexer/lexer.c \
+		lexer/linked_list.c 
 
 OBJ = ${SRCS:.c=.o}
 

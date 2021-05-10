@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/07 22:15:45 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/09 18:29:44 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,16 @@ int sizelstenv(t_env *head);
 void free_tab(char **envp);
 char **new_table_env(t_env *head);
 
+
+/*
+** LEXER
+*/
+
+t_lexer *newlstlexer(char *token);
+void lstaddbacklexer(t_lexer **head, t_lexer *new);
+void freelstlexer(t_lexer **begin);
+void printlstlexer(t_lexer *head);
+t_lexer *lexer(char *str);
 
 /*
 ** PROMPT 
