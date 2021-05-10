@@ -1,3 +1,1 @@
-#!/Users/beaujardmael/Desktop/42/minishell/minishell
-
-ls
+gcc -fsanitize=address source/lexer/*.c -Iinclude libft/libftmacos.a

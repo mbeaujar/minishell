@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 19:21:58 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/09 23:05:52 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/11 00:33:03 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,20 @@ void freelstlexer(t_lexer **begin)
     *begin = NULL;
 }
 
+void printlexer(char *str)
+{
+    if (!str)
+        return ;
+    while (*str)
+    {
+        if (*str > 0)
+            ft_putchar_fd(*str, STDOUT_FILENO);
+        else
+            ft_putchar_fd(-(*str), STDOUT_FILENO);
+        str++;
+    }
+}
+
 void printlstlexer(t_lexer *head)
 {
     if (!head)
@@ -69,7 +83,9 @@ void printlstlexer(t_lexer *head)
         head = head->previous;
     while (head)
     {
-        printf("token : %s\n", head->token);
+        ft_putstr_fd("token : ", 0);
+        printlexer(head->token);
+        ft_putchar_fd('\n', 0);
         head = head->next;
     }
 }
