@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 16:34:11 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/11 01:10:08 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/11 18:09:05 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,12 @@ void create_token(t_lexer **head, char *str)
         return;
     while (str[i])
     {
-        //printf("c : %c     sep : %d\n", str[i], sep);
+        if (str[i] == ' ' && i == 0)
+        {
+            while (str[i] && str[i] == ' ')
+                i++;
+        }
+        //printf("c : %c     sep : %d   i : %d\n", str[i], sep, i);
         if (i > 0 && sep == str[i] && str[i - 1] != '\\')
         {
             //printf("del sep : %c i : %d\n", sep, i);
@@ -37,37 +42,45 @@ void create_token(t_lexer **head, char *str)
             //if (str[i + 1])
             i++;
         }
-        else if (i == 0 && ((sep == 0 && str[i] == '"') || (sep == 0 && str[i] == '\'')))
-            sep = str[i];
-        else if ((sep == 0 && str[i] == '"' && str[i - 1] != '\\') || (sep == 0 && str[i] == '\'' && str[i - 1] != '\\'))
+        if (i == 0 && ((sep == 0 && str[i] == '"') || (sep == 0 && str[i] == '\'')))
         {
             sep = str[i];
             if (!str[i + 1])
-                // error nombre de quotes impair
+                i--;
+            i++;
+        }
+        if ((sep == 0 && str[i] == '"' && str[i - 1] != '\\') || (sep == 0 && str[i] == '\'' && str[i - 1] != '\\'))
+        {
+            sep = str[i];
+            if (!str[i + 1])
+                i--; // error nombre de quotes impair
             i++;
             //printf("add sep : %c i : %d\n", sep, i);
         }
         if (sep != '\'' && str[i] == '\\')
         {
-            printf("before -- sep : %d i : %d c : %c\n", sep, i, str[i]);
+            //printf("before -- sep : %d i : %d c : %c\n", sep, i, str[i]);
             if (str[i + 1])
                 str[i + 1] = -str[i + 1];
             if (sep == 0 && str[i + 1])
                 i++;
-            printf("after -- sep : %d i : %d c : %c\n", sep, i, str[i]);
+            //printf("after -- sep : %d i : %d c : %c\n", sep, i, str[i]);
         }
         if ((str[i] == ' ' && sep == 0))
         {
             buffer[y] = 0;
+            while (str[i] && str[i] == ' ')
+                i++;
             //printf("buffer : '%s'\n", buffer);
             lstaddbacklexer(head, newlstlexer(ft_strdup(buffer)));
             ft_bzero(buffer, len);
             y = 0;
-            i++;
+            if (!str[i])
+                break;
         }
         else if (sep != str[i])
         {
-            printf("c : %c      sep : %d\n", str[i], sep);
+            //printf("c : %c      sep : %d\n", str[i], sep);
             buffer[y] = str[i];
             y++;
             i++;
@@ -102,11 +115,11 @@ t_lexer *lexer(char *str)
     return (head);
 }
 
-int main(void)
+/* int main(void)
 {
-    char str[] = "echo \\b";
+    char str[] = "ls";
     t_lexer *head = lexer(str);
     printlstlexer(head);
     freelstlexer(&head);
     return (0);
-}
+} */

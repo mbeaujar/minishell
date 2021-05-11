@@ -10,12 +10,13 @@ Test(category, nom, .signal = SIGSEGV)
 }
 */
 
+
 t_prompt create_prompt_with_env(void)
 {
 	t_prompt prompt;
 	prompt.env = NULL;
-	char *expected[] = { "USER=mbeaujar",  "MAIL=user@user.ft", 
-						"TERM=iterm2leplusbeau", "PWD=jesuisla", NULL };
+	char *expected[] = {"USER=mbeaujar", "MAIL=user@user.ft",
+						"TERM=iterm2leplusbeau", "PWD=jesuisla", NULL};
 
 	addlstenv(&prompt.env, expected[0]);
 	addlstenv(&prompt.env, expected[1]);
@@ -36,7 +37,6 @@ Test(export, search)
 
 Test(env, delete)
 {
-	
 }
 
 Test(env, strjoin)
@@ -79,8 +79,8 @@ Test(env, new_table_env)
 {
 	int i = 0;
 	t_prompt prompt = create_prompt_with_env();
-	char *expected[] = { "USER=mbeaujar",  "MAIL=user@user.ft", 
-						"TERM=iterm2leplusbeau", "PWD=jesuisla", NULL };
+	char *expected[] = {"USER=mbeaujar", "MAIL=user@user.ft",
+						"TERM=iterm2leplusbeau", "PWD=jesuisla", NULL};
 	char **envp = new_table_env(prompt.env);
 	while (envp[i])
 	{
@@ -147,40 +147,153 @@ Test(env, create_env_null)
 	free(head);
 }
 
-Test(lexer_token, create_token_simple)
+//-----------------------------------------------------------------------------------//
+
+
+int ft_strcmp_lexer(char *s1, char *s2)
 {
-    char str[] = "< Makefile cat | cat";
-	char *expected[] = { "<",  "Makefile", 
-						"cat", "|", "cat", NULL };
-    t_lexer *head = lexer(str);
-    //printlstlexer(head);
-	t_lexer *tmp = head;
-	for (int i = 0; expected[i]; i++)
+	int i;
+
+	i = 0;
+	while (s1[i] && s2[i])
 	{
-		//printf("s : %s tok : %s\n", expected[i], tmp->token);
-		if (ft_strcmp(expected[i], tmp->token) != 0)
-			cr_expect(0);
+		if (s2[i] < 0)
+			s2[i] = -s2[i];
+		if (s2[i] != s1[i])
+			return (s1[i] - s2[i]);
+		i++;
+	}
+	return (s1[i] - s2[i]);
+}
+
+int test_token(char *str, char *expected[])
+{
+	t_lexer *head = lexer(str);
+	t_lexer *tmp = head;
+	int len = ft_strlen_tab(expected);
+	if (len != lstsizelexer(head))
+	{
+		freelstlexer(&head);
+		return (0);
+	}
+	for (int i = 0; i < len; i++)
+	{
+		if (ft_strcmp_lexer(expected[i], tmp->token) != 0)
+		{
+			freelstlexer(&head);
+			return (0);
+		}
 		tmp = tmp->next;
 	}
-	cr_expect(1);
-    freelstlexer(&head);
+	freelstlexer(&head);
+	return (1);
 }
+
 
 Test(lexer_token, create_token_difficutl)
 {
-    char str[] = "ls bon\" jour\" 'je suis la''oui' \"moi    aussi\"";
-	char *expected[] = { "ls",  "bon\" jour\"", 
-						"'je suis la''oui'", "\"moi    aussi\"", NULL };
-    t_lexer *head = lexer(str);
-    //printlstlexer(head);
-	t_lexer *tmp = head;
-	for (int i = 0; expected[i]; i++)
-	{
-		//printf("s : %s tok : %s\n", expected[i], tmp->token);
-		if (ft_strcmp(expected[i], tmp->token) != 0)
-			cr_expect(0);
-		tmp = tmp->next;
-	}
-	cr_expect(1);
-    freelstlexer(&head);
+	char str[] = "ls bon\" jour\" 'je suis la''oui' \"moi    aussi\"";
+	char *expected[] = {"ls", "bon jour",
+						"je suis laoui", "moi    aussi", NULL};
+	cr_expect(test_token(str, expected));
 }
+
+Test(lexer_token, create_token_simple)
+{
+	char str[] = "< Makefile cat | cat";
+	char *expected[] = {"<", "Makefile",
+						"cat", "|", "cat", NULL};
+	cr_expect(test_token(str, expected));
+}
+
+
+Test(lexer_token, create_token_1)
+{
+	char str[] = "echo \\b";
+	char *expected[] = {"echo", "b", NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_2)
+{
+	char str[] = "echo \"\\b\"";
+	char *expected[] = {"echo", "\\b", NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_3)
+{
+	char str[] = "echo '\\b'";
+	char *expected[] = {"echo", "\\b", NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_4)
+{
+	char str[] = "'je suis la''oui'";
+	char *expected[] = {"je suis laoui", NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_5)
+{
+	// \e"xp"'o'\rt
+	char str[] = "\\e\"xp\"'o'\\rt";
+	char *expected[] = {"export", NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_6)
+{
+	// echo "quatre"\ 'arguments'\ \en" un"
+	char str[] = "echo \"quatre\"\\ 'arguments'\\ \\en\" un\"";
+	char *expected[] = {"echo", "quatre arguments en un", NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_7)
+{
+	// "e""c""h""o"
+	char str[] = "\"e\"\"c\"\"h\"\"o\"";
+	char *expected[] = {"echo", NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_8)
+{
+	char str[] = "          echo";
+	char *expected[] = {"echo", NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_9)
+{
+	char str[] = "echo           ";
+	char *expected[] = {"echo", NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_10)
+{
+	char str[] = "echo\\ a";
+	char *expected[] = {"echo a", NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_11)
+{
+	char str[] = "ls \"\" bonjour";
+	char *expected[] = {"ls", "", "bonjour", NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_12)
+{
+	char str[] = "ls";
+	char *expected[] = {"ls", NULL};
+	cr_expect(test_token(str, expected));
+}
+
+
+
+

@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 19:21:58 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/11 00:33:03 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/11 17:16:52 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,19 @@ void printlstlexer(t_lexer *head)
         ft_putchar_fd('\n', 0);
         head = head->next;
     }
+}
+
+int lstsizelexer(t_lexer *head)
+{
+    int i;
+
+    i = 0;
+    if (!head)
+        return (0);
+    while (head)
+    {
+        head = head->next;
+        i++;
+    }
+    return (i);
 }
