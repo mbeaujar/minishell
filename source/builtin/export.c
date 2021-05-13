@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:28:32 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/11 17:39:34 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/13 17:28:49 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void display_export(t_env *head)
 
     index = 0;
     index_max = max_index(head);
-    while (index < index_max)
+    while (index <= index_max)
     {
         tmp = search_index(head, index);
         if (tmp != NULL && head->index != -2)
@@ -76,6 +76,34 @@ void display_export(t_env *head)
     }
 }
 
+void new_var(t_prompt *prompt, char **args, int i)
+{
+    t_env *find;
+    char *name;
+    char *value;
+
+    find = NULL;
+    value = NULL;
+    name = return_env_name(args[i]);
+    if (is_value(args[i]))
+        value = return_env_value(args[i]);
+    find = search_env(prompt->env, name);
+    if (find == NULL)
+    {
+        free(name);
+        if (value != NULL)
+            free(value);
+        addlstenv(&prompt->env, ft_strdup(args[i]));
+    }
+    else if (value != NULL)
+    {
+        if (find->value != NULL)
+            free(find->value);
+        find->value = value;
+        free(name);
+    }
+}
+
 void export_var(t_prompt *prompt, char **args)
 {
     int i;
@@ -91,7 +119,7 @@ void export_var(t_prompt *prompt, char **args)
             prompt->returned = 1;
         }
         else
-            addlstenv(&prompt->env, ft_strdup(args[i]));
+            new_var(prompt, args, i);
         i++;
     }
 }

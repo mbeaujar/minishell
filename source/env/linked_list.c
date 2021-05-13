@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 13:50:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/06 17:53:12 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/13 17:10:11 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_env *search_env(t_env *head, char *env_name)
 	len = ft_strlen(env_name) + 1;
 	while (head)
 	{
-		if (!ft_strncmp(head->name, env_name, len))
+		if (!ft_strcmp(head->name, env_name))
 			return (head);
 		head = head->next;
 	}
