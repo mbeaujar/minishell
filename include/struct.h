@@ -59,6 +59,7 @@ typedef struct s_setup
 typedef struct s_lexer
 {
 	char *token;
+	int type; 
 	struct s_lexer *previous;
 	struct s_lexer *next;
 } t_lexer;

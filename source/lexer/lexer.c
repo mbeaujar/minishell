@@ -66,13 +66,14 @@ t_lexer *lexer(char *str)
     return (head);
 }
 
-/* int main(void)
+
+int main(void)
 {
-    char str[] = "echo \"\\\\\"";
+    char str[] = "\"l\"s  \"bons\"o\"i\"r  \"<\" ;";
     t_lexer *head = lexer(str);
     if (!head)
         printf("error\n");
     printlstlexer(head);
     freelstlexer(&head);
     return (0);
-}   */
+}   

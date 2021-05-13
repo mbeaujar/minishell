@@ -52,4 +52,5 @@ void unset(t_prompt *var, char **unset)
 		}
 		i++;
 	}
+	var->returned = 0;
 }
