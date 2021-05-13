@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/11 17:17:25 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/13 18:40:47 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,12 @@ void lstaddbacklexer(t_lexer **head, t_lexer *new);
 void freelstlexer(t_lexer **begin);
 void printlstlexer(t_lexer *head);
 int lstsizelexer(t_lexer *head);
+void escape_space(char *str, int *i, int state);
+void new_token(t_lexer **head, char *buffer, int len, int *y);
+void token_backslash(char *str, int *i, char sep);
+void token_sep(char *str, int *i, char *sep);
 t_lexer *lexer(char *str);
+int lexer_error(char sep);
 
 /*
 ** PROMPT 

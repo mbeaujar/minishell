@@ -6,12 +6,11 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 17:44:01 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/07 18:16:16 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/13 17:37:32 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 t_env *newlstenv(char *env)
 {

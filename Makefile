@@ -51,7 +51,8 @@ SRCS =  main.c \
 		utils/search_min.c \
 		utils/export.c \
 		lexer/lexer.c \
-		lexer/linked_list.c 
+		lexer/linked_list.c \
+		lexer/lexer_utils.c
 
 OBJ = ${SRCS:.c=.o}
 
