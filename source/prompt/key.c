@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 19:51:16 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/05 17:12:44 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/13 20:25:05 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,9 @@ void execute_commande(t_prompt *prompt)
         }
         else
         {
-            printlstbuffer(prompt->buffer);
             prompt->buffer->modified = 0;
             cmd(prompt, ft_strdup(prompt->buffer->buff));
             reset_buffer(prompt);
-            printlstbuffer(prompt->buffer);
             g_buffer(SET, prompt->buffer);
         }
     }
