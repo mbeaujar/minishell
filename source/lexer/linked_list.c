@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 19:21:58 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/11 17:16:52 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/12 22:34:04 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ t_lexer *newlstlexer(char *token)
     new->token = token;
     new->previous = NULL;
     new->next = NULL;
-    return (new);    
+    return (new);
 }
 
 void lstaddbacklexer(t_lexer **head, t_lexer *new)
 {
     t_lexer *tmp;
-    
+
     if (!*head)
     {
         *head = new;
@@ -48,7 +48,7 @@ void freelstlexer(t_lexer **begin)
 
     head = *begin;
     if (!head)
-        return ;
+        return;
     while (head->previous)
         head = head->previous;
     while (head)
@@ -64,7 +64,7 @@ void freelstlexer(t_lexer **begin)
 void printlexer(char *str)
 {
     if (!str)
-        return ;
+        return;
     while (*str)
     {
         if (*str > 0)
@@ -78,13 +78,15 @@ void printlexer(char *str)
 void printlstlexer(t_lexer *head)
 {
     if (!head)
-        return ;
+        return;
     while (head->previous)
         head = head->previous;
     while (head)
     {
         ft_putstr_fd("token : ", 0);
+       // ft_putchar_fd('\'', 0);
         printlexer(head->token);
+        //ft_putchar_fd('\'', 0);
         ft_putchar_fd('\n', 0);
         head = head->next;
     }

@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
 
 /*
@@ -132,8 +131,7 @@ void cmd(t_prompt *prompt, char *cmd)
     if (ft_strncmp(args[0], "pwd", 3) == 0)
         pwd(prompt);
     if (ft_strncmp(args[0], "echo", 4) == 0)
-        echoo(prompt, args);
-    
+        echoo(prompt, args);   
     free(cmd);
     free_tab(args); 
 }

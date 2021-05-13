@@ -2,6 +2,7 @@
 minishell
 test
 a.out
+Escaped.txt
 
 # Prerequisites
 *.d

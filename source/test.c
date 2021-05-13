@@ -170,9 +170,16 @@ int test_token(char *str, char *expected[])
 {
 	t_lexer *head = lexer(str);
 	t_lexer *tmp = head;
+	if (!head)
+		return(0);
 	int len = ft_strlen_tab(expected);
 	if (len != lstsizelexer(head))
 	{
+/* 		printf("\n-------------\nexpected : \n");
+		for(int i = 0; expected[i]; i++)
+			printf("'%s'\n", expected[i]);
+		printf("output : \n");
+		printlstlexer(head); */
 		freelstlexer(&head);
 		return (0);
 	}
@@ -181,6 +188,7 @@ int test_token(char *str, char *expected[])
 		if (ft_strcmp_lexer(expected[i], tmp->token) != 0)
 		{
 			freelstlexer(&head);
+			printf("expected : %s --- ouput : %s\n", expected[i], tmp->token);
 			return (0);
 		}
 		tmp = tmp->next;
@@ -188,7 +196,6 @@ int test_token(char *str, char *expected[])
 	freelstlexer(&head);
 	return (1);
 }
-
 
 Test(lexer_token, create_token_difficutl)
 {
@@ -205,7 +212,6 @@ Test(lexer_token, create_token_simple)
 						"cat", "|", "cat", NULL};
 	cr_expect(test_token(str, expected));
 }
-
 
 Test(lexer_token, create_token_1)
 {
@@ -294,6 +300,239 @@ Test(lexer_token, create_token_12)
 	cr_expect(test_token(str, expected));
 }
 
+Test(lexer_token, create_token_13)
+{
+	char str[] = "ls \\";
+	char *expected[] = {"ls", NULL};
+	cr_expect(test_token(str, expected) == 0);
+}
 
+Test(lexer_token, create_token_14)
+{
+	char str[] = "ls \"";
+	char *expected[] = {"ls", NULL};
+	cr_expect(test_token(str, expected) == 0);
+}
 
+Test(lexer_token, create_token_15)
+{
+	char str[] = "ls '";
+	char *expected[] = {"ls", NULL};
+	cr_expect(test_token(str, expected) == 0);
+}
 
+Test(lexer_token, create_token_16)
+{
+	char str[] = "echo \"coment ca va ' toto '\n\"";
+	char *expected[] = {"echo", "coment ca va ' toto '\n", NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_17)
+{
+	char str[] = "echo bon \" jour\"";
+	char *expected[] = {"echo", "bon", " jour", NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_18)
+{
+	// \e\c\h\o \b\o\n\j\o\u\r
+	char str[] = "\\e\\c\\h\\o \\b\\o\\n\\j\\o\\u\\r";
+	char *expected[] = {"echo", "bonjour",  NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_20)
+{
+	// echo " '\ ' "
+	char str[] = "echo \" \'\\ \' \"";
+	char *expected[] = { "echo", " \'\\ \' ",  NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_21)
+{
+	// echo "\ "
+	char str[] = "echo \"\\ \"";
+	char *expected[] = { "echo", "\\ ",  NULL};
+	cr_expect(test_token(str, expected));
+}
+
+//--------------
+
+Test(lexer_token, create_token_22)
+{
+	// echo "\i "
+	char str[] = "echo \"\\i \"";
+	char *expected[] = { "echo", "\\i ",  NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_23)
+{
+	// echo "\"
+	char str[] = "echo \"\\\"";
+	char *expected[] = { "echo", "\\",  NULL};
+	cr_expect(test_token(str, expected) == 0);
+}
+
+Test(lexer_token, create_token_24)
+{
+	// echo "\\"
+	char str[] = "echo \"\\\\\"";
+	char *expected[] = { "echo", "\\",  NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_43)
+{
+	// echo "'\'"
+	char str[] = "echo \"\'\\\'\"";
+	char *expected[] = { "echo", "\'\\\'",  NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_25)
+{
+	// echo "'"
+	char str[] = "echo \"\'\"";
+	char *expected[] = { "echo", "\'",  NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_26)
+{
+	// echo "' "'"
+	char str[] = "echo \"\' \"\'\"";
+	char *expected[] = { "echo", "\' \"\'",  NULL};
+	cr_expect(test_token(str, expected) == 0);
+}
+
+Test(lexer_token, create_token_27)
+{
+	// echo "' \"'"
+	char str[] = "echo \"\' \\\"\'\"";
+	char *expected[] = { "echo", "' \"'",  NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_28)
+{
+	// echo " ' \"' "
+	char str[] = "echo \" \' \\\"\' \"";
+	char *expected[] = { "echo", " \' \"\' ",  NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_29)
+{
+	// echo   bon " jour"
+	char str[] = "echo   bon \" jour\"";
+	char *expected[] = { "echo", "bon", " jour",  NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_30)
+{
+	// echo " '\"'"
+	char str[] = "echo \" \'\\\"\'\"";
+	char *expected[] = { "echo", " \'\"\'",  NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_31)
+{
+	// echo ' "\" '
+	char str[] = "echo \' \"\\\" \'";
+	char *expected[] = { "echo", " \"\\\" ",  NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_32)
+{
+	// echo ' "\"" '
+	char str[] = "echo \' \"\\\"\" \'";
+	char *expected[] = { "echo", " \"\\\"\" ",  NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_33)
+{
+	// echo ' "\"" \' '\n'
+	char str[] = "echo \' \"\\\"\" \\\' \'\\n\'";
+	char *expected[] = { "echo", " \"\\\"\" \\",	"\\n",  NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_34)
+{
+	// echo ' \\' '\n'
+	char str[] = "echo \' \\\\\' \'\\n\'";
+	char *expected[] = { "echo", " \\\\", "\\n",  NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_35)
+{
+	// echo ' \\'
+	char str[] = "echo \' \\\\\'";
+	char *expected[] = { "echo", " \\\\",  NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_36)
+{
+	// echo " '\'"
+	char str[] = "echo \" \'\\\'\"";
+	char *expected[] = { "echo", " \'\\\'",  NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_37)
+{
+	// echo "\\\ "
+	char str[] = "echo \"\\\\\\ \"";
+	char *expected[] = { "echo", "\\\\ ",  NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_38)
+{
+	// echo "\\\\\\\\\\\\\\\\\\ "
+	char str[] = "echo \"\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ \"";
+	char *expected[] = { "echo", "\\\\\\\\\\\\\\\\\\ ", NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_39)
+{
+	// echo "\\\\\\\\\\\\\\\\\ "
+	char str[] = "echo \"\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ \"";
+	char *expected[] = { "echo", "\\\\\\\\\\\\\\\\\\ ",  NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_40)
+{
+	// echo "\\\\ "
+	char str[] = "echo \"\\\\\\\\ \"";
+	char *expected[] = { "echo", "\\\\ ",  NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_41)
+{
+	// echo "\\\\\\ "
+	char str[] = "echo \"\\\\\\\\\\\\ \"";
+	char *expected[] = { "echo", "\\\\\\ ",  NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_42)
+{
+	// \e\c\h\o \b\o\n\j\o\u\r
+	char str[] = "\\e\\c\\h\\o \\b\\o\\n\\j\\o\\u\\r";
+	char *expected[] = { "echo", "bonjour",  NULL};
+	cr_expect(test_token(str, expected));
+}

@@ -32,7 +32,10 @@ exit status : https://tldp.org/LDP/abs/html/exit-status.html#EXSREF
 
 special characters : https://tldp.org/LDP/abs/html/special-chars.html
 
-  
+  https://wiki.archlinux.org/title/Core_dump ctrl-\ crée un core dumped
+   exit (127 + SIGABRT) 
+
+
 ## DOC :
 
 - fork : crée un process child qui est une copie du process parent 
