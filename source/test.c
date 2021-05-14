@@ -171,7 +171,11 @@ int test_token(char *str, char *expected[])
 	t_lexer *head = lexer(str);
 	t_lexer *tmp = head;
 	if (!head)
-		return(0);
+	{
+/* 		printlexer(str);
+		printf("\n"); */
+		return(-1);
+	}
 	int len = ft_strlen_tab(expected);
 	if (len != lstsizelexer(head))
 	{
@@ -311,14 +315,14 @@ Test(lexer_token, create_token_14)
 {
 	char str[] = "ls \"";
 	char *expected[] = {"ls", NULL};
-	cr_expect(test_token(str, expected) == 0);
+	cr_expect(test_token(str, expected) == -1);
 }
 
 Test(lexer_token, create_token_15)
 {
 	char str[] = "ls '";
 	char *expected[] = {"ls", NULL};
-	cr_expect(test_token(str, expected) == 0);
+	cr_expect(test_token(str, expected) == -1);
 }
 
 Test(lexer_token, create_token_16)
@@ -374,7 +378,7 @@ Test(lexer_token, create_token_23)
 	// echo "\"
 	char str[] = "echo \"\\\"";
 	char *expected[] = { "echo", "\\",  NULL};
-	cr_expect(test_token(str, expected) == 0);
+	cr_expect(test_token(str, expected) == -1);
 }
 
 Test(lexer_token, create_token_24)
@@ -406,7 +410,7 @@ Test(lexer_token, create_token_26)
 	// echo "' "'"
 	char str[] = "echo \"\' \"\'\"";
 	char *expected[] = { "echo", "\' \"\'",  NULL};
-	cr_expect(test_token(str, expected) == 0);
+	cr_expect(test_token(str, expected) == -1);
 }
 
 Test(lexer_token, create_token_27)
@@ -536,3 +540,44 @@ Test(lexer_token, create_token_42)
 	char *expected[] = { "echo", "bonjour",  NULL};
 	cr_expect(test_token(str, expected));
 }
+
+Test(lexer_token, create_token_44)
+{
+	// ls bonjour;
+	char str[] = "ls bonjour;";
+	char *expected[] = { "ls", "bonjour", ";", NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_45)
+{
+	// ls bonjour;
+	char str[] = "ls bonjour;ls|cat";
+	char *expected[] = { "ls", "bonjour", ";", "ls", "|", "cat", NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_46)
+{
+	// ls bonjour;
+	char str[] = "< file1 echo salut>file2";
+	char *expected[] = { "<", "file1", "echo", "salut", ">", "file2", NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_47)
+{
+	// ls bonjour;
+	char str[] = "< file1 ;|;|echo salut>file2";
+	char *expected[] = { "<", "file1", ";", "|", ";", "|", "echo", "salut", ">", "file2", NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_48)
+{
+	// ls bonjour;
+	char str[] = "echo salut <> file1";
+	char *expected[] = { "echo", "salut", "<", ">", "file1", NULL};
+	cr_expect(test_token(str, expected));
+}
+

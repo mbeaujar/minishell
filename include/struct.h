@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 22:43:04 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/05/09 16:44:24 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/14 15:09:49 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct	s_env
 	struct s_env	*next;
 } t_env;
 
+
 typedef struct s_buffer
 {
 	char *buff;
@@ -34,12 +35,6 @@ typedef struct s_buffer
 	struct s_buffer *next;
 }				t_buffer;
 
-typedef enum lexer
-{
-	NORMAL,
-	QUOTE,
-	QUOTES
-} t_state;
 
 typedef struct s_setup
 {
@@ -62,6 +57,16 @@ typedef struct s_lexer
 	struct s_lexer *previous;
 	struct s_lexer *next;
 } t_lexer;
+
+typedef struct s_lexing
+{
+	int i;
+	char *str;
+	int y;
+	int len;
+	char *buffer;
+	char sep;
+} t_lexing;
 
 typedef struct s_prompt
 {

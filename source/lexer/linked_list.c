@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 19:21:58 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/12 22:34:04 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/14 02:22:10 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void printlexer(char *str)
             ft_putchar_fd(*str, STDOUT_FILENO);
         else
             ft_putchar_fd(-(*str), STDOUT_FILENO);
+        //ft_putchar_fd(*str, STDOUT_FILENO);
         str++;
     }
 }

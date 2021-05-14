@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:28:32 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/13 17:28:49 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/14 16:17:22 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,17 @@
 ** export =         -- bash: export: `=': not a valid identifier        -- $? == 1
 ** export RA=s =    -- bash: export: `=': not a valid identifier        -- $? == 1
 ** Si il y a une erreur $? == 1 meme si il y a des variables qui sont set 
+*/
+
+/*
+** export ro:
+** export ro+
+** export ro^
+** export =e
+** export $ 
+** export var?
+** export 1
+** export ro=salut=yo
 */
 
 void sort_export(t_env *head)

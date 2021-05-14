@@ -38,6 +38,7 @@ void ls_for_check(t_prompt *prompt, char **args)
     //char **args;
     int pid;
     char **envp;
+    char *empty_args[] = {"ls", ".", NULL};
 
     envp = new_table_env(prompt->env);
     if (prompt->setup.debug == 1)
@@ -48,7 +49,7 @@ void ls_for_check(t_prompt *prompt, char **args)
     if (pid == 0)
     {
         //signal(SIGTERM, signhandler);
-        if (execve("/bin/ls", args, envp) == -1)
+        if (execve("/bin/ls", ft_strlen_tab(args) > 1 ? args : empty_args, envp) == -1)
             printerrno_fd(STDIN_FILENO);
         printf("je suis la\n");
         exit(0);
@@ -99,19 +100,19 @@ void debug(t_prompt *prompt, char **args, t_env *search)
     {
         printf("%d\n", prompt->returned);
     }
-    if (ft_strncmp(args[0], "ls", 2) == 0)
-        ls_for_check(prompt, args);
 }
 
 void cmd(t_prompt *prompt, char *cmd)
 {
     //(void)prompt;
-     t_env *search;
+    t_env *search;
     char **args;
 
     search = NULL;
     args = ft_split(cmd, ' ');
     //printf("%s\n", cmd);
+    if (ft_strncmp(args[0], "ls", 2) == 0)
+        ls_for_check(prompt, args);
     if (prompt->setup.debug == 1)
         printf("\nla commande : '%s'\n", cmd);
     if (args[1])
@@ -131,7 +132,7 @@ void cmd(t_prompt *prompt, char *cmd)
     if (ft_strncmp(args[0], "pwd", 3) == 0)
         pwd(prompt);
     if (ft_strncmp(args[0], "echo", 4) == 0)
-        echoo(prompt, args);   
+        echoo(prompt, args);
     free(cmd);
-    free_tab(args); 
+    free_tab(args);
 }
