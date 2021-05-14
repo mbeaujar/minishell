@@ -36,7 +36,6 @@ next token est le PATH alors read PATH est O_RDWR
 
 
 
-
 default default    pip|comat|left|right    default default    pip|comat|left|right
 
    0       1                2                 3      4                 5
