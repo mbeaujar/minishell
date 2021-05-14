@@ -49,6 +49,7 @@ int main(int argc, char **argv, char **envp)
 {
 	t_prompt prompt;
 
+
 	//settings minishell
 	init_prompt(&prompt);
 	setup(&prompt, argc, argv);

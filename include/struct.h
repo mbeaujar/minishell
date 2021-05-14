@@ -16,6 +16,17 @@
 
 #include "key.h"
 
+// STDERR_FILENO, STDIN_FILENO, STDOUT_FILENO
+
+typedef enum type {
+	LEFT,
+	RIGHT,
+	PIP,
+	COMAT,
+	PATH,
+	DEFAULT = -1,
+} type;
+
 typedef struct	s_env
 {
 	char			*name;
@@ -39,21 +50,16 @@ typedef struct s_buffer
 typedef struct s_setup
 {
 	int debug;
-
-	// parsing
-
-	int interprete_isspace;
-
 } t_setup;
 
 /*
 ** returned == $? -- code de retour de la commande
 */
 
-
 typedef struct s_lexer
 {
 	char *token;
+	type key; 
 	struct s_lexer *previous;
 	struct s_lexer *next;
 } t_lexer;
@@ -77,6 +83,8 @@ typedef struct s_prompt
 	char **envp;
 	t_env *env;
 	t_setup setup;
+
+	
 	int returned;
 } t_prompt;
 
