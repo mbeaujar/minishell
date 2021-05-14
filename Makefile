@@ -18,6 +18,7 @@ PATH_LIB=libft/
 FILE_LIB= $(addprefix $(PATH_LIB), lib$(LIBFT).a)
 #FILE_LIB=libft/libft.a
 OBJS_DIRECTORY=objects/
+
 SRCS =  main.c \
 		cmd.c \
 		test.c \
