@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:28:25 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/07 22:00:17 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/14 02:33:45 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,25 @@ void change_directory(t_prompt *prompt, char *path)
 
 void cd(t_prompt *prompt, char **args)
 {
+    int len;
+    t_env *find;
+
     prompt->returned = 0;
-    if (ft_strlen_tab(args) > 2)
+    len = ft_strlen_tab(args);
+    find = NULL;
+    if (len == 1)
+    {
+        find = search_env(prompt->env, "HOME");
+        if (!find)
+        {
+            ft_putstr_fd("bash: cd: HOME: No such file or directory", STDOUT_FILENO);
+            prompt->returned = 1;
+        }
+        else
+            change_directory(prompt, find->value);
+        return ;
+    }
+    if (len > 2)
     {
         prompt->returned = 1;
         ft_putstr_fd("bash: cd: too many arguments\n", STDOUT_FILENO);

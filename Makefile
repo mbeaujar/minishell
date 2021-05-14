@@ -11,7 +11,7 @@ NAME=minishell
 NAME_TEST=test
 CC=clang
 RM=rm -f
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 SRCS_DIRECTORY=source/
 HEADER=include
 PATH_LIB=libft/
@@ -50,11 +50,14 @@ SRCS =  main.c \
 		utils/ft_printtab.c \
 		utils/ft_strcmp.c \
 		utils/search_min.c \
+		utils/ft_argv_strjoin.c \
+		utils/ft_unleak_strjoin.c \
 		utils/export.c \
 		lexer/lexer.c \
 		lexer/linked_list.c \
 		lexer/lexer_utils.c \
-		parser/parser.c
+		parser/parser.c \
+		parser/linked_list.c
 
 OBJ = ${SRCS:.c=.o}
 

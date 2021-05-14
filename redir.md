@@ -40,3 +40,12 @@ bash: inconnu: No such file or directory
 - < STDIN > STDOUT cat
 - cat < STDIN > STDOUT
 - < STDIN > STDOUT cat
+
+---
+
+#### cas special
+
+- cat <> STDIN    --- la redir STDOUT est ignoré , l'inverse "><" ne marche pas
+
+
+

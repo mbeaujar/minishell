@@ -6,51 +6,76 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:28:35 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/07 22:15:34 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/14 16:53:13 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* void unset(t_prompt *var, char *path)
-{
-	char **unset;
-	int i;
-	t_env *to_delete;
+/*
+** bash: unset: `ro=salut': not a valid identifier
+** bash-4.4# unset :
+** bash: unset: `:': not a valid identifier
+** bash-4.4# unset %
+** bash: unset: `%': not a valid identifier
+** bash-4.4# unset ,
+** bash: unset: `,': not a valid identifier
+** bash-4.4# unset 1
+** bash: unset: `1': not a valid identifier
+** bash-4.4# unset 2
+** bash: unset: `2': not a valid identifier
+** bash-4.4# unset RaEZZ
+** bash-4.4# 
+*/
 
-	i = 0;
-	while (path[i] && path[i] != ' ')
-		i++;
-	unset = ft_split(path + i, ' ');
-	i = 0;
-	while (unset[i])
+int is_valid_identifier(char *str)
+{
+    int i;
+
+    i = 0;
+    while (str[i])
+    {
+        if ((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z'))
+			i++; 
+        else
+			return (0);
+    }
+    return (1);
+}
+
+void unset_args(t_prompt *prompt, char **args)
+{
+	int i;
+	t_env *find;
+
+	i = 1;
+	while (args[i])
 	{
-		to_delete = search_env(var->env, unset[i]);
-		if (to_delete)
+		if (is_valid_identifier(args[i]) == 0)
 		{
-			printf("delete : '%s'\n", to_delete->name);
-			delete_env(var, to_delete);
+			ft_putstr_fd("bash: unset: `", STDOUT_FILENO);
+			ft_putstr_fd(args[i], STDOUT_FILENO);
+			ft_putstr_fd("': not a valid identifier\n", STDOUT_FILENO);
+			prompt->returned = 1;
+		}
+		else
+		{
+			find = search_env(prompt->env, args[i]);
+			if (find)
+				delete_env(prompt, find);
 		}
 		i++;
 	}
-    free_tab(unset);
-} */
+}
 
-void unset(t_prompt *var, char **unset)
+void unset(t_prompt *prompt, char **args)
 {
-	int i;
-	t_env *to_delete;
+	int len;
 
-	i = 0;
-	while (unset[i])
-	{
-		to_delete = search_env(var->env, unset[i]);
-		if (to_delete)
-		{
-			printf("delete : '%s'\n", to_delete->name);
-			delete_env(var, to_delete);
-		}
-		i++;
-	}
-	var->returned = 0;
+	len = ft_strlen_tab(args);
+	prompt->returned = 0;
+	if (len == 1)
+		return;
+	else
+		unset_args(prompt, args);
 }

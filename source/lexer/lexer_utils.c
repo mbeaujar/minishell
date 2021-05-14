@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 17:45:45 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/13 18:41:48 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/14 15:10:55 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void escape_space(char *str, int *i, int state)
 void new_token(t_lexer **head, char *buffer, int len, int *y)
 {
     buffer[*y] = 0;
-    lstaddbacklexer(head, newlstlexer(ft_strdup(buffer)));
+    lstaddbacklexer(head, newlstlexer(ft_strdup(buffer), DEFAULT));
     ft_bzero(buffer, len);
     *y = 0;
 }
@@ -48,9 +48,16 @@ void token_backslash(char *str, int *i, char sep)
         if ((sep == '"' && str[*i + 1] == -34) || (sep == '"' && str[*i + 1] == -92))
             (*i)++;
     }
+    if (sep == '\'' && sep != str[*i])
+        str[*i] = -str[*i];
+    if (sep != 0)
+    {
+        if (str[*i] == '<' || str[*i] == '>' || str[*i] == ';')
+            str[*i] = -str[*i];
+    }
 }
 
-void token_sep(char *str, int *i, char *sep)
+int token_sep(char *str, int *i, char *sep)
 {
     if ((*i > 0 && *sep == '"' && str[*i] == '"' && str[*i - 1] != '\\') || (*i > 0 && *sep == '\'' && str[*i] == '\''))
     {
@@ -61,16 +68,18 @@ void token_sep(char *str, int *i, char *sep)
     {
         *sep = str[*i];
         if (!str[*i + 1])
-            (*i)--;
+            return (0);
         (*i)++;
     }
     if ((*sep == 0 && str[*i] == '"' && str[*i - 1] != '\\') || (*sep == 0 && str[*i] == '\'' && str[*i - 1] != '\\'))
     {
         *sep = str[*i];
         if (!str[*i + 1])
-            (*i)--; // error nombre de quotes impair
+            return (0); // error nombre de quotes impair
+                        //if (str[*i + 1] != *sep)
         (*i)++;
     }
+    return (1);
 }
 
 int lexer_error(char sep)
@@ -79,6 +88,23 @@ int lexer_error(char sep)
     {
         ft_putstr_fd("Lexer error -- multiline\n", STDOUT_FILENO);
         return (0);
+    }
+    return (1);
+}
+
+int token_type(t_lexing *var, t_lexer **head)
+{
+    if (var->sep == 0 && ((var->str[var->i] == ';' || var->str[var->i] == '<' || var->str[var->i] == '>' || var->str[var->i] == '|')))
+    {
+        if (var->buffer[0] != 0)
+            new_token(head, var->buffer, var->len, &var->y);
+        var->buffer[var->y++] = var->str[var->i++];
+        new_token(head, var->buffer, var->len, &var->y);
+        escape_space(var->str, &var->i, 0);
+        if (!var->str[var->i])
+            return (0);
+        if (var->str[var->i] == ';' || var->str[var->i] == '<' || var->str[var->i] == '>' || var->str[var->i] == '|')
+            token_type(var, head);
     }
     return (1);
 }
