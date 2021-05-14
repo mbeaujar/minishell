@@ -581,3 +581,19 @@ Test(lexer_token, create_token_48)
 	cr_expect(test_token(str, expected));
 }
 
+Test(lexer_token, create_token_49)
+{
+	// ls bonjour;
+	char str[] = "echo salut << file1";
+	char *expected[] = { "echo", "salut", "<<", "file1", NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_50)
+{
+	// ls bonjour;
+	char str[] = "echo salut <<<< file1";
+	char *expected[] = { "echo", "salut", "<<<<", "file1", NULL};
+	cr_expect(test_token(str, expected));
+}
+

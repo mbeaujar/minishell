@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 17:45:45 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/14 15:10:55 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/14 19:02:56 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,17 @@ int lexer_error(char sep)
 
 int token_type(t_lexing *var, t_lexer **head)
 {
+    char c;
+
+    c = 0;
     if (var->sep == 0 && ((var->str[var->i] == ';' || var->str[var->i] == '<' || var->str[var->i] == '>' || var->str[var->i] == '|')))
     {
         if (var->buffer[0] != 0)
             new_token(head, var->buffer, var->len, &var->y);
+        c = var->str[var->i];
         var->buffer[var->y++] = var->str[var->i++];
+        while (var->str[var->i] == c)
+            var->buffer[var->y++] = var->str[var->i++];
         new_token(head, var->buffer, var->len, &var->y);
         escape_space(var->str, &var->i, 0);
         if (!var->str[var->i])

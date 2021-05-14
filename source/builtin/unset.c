@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:28:35 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/14 16:53:13 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/14 17:50:28 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int is_valid_identifier(char *str)
     i = 0;
     while (str[i])
     {
-        if ((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z'))
+        if ((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z') || (str[i] == '_'))
 			i++; 
         else
 			return (0);

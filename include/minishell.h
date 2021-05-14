@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/14 16:13:18 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/14 18:05:24 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void printerrno_fd(int fd);
 */
 
 void cd(t_prompt *prompt, char **args);
+int is_valid_identifier(char *str);
 void unset(t_prompt *var, char **unset);
 void pwd(t_prompt *prompt);
 void env(t_prompt *prompt, char **args);
