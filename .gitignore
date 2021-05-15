@@ -3,6 +3,7 @@ minishell
 test
 a.out
 Escaped.txt
+.vscode
 
 # Prerequisites
 *.d
