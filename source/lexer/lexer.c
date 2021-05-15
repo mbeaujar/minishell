@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 16:53:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/15 18:24:04 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/15 19:02:11 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void init_struct_lexing(t_lexing *var, char *str)
     var->sep = 0;
 }
 
-t_lexer *lexer(char *str)
+t_lexer *lexer(t_prompt *prompt, char *str)
 {
     t_lexer *head;
     t_lexing var;
@@ -73,6 +73,7 @@ t_lexer *lexer(char *str)
     {
         free(var.buffer);
         freelstlexer(&head);
+        prompt->returned = 2;
         return (NULL);
     }
     if (check_token(head) == 0)

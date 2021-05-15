@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/15 18:18:19 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/15 18:53:09 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int count_comat(char *str);
 int count_pip(char *str);
 int is_redir(type key);
 int is_double_sep(type key1, type key2);
-t_lexer *lexer(char *str);
+t_lexer *lexer(t_prompt *prompt, char *str);
 int check_token(t_lexer *head);
 int token_type(t_lexing *var, t_lexer **head);
 int lexer_error(char sep);
