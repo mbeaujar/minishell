@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 20:18:04 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/14 21:24:50 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/14 21:28:13 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,9 @@ void parse(t_lexer *tokens)
             current->key = PIP;
         if (ptr && (ptr->key == PIP || ptr->key == COMAT))
             ptr = ptr->next;
+
+
+            
         lstaddbackcommand(&list, current);
        
         printf("-----COMMAND LIST-----\n");

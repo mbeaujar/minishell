@@ -119,7 +119,7 @@ void cmd(t_prompt *prompt, char *cmd)
 
     lstaddbacklexer(&tokens, newlstlexer(ft_strdup("echo"), DEFAULT));
     lstaddbacklexer(&tokens, newlstlexer(ft_strdup("salut"), DEFAULT));
-    lstaddbacklexer(&tokens, newlstlexer(ft_strdup(">"), RIGHT));
+    lstaddbacklexer(&tokens, newlstlexer(ft_strdup("<"), RIGHT));
     lstaddbacklexer(&tokens, newlstlexer(ft_strdup("salut"), DEFAULT));
     lstaddbacklexer(&tokens, newlstlexer(ft_strdup("|"), PIP));
     lstaddbacklexer(&tokens, newlstlexer(ft_strdup("cat"), DEFAULT));

@@ -85,6 +85,9 @@ action : fclean test
 test : $(FILE_LIB) $(OBJS_TEST)
 	@$(CC) $(OBJS_TEST) -lcriterion -lncurses -L$(PATH_LIB) -l$(LIBFT) -o $(NAME_TEST)
 
+run: 
+	docker build -t criterion .
+	docker run -it criterion
 
 # --verbose
 
