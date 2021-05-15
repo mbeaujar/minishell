@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 21:59:13 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/04/30 20:15:48 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/15 17:13:47 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,3 @@ void disablerawmode(struct termios orig_termios)
     tcsetattr(STDIN_FILENO, TCSAFLUSH, &orig_termios);
     //check error tcsetattr
 }
-

@@ -597,3 +597,69 @@ Test(lexer_token, create_token_50)
 	cr_expect(test_token(str, expected));
 }
 
+Test(lexer_token, create_token_51)
+{
+	// ls bonjour;
+	char str[] = "echo salut \"<\" \"|\" | '|' '<<<<<<' <<<<<>file1<file2";
+	char *expected[] = { "echo", "salut", "<", "|", "|", "|", "<<<<<<", "<<<<<", ">", "file1", "<", "file2", NULL};
+	cr_expect(test_token(str, expected));
+}
+
+Test(lexer_token, create_token_52)
+{
+	// ls bonjour;
+	char str[] = "echo ; \";\"";
+	char *expected[] = { "echo", ";", ";", NULL};
+	cr_expect(test_token(str, expected));
+}
+
+//------------------------------------------------------------------//
+
+Test(lexer_type, set_type_error_1)
+{
+	char str[] = "echo < file1 salut ; < < ls > file2 arg1 arg2";
+	t_lexer *head = lexer(str);
+	cr_expect(head == NULL);
+	freelstlexer(&head);
+}
+
+Test(lexer_type, set_type_error_2)
+{
+	char str[] = "echo < file1 salut >";
+	t_lexer *head = lexer(str);
+	cr_expect(head == NULL);
+	freelstlexer(&head);
+}
+
+Test(lexer_type, set_type_error_3)
+{
+	char str[] = "echo < file1 salut <";
+	t_lexer *head = lexer(str);
+	cr_expect(head == NULL);
+	freelstlexer(&head);
+}
+
+Test(lexer_type, set_type_error_4)
+{
+	char str[] = "echo < file1 salut |";
+	t_lexer *head = lexer(str);
+	cr_expect(head == NULL);
+	freelstlexer(&head);
+}
+
+Test(lexer_type, set_type_error_5)
+{
+	char str[] = "; echo < file1 salut";
+	t_lexer *head = lexer(str);
+	cr_expect(head == NULL);
+	freelstlexer(&head);
+}
+
+Test(lexer_type, set_type_error_6)
+{
+	char str[] = "echo < file1 <<< salut";
+	t_lexer *head = lexer(str);
+	cr_expect(head == NULL);
+	freelstlexer(&head);
+}
+

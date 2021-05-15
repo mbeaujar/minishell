@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/15 14:53:08 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/15 18:18:19 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,13 @@ void new_token(t_lexer **head, char *buffer, int len, int *y);
 void token_backslash(char *str, int *i, char sep);
 int token_sep(char *str, int *i, char *sep);
 void printlexer(char *str);
+int count_redir(char *str, char redir);
+int count_comat(char *str);
+int count_pip(char *str);
+int is_redir(type key);
+int is_double_sep(type key1, type key2);
 t_lexer *lexer(char *str);
+int check_token(t_lexer *head);
 int token_type(t_lexing *var, t_lexer **head);
 int lexer_error(char sep);
 

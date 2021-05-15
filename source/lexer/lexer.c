@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 16:53:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/14 16:53:46 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/15 18:24:04 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,20 @@ t_lexer *lexer(char *str)
         freelstlexer(&head);
         return (NULL);
     }
-    // check token if valid
-    // search // find tvar->ype for evervar->y token
+    if (check_token(head) == 0)
+    {
+        free(var.buffer);
+        freelstlexer(&head);
+        return (NULL);
+    }
     free(var.buffer);
     return (head);
 }
   
 /* int main(void)
 {
-    char str[] = "echo salut <>file1";
-    //char str[] = "< file1 ;|;|echo salut>file2";
+    //char str[] = "echo salut \"<\" \"|\" | '|' '<<<<<<' <<<<<>file1<file2";
+    char str[] = "echo < file1 salut ; < ls > file2 arg1 arg2";
     t_lexer *head = lexer(str);
     if (!head)
         printf("error\n");

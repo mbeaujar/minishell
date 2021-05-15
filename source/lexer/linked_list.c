@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 19:21:58 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/14 02:22:10 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/15 17:14:39 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ void printlexer(char *str)
         return;
     while (*str)
     {
-        if (*str > 0)
+/*         if (*str > 0)
             ft_putchar_fd(*str, STDOUT_FILENO);
         else
-            ft_putchar_fd(-(*str), STDOUT_FILENO);
-        //ft_putchar_fd(*str, STDOUT_FILENO);
+            ft_putchar_fd(-(*str), STDOUT_FILENO); */
+        ft_putchar_fd(*str, STDOUT_FILENO);
         str++;
     }
 }
@@ -88,7 +88,7 @@ void printlstlexer(t_lexer *head)
         ft_putstr_fd("token : ", 0);
        // ft_putchar_fd('\'', 0);
         printlexer(head->token);
-        ft_putchar_fd(' ', 0);
+        ft_putchar_fd('\t', 0);
         if(head->key == PIP)
             ft_putstr_fd("PIP", 1);
         if(head->key == COMAT)
@@ -99,7 +99,8 @@ void printlstlexer(t_lexer *head)
             ft_putstr_fd("RIGHT", 1);
         if(head->key == DEFAULT)
             ft_putstr_fd("DEFAULT", 1);
-
+        if (head->key == PATH)
+            ft_putstr_fd("PATH", 1);
         //ft_putchar_fd('\'', 0);
         ft_putchar_fd('\n', 0);
         head = head->next;
