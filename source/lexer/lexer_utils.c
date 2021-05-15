@@ -32,7 +32,7 @@ void escape_space(char *str, int *i, int state)
 void new_token(t_lexer **head, char *buffer, int len, int *y)
 {
     buffer[*y] = 0;
-    lstaddbacklexer(head, newlstlexer(ft_strdup(buffer)));
+    lstaddbacklexer(head, newlstlexer(ft_strdup(buffer), DEFAULT));
     ft_bzero(buffer, len);
     *y = 0;
 }

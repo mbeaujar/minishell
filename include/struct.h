@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 22:43:04 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/05/14 15:09:49 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/14 20:21:28 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,20 @@ typedef struct s_setup
 	int debug;
 } t_setup;
 
+typedef struct s_command
+{
+    char **args;
+	
+    int std_out;
+    int std_in;
+    int std_err;
+
+	type key;
+
+    struct s_command *previous;
+    struct s_command *next;
+} t_command;
+
 /*
 ** returned == $? -- code de retour de la commande
 */
@@ -81,10 +95,9 @@ typedef struct s_prompt
 	t_buffer *buffer;
 	int  indice;
 	char **envp;
-	t_env *env;
 	t_setup setup;
 
-	
+	t_env *env;
 	int returned;
 } t_prompt;
 

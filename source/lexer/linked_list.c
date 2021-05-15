@@ -12,13 +12,14 @@
 
 #include "minishell.h"
 
-t_lexer *newlstlexer(char *token)
+t_lexer *newlstlexer(char *token, type key)
 {
     t_lexer *new;
 
     if (!(new = malloc(sizeof(t_lexer) * 1)))
         return (NULL);
     new->token = token;
+    new->key = key;
     new->previous = NULL;
     new->next = NULL;
     return (new);
@@ -87,6 +88,18 @@ void printlstlexer(t_lexer *head)
         ft_putstr_fd("token : ", 0);
        // ft_putchar_fd('\'', 0);
         printlexer(head->token);
+        ft_putchar_fd(' ', 0);
+        if(head->key == PIP)
+            ft_putstr_fd("PIP", 1);
+        if(head->key == COMAT)
+            ft_putstr_fd("COMAT", 1);
+        if(head->key == LEFT)
+            ft_putstr_fd("LEFT", 1);
+        if(head->key == RIGHT)
+            ft_putstr_fd("RIGHT", 1);
+        if(head->key == DEFAULT)
+            ft_putstr_fd("DEFAULT", 1);
+
         //ft_putchar_fd('\'', 0);
         ft_putchar_fd('\n', 0);
         head = head->next;

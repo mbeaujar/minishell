@@ -6,9 +6,10 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/14 18:05:24 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/15 14:53:08 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 #ifndef MINISHELL_H
@@ -62,7 +63,7 @@ char **new_table_env(t_env *head);
 ** LEXER
 */
 
-t_lexer *newlstlexer(char *token);
+t_lexer *newlstlexer(char *token, type key);
 void lstaddbacklexer(t_lexer **head, t_lexer *new);
 void freelstlexer(t_lexer **begin);
 void printlstlexer(t_lexer *head);
@@ -75,6 +76,16 @@ void printlexer(char *str);
 t_lexer *lexer(char *str);
 int token_type(t_lexing *var, t_lexer **head);
 int lexer_error(char sep);
+
+
+/*
+** PARSER
+*/
+
+void parse(t_lexer *tokens);
+void lstaddbackcommand(t_command **list, t_command *new);
+t_command *newlstcommand(char **args);
+void printlstcommand(t_command *list);
 
 /*
 ** PROMPT 
@@ -129,5 +140,7 @@ t_env *search_min(t_env *head);
 int is_indexable(t_env *head);
 int max_index(t_env *head);
 void clear_index(t_env *head);
+void	ft_unleak_strjoin(char **dst, char *src);
+void	ft_argv_strjoin(char **dst, int count, ...);
 
 #endif 
