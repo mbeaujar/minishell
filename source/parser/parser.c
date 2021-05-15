@@ -6,12 +6,11 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 20:18:04 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/14 21:28:13 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/15 15:54:13 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
- #include <sys/stat.h>
 
 /*
 ** check file -- stat
@@ -19,9 +18,19 @@
 ** RIGHT = stdout
 */
 
+/*
+** Check si un fd est à -1 a chaque commande à l'execution et non au parsing
+**
+** bash-4.4# ls ; echo salut < file1 ; ls
+** bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+** bash: file1: No such file or directory
+** bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+*/
+
 int open_path(char *path, type key)
 {
     int fd;
+    struct stat file;
     int tmp;
 
     fd = -1;
@@ -34,7 +43,11 @@ int open_path(char *path, type key)
             fd = tmp;
     }
     else if (key == LEFT)
+    {
+        if (stat(path, &file) == -1)
+            return (-1);
         fd = open(path, O_RDONLY);
+    }
     return (fd);
 }
 

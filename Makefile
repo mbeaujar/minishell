@@ -11,7 +11,7 @@ NAME=minishell
 NAME_TEST=test
 CC=clang
 RM=rm -f
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
 SRCS_DIRECTORY=source/
 HEADER=include
 PATH_LIB=libft/
@@ -56,6 +56,8 @@ SRCS =  main.c \
 		lexer/lexer.c \
 		lexer/linked_list.c \
 		lexer/lexer_utils.c \
+		lexer/count_char.c \
+		lexer/search_type.c \
 		parser/parser.c \
 		parser/linked_list.c
 

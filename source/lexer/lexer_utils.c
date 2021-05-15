@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 17:45:45 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/14 15:10:55 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/15 18:49:58 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void token_backslash(char *str, int *i, char sep)
         str[*i] = -str[*i];
     if (sep != 0)
     {
-        if (str[*i] == '<' || str[*i] == '>' || str[*i] == ';')
+        if (sep == '"' && (str[*i] == '<' || str[*i] == '>' || str[*i] == ';' || str[*i] == '|'))
             str[*i] = -str[*i];
     }
 }
@@ -86,7 +86,7 @@ int lexer_error(char sep)
 {
     if (sep != 0)
     {
-        ft_putstr_fd("Lexer error -- multiline\n", STDOUT_FILENO);
+        ft_putstr_fd("bash: syntax error multiline\n", STDOUT_FILENO);
         return (0);
     }
     return (1);
@@ -94,17 +94,27 @@ int lexer_error(char sep)
 
 int token_type(t_lexing *var, t_lexer **head)
 {
+    char c;
+
+    c = 0;
     if (var->sep == 0 && ((var->str[var->i] == ';' || var->str[var->i] == '<' || var->str[var->i] == '>' || var->str[var->i] == '|')))
     {
         if (var->buffer[0] != 0)
             new_token(head, var->buffer, var->len, &var->y);
-        var->buffer[var->y++] = var->str[var->i++];
+        c = var->str[var->i];
+        while (var->str[var->i] == c)
+            var->buffer[var->y++] = var->str[var->i++];
         new_token(head, var->buffer, var->len, &var->y);
         escape_space(var->str, &var->i, 0);
         if (!var->str[var->i])
             return (0);
+        token_sep(var->str, &var->i, &var->sep);
         if (var->str[var->i] == ';' || var->str[var->i] == '<' || var->str[var->i] == '>' || var->str[var->i] == '|')
+        {
+            if (var->sep != 0)
+                var->str[var->i] = -var->str[var->i];
             token_type(var, head);
+        }
     }
     return (1);
 }

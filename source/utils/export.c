@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 18:44:07 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/07 21:59:16 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/14 18:10:18 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,25 @@ void clear_index(t_env *head)
             head->index = -1;
         head = head->next;
     }
+}
+
+
+char *return_export_name(char *env)
+{
+	int		i;
+	char	*name;
+
+	i = 0;
+	while (env[i] && env[i] != '=')
+		i++;
+	if (!(name = malloc(sizeof(char) * (i + 1))))
+		return (NULL);
+	i = 0;
+	while (env[i] && env[i] != '=')
+	{
+		name[i] = env[i];
+		i++;
+	}
+	name[i] = 0;
+	return (name);
 }

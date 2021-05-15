@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:28:32 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/14 16:17:22 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/14 18:16:07 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 ** export =         -- bash: export: `=': not a valid identifier        -- $? == 1
 ** export RA=s =    -- bash: export: `=': not a valid identifier        -- $? == 1
 ** Si il y a une erreur $? == 1 meme si il y a des variables qui sont set 
+** export ro=salut=yo
 */
 
 /*
@@ -32,7 +33,7 @@
 ** export $ 
 ** export var?
 ** export 1
-** export ro=salut=yo
+** export 1=salut
 */
 
 void sort_export(t_env *head)
@@ -87,24 +88,18 @@ void display_export(t_env *head)
     }
 }
 
-void new_var(t_prompt *prompt, char **args, int i)
+void new_var(t_prompt *prompt, char *args, char *name, char *value)
 {
     t_env *find;
-    char *name;
-    char *value;
 
     find = NULL;
-    value = NULL;
-    name = return_env_name(args[i]);
-    if (is_value(args[i]))
-        value = return_env_value(args[i]);
     find = search_env(prompt->env, name);
     if (find == NULL)
     {
         free(name);
         if (value != NULL)
             free(value);
-        addlstenv(&prompt->env, ft_strdup(args[i]));
+        addlstenv(&prompt->env, ft_strdup(args));
     }
     else if (value != NULL)
     {
@@ -118,19 +113,29 @@ void new_var(t_prompt *prompt, char **args, int i)
 void export_var(t_prompt *prompt, char **args)
 {
     int i;
+    char *name;
+    char *value;
 
     i = 1;
+    name = NULL;
+    value = NULL;
     while (args[i])
     {
-        if (args[i][0] == '=')
+        name = return_env_name(args[i]);
+        if (is_value(args[i]))
+            value = return_env_value(args[i]);
+        if (args[i][0] == '=' || is_valid_identifier(name) == 0)
         {
             ft_putstr_fd("bash: export: `", STDOUT_FILENO);
             ft_putstr_fd(args[i], STDOUT_FILENO);
             ft_putstr_fd("': not a valid identifier\n", STDOUT_FILENO);
+            free(name);
+            if (value)
+                free(value);
             prompt->returned = 1;
         }
-        else
-            new_var(prompt, args, i);
+        else if (name != NULL && name[0] != 0)
+            new_var(prompt, args[i], name, value);
         i++;
     }
 }
