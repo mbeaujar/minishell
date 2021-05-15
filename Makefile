@@ -11,7 +11,7 @@ NAME=minishell
 NAME_TEST=test
 CC=clang
 RM=rm -f
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 SRCS_DIRECTORY=source/
 HEADER=include
 PATH_LIB=libft/
@@ -21,7 +21,6 @@ OBJS_DIRECTORY=objects/
 
 SRCS =  main.c \
 		cmd.c \
-		test.c \
 		builtin/cd.c \
 		builtin/unset.c \
 		builtin/pwd.c \
@@ -59,15 +58,20 @@ SRCS =  main.c \
 		lexer/count_char.c \
 		lexer/search_type.c \
 		parser/parser.c \
-		parser/linked_list.c
+		parser/linked_list.c \
+		parser/interpreter.c
+
+SRCS_TEST = tester/lexer.c
 
 OBJ = ${SRCS:.c=.o}
 
-OBJ_TEST = $(addprefix $(OBJS_DIRECTORY),$(OBJ))
+# OBJ_TESTS = $(addprefix $(OBJS_DIRECTORY),$(OBJ)) \
+# 			$(addprefix $(OBJS_DIRECTORY),$(OBJ_TEST)) \
+
 
 OBJS = $(addprefix $(OBJS_DIRECTORY), $(filter-out test.o,$(OBJ)))
 
-OBJS_TEST = $(filter-out $(OBJS_DIRECTORY)main.o,$(OBJ_TEST))
+# OBJS_TEST = $(filter-out $(OBJS_DIRECTORY)main.o,$(OBJ_TESTS))
 
 $(OBJS_DIRECTORY)%.o : $(SRCS_DIRECTORY)%.c
 	@$(CC) $(CFLAGS) $< -I$(HEADER) -c -o $@
@@ -84,12 +88,9 @@ $(NAME) : $(OBJS)
 
 action : fclean test
 
-test : $(FILE_LIB) $(OBJS_TEST)
-	@$(CC) $(OBJS_TEST) -lcriterion -lncurses -L$(PATH_LIB) -l$(LIBFT) -o $(NAME_TEST)
+tester: re
+	@sh Criterion/build.sh
 
-run: 
-	docker build -t criterion .
-	docker run -it criterion
 
 # --verbose
 

@@ -116,6 +116,7 @@ void cmd(t_prompt *prompt, char *cmd)
 
 
     t_lexer *tokens = NULL;
+    t_command *list = NULL;
 
     lstaddbacklexer(&tokens, newlstlexer(ft_strdup("echo"), DEFAULT));
     lstaddbacklexer(&tokens, newlstlexer(ft_strdup("salut"), DEFAULT));
@@ -125,13 +126,14 @@ void cmd(t_prompt *prompt, char *cmd)
     lstaddbacklexer(&tokens, newlstlexer(ft_strdup("cat"), DEFAULT));
 
 
-    parse(tokens);
+    list = parse(tokens);
 
+    // printlstcommand(list);
+
+    interpreter(list);
 
     freelstlexer(&tokens);
-    
-
-
+    freelstcommand(&list);
 
     // if (ft_strncmp(args[0], "ls", 2) == 0)
     //     ls_for_check(prompt, args);

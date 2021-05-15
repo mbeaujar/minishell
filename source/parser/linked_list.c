@@ -51,11 +51,28 @@ void printlstcommand(t_command *list)
 
     while(ptr != NULL) 
     {
+        ft_printf("----COMMAND----\n");
         ft_printtab(ptr->args);
         ft_printf("\nstd err: %d\nstd in: %d\nstd out: %d\n", ptr->std_err, ptr->std_in, ptr->std_out);
         ptr = ptr->next;
     }
+}
 
+void freelstcommand(t_command **list)
+{
+    t_command *tmp;
+    (void)tmp;
 
-    
+    while((*list)->previous != NULL)
+        *list = (*list)->previous;
+
+    while((*list) != NULL)
+    {
+        if((*list)->std_in != -1 && (*list)->std_in != 0)
+            close((*list)->std_in);
+        tmp = *list;
+        *list = (*list)->next;
+        free_tab(tmp->args);
+        free(tmp);
+    }
 }
