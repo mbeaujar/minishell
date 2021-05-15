@@ -4,6 +4,7 @@ test
 a.out
 Escaped.txt
 Dockerfile
+.vscode
 
 # Prerequisites
 *.d
