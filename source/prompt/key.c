@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 19:51:16 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/13 20:25:05 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/16 16:16:55 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void execute_commande(t_prompt *prompt)
         if (!prompt->buffer->previous)
         {
             prompt->buffer->modified = 0;
-            cmd(prompt, ft_secure_strdup(prompt->buffer->buff));
+            cmd(prompt, prompt->buffer->buff);
             lstaddfrontbuffer(&prompt->buffer, newlstbuffer(ft_calloc(10, sizeof(char))));
             g_buffer(FREE, NULL);
             g_buffer(SET, prompt->buffer);
@@ -64,7 +64,7 @@ void execute_commande(t_prompt *prompt)
         else
         {
             prompt->buffer->modified = 0;
-            cmd(prompt, ft_secure_strdup(prompt->buffer->buff));
+            cmd(prompt, prompt->buffer->buff);
             reset_buffer(prompt);
             g_buffer(SET, prompt->buffer);
         }

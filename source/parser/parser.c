@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 20:18:04 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/15 15:54:13 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/16 16:18:30 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,6 @@
 ** check file -- stat
 ** LEFT = stdin
 ** RIGHT = stdout
-*/
-
-/*
-** Check si un fd est à -1 a chaque commande à l'execution et non au parsing
-**
-** bash-4.4# ls ; echo salut < file1 ; ls
-** bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
-** bash: file1: No such file or directory
-** bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
 */
 
 int open_path(char *path, type key)
