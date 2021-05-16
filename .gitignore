@@ -5,6 +5,13 @@ a.out
 Escaped.txt
 .vscode
 objects/*/*.c
+salut
+file1
+file2
+a
+b
+c
+d
 
 # Prerequisites
 *.d
