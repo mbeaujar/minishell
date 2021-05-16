@@ -96,7 +96,7 @@ typedef struct s_prompt
 	int  indice;
 	char **envp;
 	t_setup setup;
-
+	t_command *list;
 	t_env *env;
 	int returned;
 } t_prompt;

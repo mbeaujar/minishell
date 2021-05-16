@@ -43,6 +43,7 @@ void init_prompt(t_prompt *prompt)
 	prompt->indice = 0;
 	prompt->env = NULL;
 	prompt->returned = 0;
+	prompt->list = NULL;
 }
 
 int main(int argc, char **argv, char **envp)
