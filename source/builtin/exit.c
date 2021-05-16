@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:28:30 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/12 20:12:07 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/16 13:12:03 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int valid_arg(char *arg)
     i = 0;
     while (arg[i])
     {
-        if ((i == 0 && arg[i] == '-') || (i == 0 && arg[i] == '+'))
+        if (arg[i + 1] && ((i == 0 && arg[i] == '-') || (i == 0 && arg[i] == '+')))
             i++;
         if (arg[i] < '0' || arg[i] > '9')
             return (0);
