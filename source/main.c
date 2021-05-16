@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arthurtinseau <arthurtinseau@student.42    +#+  +:+       +#+        */
+/*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:10:06 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/07 19:26:17 by arthurtinse      ###   ########.fr       */
+/*   Updated: 2021/05/16 15:13:59 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,10 @@ int main(int argc, char **argv, char **envp)
 	enablerawmode(prompt.raw);
 
 	prompt.env = fill_env(envp, &prompt);	
+	if (prompt.setup.debug == 1)
+		printlstenv(prompt.env);
 	// recup les env 
-
+	find_env_shlvl(&prompt);
 	read_stdin(&prompt);
     g_buffer(FREE, NULL);
     freelstbuffer(&prompt.buffer);

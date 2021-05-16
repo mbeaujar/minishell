@@ -1,8 +1,9 @@
 #include "minishell.h"
 
-void interpreter(t_command *list) {
-    
-    
+void interpreter(t_command *list)
+{
+    (void)list;
 
-    printlstcommand(list);
+
+   // printlstcommand(list);
 }

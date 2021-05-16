@@ -113,8 +113,6 @@ void cmd(t_prompt *prompt, char *cmd)
     args = ft_split(cmd, ' ');
     //printf("%s\n", cmd);
 
-
-
     t_lexer *tokens = NULL;
     t_command *list = NULL;
 
@@ -135,6 +133,14 @@ void cmd(t_prompt *prompt, char *cmd)
     freelstlexer(&tokens);
     freelstcommand(&list);
 
+    if (ft_strcmp(cmd, "echo $SHLVL") == 0)
+    {
+        search = search_env(prompt->env, "SHLVL");
+        if (search)
+            printf("name : '%s' value : '%s'\n", search->name, search->value);
+        else
+            printf("NULL\n");
+    }
     // if (ft_strncmp(args[0], "ls", 2) == 0)
     //     ls_for_check(prompt, args);
     // if (prompt->setup.debug == 1)

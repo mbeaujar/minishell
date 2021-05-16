@@ -42,6 +42,7 @@ SRCS =  main.c \
 		env/linked_list.c \
 		env/split.c \
 		env/create.c \
+		env/shlvl.c \
 		utils/ft_create_env.c \
 		utils/ft_realloc.c \
 		utils/ft_strjoin_env.c \
@@ -65,13 +66,11 @@ SRCS_TEST = tester/lexer.c
 
 OBJ = ${SRCS:.c=.o}
 
-# OBJ_TESTS = $(addprefix $(OBJS_DIRECTORY),$(OBJ)) \
-# 			$(addprefix $(OBJS_DIRECTORY),$(OBJ_TEST)) \
-
+OBJ_TESTS = $(addprefix $(OBJS_DIRECTORY),$(OBJ)) 
 
 OBJS = $(addprefix $(OBJS_DIRECTORY), $(filter-out test.o,$(OBJ)))
 
-# OBJS_TEST = $(filter-out $(OBJS_DIRECTORY)main.o,$(OBJ_TESTS))
+OBJS_TEST = $(filter-out $(OBJS_DIRECTORY)main.o,$(OBJ_TESTS))
 
 $(OBJS_DIRECTORY)%.o : $(SRCS_DIRECTORY)%.c
 	@$(CC) $(CFLAGS) $< -I$(HEADER) -c -o $@

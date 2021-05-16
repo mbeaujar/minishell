@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 22:43:04 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/05/14 20:21:28 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/16 15:22:15 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ typedef struct s_prompt
 	struct termios orig_termios;
 	t_buffer *buffer;
 	int  indice;
-	char **envp;
 	t_setup setup;
 
 	t_env *env;

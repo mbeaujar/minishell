@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialization.c                                   :+:      :+:    :+:   */
+/*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 17:50:00 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/15 19:30:03 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/16 15:24:52 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,12 @@
 ** mettre l'index de la variable _ à -2
 */
 
+char *recup_path()
+
 void find_env_path(t_prompt *prompt)
 {
     t_env *find;
 
     find = search_env(prompt->env, "PATH");
-    if (PATH)
+    
 }
