@@ -83,7 +83,7 @@ t_command *create_token_range(t_lexer **start)
     return (list);
 }
 
-void parse(t_lexer *tokens)
+t_command *parse(t_lexer *tokens)
 {
     t_lexer *ptr;
     t_command *list = NULL;
@@ -101,9 +101,9 @@ void parse(t_lexer *tokens)
             current->key = PIP;
         if (ptr && (ptr->key == PIP || ptr->key == COMAT))
             ptr = ptr->next;
+
         lstaddbackcommand(&list, current);
-       
-        printf("-----COMMAND LIST-----\n");
-        printlstcommand(list);
     }
+
+    return (list);
 }

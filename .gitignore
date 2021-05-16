@@ -3,8 +3,15 @@ minishell
 test
 a.out
 Escaped.txt
-Dockerfile
 .vscode
+objects/*/*.c
+salut
+file1
+file2
+a
+b
+c
+d
 
 # Prerequisites
 *.d

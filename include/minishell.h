@@ -88,11 +88,12 @@ int lexer_error(char sep);
 ** PARSER
 */
 
-void parse(t_lexer *tokens);
+t_command *parse(t_lexer *tokens);
 void lstaddbackcommand(t_command **list, t_command *new);
 t_command *newlstcommand(char **args);
 void printlstcommand(t_command *list);
-
+void interpreter(t_command *list);
+void freelstcommand(t_command **list);
 /*
 ** PROMPT 
 */
