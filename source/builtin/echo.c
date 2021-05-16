@@ -33,13 +33,13 @@ void echoo(t_prompt *prompt, char **args)
             line_return = i++;
         while (args[i])
         {
-            ft_putstr_fd(args[i], 1);
+            ft_putstr_fd(args[i], prompt->list->std_out);
             if (args[i + 1])
-                ft_putchar_fd(' ', 1);
+                ft_putchar_fd(' ', prompt->list->std_out);
             i++;
         }
     }
     if (line_return == 0)
-        ft_putchar_fd('\n', 1);
+        ft_putchar_fd('\n', prompt->list->std_out);
     prompt->returned = 0;
 }

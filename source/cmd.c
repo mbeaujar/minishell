@@ -104,67 +104,18 @@ void debug(t_prompt *prompt, char **args, t_env *search)
 
 void cmd(t_prompt *prompt, char *cmd)
 {
-    //(void)prompt;
-    t_env *search;
-    char **args;
-    (void)prompt;
+    t_lexer *tokens;
 
-    search = NULL;
-    args = ft_split(cmd, ' ');
-    //printf("%s\n", cmd);
-
-    t_lexer *tokens = NULL;
-    t_command *list = NULL;
-
-    lstaddbacklexer(&tokens, newlstlexer(ft_strdup("echo"), DEFAULT));
-    lstaddbacklexer(&tokens, newlstlexer(ft_strdup("salut"), DEFAULT));
-    lstaddbacklexer(&tokens, newlstlexer(ft_strdup("<"), RIGHT));
-    lstaddbacklexer(&tokens, newlstlexer(ft_strdup("salut"), DEFAULT));
-    lstaddbacklexer(&tokens, newlstlexer(ft_strdup("|"), PIP));
-    lstaddbacklexer(&tokens, newlstlexer(ft_strdup("cat"), DEFAULT));
-
-
-    list = parse(tokens);
-
-    // printlstcommand(list);
-
-    interpreter(list);
-
-    freelstlexer(&tokens);
-    freelstcommand(&list);
-
-    if (ft_strcmp(cmd, "echo $SHLVL") == 0)
+    tokens = lexer(prompt, cmd);
+    if (tokens == NULL)
     {
-        search = search_env(prompt->env, "SHLVL");
-        if (search)
-            printf("name : '%s' value : '%s'\n", search->name, search->value);
-        else
-            printf("NULL\n");
+        free(cmd);
+        return ;
     }
-    // if (ft_strncmp(args[0], "ls", 2) == 0)
-    //     ls_for_check(prompt, args);
-    // if (prompt->setup.debug == 1)
-    //     printf("\nla commande : '%s'\n", cmd);
-    // if (args[1])
-    //     debug(prompt, args, search);
-    // if (ft_strncmp(args[0], "exit", 4) == 0)
-    //     exitt(prompt, args);
-    // if (ft_strncmp(args[0], "env", 3) == 0)
-    //     env(prompt, args);
-    // if (ft_strncmp(args[0], "export", 6) == 0)
-    //     export(prompt, args);
-    // if (ft_strncmp(args[0], "cd", 2) == 0)
-    //     cd(prompt, args);
-    // if (ft_strncmp(args[0], "history", 7) == 0)
-    //     printlstbuffer(prompt->buffer);
-    // if (ft_strncmp(args[0], "unset", 5) == 0)
-    //     unset(prompt, args);
-    // if (ft_strncmp(args[0], "pwd", 3) == 0)
-    //     pwd(prompt);
-    // if (ft_strncmp(args[0], "echo", 4) == 0)
-    //     echoo(prompt, args);
-
-
+    prompt->list = parse(tokens);
+    // printlstcommand(list);
+    interpreter(prompt);
+    freelstlexer(&tokens);
+    freelstcommand(&prompt->list);
     free(cmd);
-    free_tab(args);
 }

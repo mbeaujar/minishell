@@ -74,5 +74,6 @@ void freelstcommand(t_command **list)
         *list = (*list)->next;
         free_tab(tmp->args);
         free(tmp);
+        tmp = NULL;
     }
 }
