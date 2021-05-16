@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 16:53:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/15 19:02:11 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/15 19:04:20 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ t_lexer *lexer(t_prompt *prompt, char *str)
     {
         free(var.buffer);
         freelstlexer(&head);
+        prompt->returned = 2;
         return (NULL);
     }
     free(var.buffer);
