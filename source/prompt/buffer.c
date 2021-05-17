@@ -88,8 +88,6 @@ char *delete_char_buffer(char *str, int len)
     int i;
     int j;
 
-    ft_printf("--\n%s, %d\n", str, len);
-
     new = malloc(sizeof(char) * (len + 1));
     if (!new)
         return (str);

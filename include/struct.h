@@ -54,7 +54,7 @@ typedef struct s_setup
 
 typedef struct s_command
 {
-    char **args;
+    char *args;
 	
     int std_out;
     int std_in;

@@ -1,5 +1,3 @@
-#!/bin/bash
-
 #only inside the container
 
 # echo "---------------LEXER TEST---------------"

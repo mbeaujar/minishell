@@ -13,7 +13,7 @@
 #include "minishell.h"
 
 
-t_command *newlstcommand(char **args)
+t_command *newlstcommand(char *args)
 {
     t_command *new;
 
@@ -64,7 +64,7 @@ void printlstcommand(t_command *list)
     while(ptr != NULL) 
     {
         ft_printf("----COMMAND----\n");
-        ft_printtab(ptr->args);
+        ft_putstr_fd(ptr->args, 0);
         ft_printf("\nstd err: %d\nstd in: %d\nstd out: %d\n", ptr->std_err, ptr->std_in, ptr->std_out);
         ptr = ptr->next;
     }
@@ -84,7 +84,7 @@ void freelstcommand(t_command **list)
             close((*list)->std_in);
         tmp = *list;
         *list = (*list)->next;
-        free_tab(tmp->args);
+        free(tmp->args);
         free(tmp);
         tmp = NULL;
     }

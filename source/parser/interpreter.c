@@ -12,10 +12,79 @@
 
 #include "minishell.h"
 
-void interpreter(t_prompt *prompt) {
 
-     printlstcommand(prompt->list);
+// char *pathbin_command(char *searched, t_prompt *prompt)
+// {
     
+// }
+
+char *replace_occurence(char *src, char *key, char *value)
+{
+    char *new;
+    char *coord;
+    
+    new = NULL;
+    coord = ft_strnstr(src, key, ft_strlen(src));
+    ft_unleak_strjoin(&new, ft_substr(src, 0, ft_strlen(src) - ft_strlen(coord)));
+    ft_unleak_strjoin(&new, value);
+    ft_unleak_strjoin(&new, ft_substr(coord, ft_strlen(key), ft_strlen(coord) - ft_strlen(key)));
+    return (new);
+}
+
+void set_env_var(t_command *command, t_prompt *prompt) 
+{
+    t_env *env;
+    int i;
+    int start;
+    int pos;
+
+    (void)prompt;
+
+    i = 0;
+    start = 0;
+    pos = 0;
+    env = NULL;
+    if(!command->args)
+        exit(0);
+
+    while(command->args[i])
+    {
+        if(command->args[i] == '$')
+        {
+            start = i;
+            while(command->args[i] != ' ' && command->args[i] != '\0') {
+                i++;
+                pos++;
+            }
+            i = start; 
+            env = search_env(prompt->env, ft_substr(command->args, start + 1, pos - 1));
+            command->args = replace_occurence(command->args, ft_substr(command->args, start , pos), env != NULL ? env->value : NULL);
+            if(env != NULL)
+                i += ft_strlen(env->value);
+            else
+                i += pos;
+        }
+        i++;
+    }
+}
+
+void interpreter(t_prompt *prompt)
+{
+    t_command *ptr;
+
+    ptr = prompt->list;
+    while(ptr != NULL)
+    {
+
+        set_env_var(ptr, prompt);
+
+        if (ft_strncmp(ptr->args, "echo", 4) == 0)
+            echoo(prompt, ft_split(ptr->args, ' '));
+        ptr = ptr->next;
+    }
+
+
+    // printlstcommand(prompt->list);
     // if (ft_strncmp(args[0], "ls", 2) == 0)
     //     ls_for_check(prompt, args);
     // if (prompt->setup.debug == 1)
@@ -36,7 +105,5 @@ void interpreter(t_prompt *prompt) {
     //     unset(prompt, args);
     // if (ft_strncmp(args[0], "pwd", 3) == 0)
     //     pwd(prompt);
-    if (ft_strncmp(prompt->list->args[0], "echo", 4) == 0)
-        echoo(prompt, prompt->list->args);
-
+    
 }

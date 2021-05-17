@@ -1,0 +1,1 @@
+# quand on affiche l'historique avec echo -n , sa efface le result du echo

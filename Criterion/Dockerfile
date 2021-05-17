@@ -15,7 +15,7 @@ COPY libtester.a /tmp
 COPY run.sh /tmp
 
 WORKDIR /tmp
-CMD ./run.sh
+CMD sh run.sh
 
 # CMD ar -cvq libtester.a */*.o
 # CMD mv libtester.a ..

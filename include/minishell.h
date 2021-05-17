@@ -91,7 +91,7 @@ int lexer_error(char sep);
 
 t_command *parse(t_lexer *tokens);
 void lstaddbackcommand(t_command **list, t_command *new);
-t_command *newlstcommand(char **args);
+t_command *newlstcommand(char *args);
 void printlstcommand(t_command *list);
 void interpreter(t_prompt *prompt);
 void freelstcommand(t_command **list);
@@ -151,5 +151,6 @@ void clear_index(t_env *head);
 void	ft_unleak_strjoin(char **dst, char *src);
 void	ft_argv_strjoin(char **dst, int count, ...);
 char *ft_secure_strdup(const char *str);
+char *ft_strfrom_tab(char **argv, char *sep);
 
 #endif 

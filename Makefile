@@ -53,6 +53,7 @@ SRCS =  main.c \
 		utils/ft_argv_strjoin.c \
 		utils/ft_unleak_strjoin.c \
 		utils/ft_secure_strdup.c \
+		utils/ft_strfrom_tab.c \
 		utils/export.c \
 		lexer/lexer.c \
 		lexer/linked_list.c \

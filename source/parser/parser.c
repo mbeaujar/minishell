@@ -69,8 +69,7 @@ t_command *create_token_range(t_lexer **start)
         }
         (*start) = (*start)->next;
     }
-    list->args = ft_split(args, ' ');
-    free(args);
+    list->args = args;
     return (list);
 }
 
