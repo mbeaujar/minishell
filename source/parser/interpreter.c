@@ -74,13 +74,19 @@ void set_env_var(t_command *command, t_prompt *prompt)
 void interpreter(t_prompt *prompt)
 {
     t_command *ptr;
+    int i;
 
     ptr = prompt->list;
     while(ptr != NULL)
     {
-
+        i = 0;
         set_env_var(ptr, prompt);
-
+        while(ptr->args[i])
+        {
+            if(ptr->args[i] < 0)
+                ptr->args[i] = -ptr->args[i];
+            i++;
+        }
         if (ft_strncmp(ptr->args, "echo", 4) == 0)
             echoo(prompt, ft_split(ptr->args, ' '));
         ptr = ptr->next;
