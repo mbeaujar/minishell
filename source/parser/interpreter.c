@@ -26,8 +26,11 @@ char *replace_occurence(char *src, char *key, char *value)
     new = NULL;
     coord = ft_strnstr(src, key, ft_strlen(src));
     ft_unleak_strjoin(&new, ft_substr(src, 0, ft_strlen(src) - ft_strlen(coord)));
-    ft_unleak_strjoin(&new, value);
+    if(value != NULL)
+        ft_unleak_strjoin(&new, value);
     ft_unleak_strjoin(&new, ft_substr(coord, ft_strlen(key), ft_strlen(coord) - ft_strlen(key)));
+
+    free(src);
     return (new);
 }
 
