@@ -6,15 +6,13 @@ char *ft_strfrom_tab(char **argv, char *sep)
     int len;
     int i;
     char *str = NULL;
-    (void)sep;
+    int len_g;
 
     len = 0;
     i = 0;
-    while(i < ft_strlen_tab(argv))
-    {
-        len += ft_strlen(argv[i]);
-        i++;
-    }
+    len_g = ft_strlen_tab(argv);
+    while(i < len_g)
+        len += ft_strlen(argv[i++]);
     if((str = malloc(sizeof(char) * (len + i))) == NULL)
         return (NULL);
     len = 0;
