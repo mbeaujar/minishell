@@ -62,7 +62,7 @@ SRCS =  main.c \
 		lexer/search_type.c \
 		parser/parser.c \
 		parser/linked_list.c \
-		parser/interpreter.c
+		parser/interpreter.c 
 
 SRCS_TEST = tester/lexer.c
 

@@ -12,16 +12,18 @@
 
 #include "minishell.h"
 
-void pwd(t_prompt *prompt)
+void pwd(t_prompt *prompt, char **args)
 {
     char *cwd;
 
+    (void)args;
     if (!(cwd = malloc(sizeof(char) * (PATH_MAX + 1))))
         return ;
     if (getcwd(cwd, PATH_MAX))
     {
         prompt->returned = 0;
         ft_putstr_fd(cwd, STDOUT_FILENO);
+        ft_putchar_fd('\n', STDOUT_FILENO);
         free(cwd);
     }
     else

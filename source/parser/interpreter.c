@@ -71,10 +71,39 @@ void set_env_var(t_command *command, t_prompt *prompt)
     }
 }
 
+void nothing(t_prompt *prompt, char **args) {
+    (void)prompt;
+    (void)args;
+}
+
+
+builtin_func which_builtin(char**args)
+{
+    if(ft_strcmp(args[0], "echo") == 0)
+        return echoo;
+    if(ft_strcmp(args[0], "cd") == 0)
+        return cd;
+    if(ft_strcmp(args[0], "export") == 0)
+        return export;
+    if(ft_strcmp(args[0], "env") == 0)
+        return env;
+    if(ft_strcmp(args[0], "exit") == 0)
+        return exitt;
+    if(ft_strcmp(args[0], "pwd") == 0)
+        return pwd;
+    if(ft_strcmp(args[0], "unset") == 0)
+        return unset;
+
+
+    return nothing;
+}
+
 void interpreter(t_prompt *prompt)
 {
     t_command *ptr;
+    char **args;
     int i;
+
 
     ptr = prompt->list;
     while(ptr != NULL)
@@ -87,8 +116,8 @@ void interpreter(t_prompt *prompt)
                 ptr->args[i] = -ptr->args[i];
             i++;
         }
-        if (ft_strncmp(ptr->args, "echo", 4) == 0)
-            echoo(prompt, ft_split(ptr->args, ' '));
+        args = ft_split(ptr->args, ' ');
+        which_builtin(args)(prompt, args);
         ptr = ptr->next;
     }
 

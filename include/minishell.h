@@ -17,6 +17,8 @@
 
 #include "struct.h"
 
+
+typedef void (*builtin_func)(t_prompt *, char **);
 /*
 ** SOURCE
 */
@@ -31,7 +33,7 @@ void printerrno_fd(int fd);
 void cd(t_prompt *prompt, char **args);
 int is_valid_identifier(char *str);
 void unset(t_prompt *var, char **unset);
-void pwd(t_prompt *prompt);
+void pwd(t_prompt *prompt, char **args);
 void env(t_prompt *prompt, char **args);
 char *check_args(char **args, int (*fct)());
 void export(t_prompt *prompt, char **args);
