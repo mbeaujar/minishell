@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 16:53:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/19 15:25:48 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/19 15:48:14 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_lexer *lexer(t_prompt *prompt, char *str)
     t_lexing var;
 
     head = NULL;
+    (void)prompt;
     init_struct_lexing(&var, str);
     if (!var.buffer)
         return (NULL);
@@ -74,14 +75,14 @@ t_lexer *lexer(t_prompt *prompt, char *str)
     {
         free(var.buffer);
         freelstlexer(&head);
-        prompt->returned = 2;
+        //prompt->returned = 2;
         return (NULL);
     }
     if (check_token(head) == 0)
     {
         free(var.buffer);
         freelstlexer(&head);
-        prompt->returned = 2;
+        //prompt->returned = 2;
         return (NULL);
     }
     free(var.buffer);
@@ -91,8 +92,8 @@ t_lexer *lexer(t_prompt *prompt, char *str)
 /* int main(void)
 {
     //char str[] = "echo salut \"<\" \"|\" | '|' '<<<<<<' <<<<<>file1<file2";
-    char str[] = "echo < file1 salut ; < ls > file2 arg1 arg2";
-    t_lexer *head = lexer(str);
+    char str[] = "echo $USER\"$USER\"m$USER";
+    t_lexer *head = lexer(NULL, str);
     if (!head)
         printf("error\n");
     printlstlexer(head);

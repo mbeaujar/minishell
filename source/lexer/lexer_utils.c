@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 17:45:45 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/19 15:25:57 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/19 15:47:34 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,11 @@ int token_sep(char *str, int *i, char *sep, int *var)
         if (!str[*i + 1])
             return (0);
         (*i)++;
+        if (*var == 1 && !is_sep(str[*i]))
+        {
+            str[*i] = -str[*i];
+            *var = 0;
+        }
     }
     return (1);
 }
