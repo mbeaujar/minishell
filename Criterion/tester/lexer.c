@@ -526,6 +526,15 @@ Test(lexer_token, create_token_52)
 	cr_expect(test_token(&prompt, str, expected));
 }
 
+Test(lexer_token, create_token_53)
+{
+	t_prompt prompt;
+	// ls bonjour;
+	char str[] = "echo $USER\"e\"";
+	char *expected[] = { "echo", "$USERe", NULL};
+	cr_expect(test_token(&prompt, str, expected));
+}
+
 //------------------------------------------------------------------//
 
 Test(lexer_type, set_type_error_1)

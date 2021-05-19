@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 17:45:45 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/15 18:49:58 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/19 15:25:57 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,22 @@ void token_backslash(char *str, int *i, char sep)
     }
 }
 
-int token_sep(char *str, int *i, char *sep)
+int is_sep(char c)
+{
+    return (c == '\\' || c == '"' || c == '\'' || c == '$' || c == '>' || c == '<' || c == '|' || c == ';');
+}
+
+int token_sep(char *str, int *i, char *sep, int *var)
 {
     if ((*i > 0 && *sep == '"' && str[*i] == '"' && str[*i - 1] != '\\') || (*i > 0 && *sep == '\'' && str[*i] == '\''))
     {
         *sep = 0;
         (*i)++;
+        if (*var == 1 && !is_sep(str[*i]))
+        {
+            str[*i] = -str[*i];
+            *var = 0;
+        }
     }
     if (*i == 0 && ((*sep == 0 && str[*i] == '"') || (*sep == 0 && str[*i] == '\'')))
     {
@@ -75,8 +85,7 @@ int token_sep(char *str, int *i, char *sep)
     {
         *sep = str[*i];
         if (!str[*i + 1])
-            return (0); // error nombre de quotes impair
-                        //if (str[*i + 1] != *sep)
+            return (0);
         (*i)++;
     }
     return (1);
@@ -108,7 +117,7 @@ int token_type(t_lexing *var, t_lexer **head)
         escape_space(var->str, &var->i, 0);
         if (!var->str[var->i])
             return (0);
-        token_sep(var->str, &var->i, &var->sep);
+        token_sep(var->str, &var->i, &var->sep, &var->var);
         if (var->str[var->i] == ';' || var->str[var->i] == '<' || var->str[var->i] == '>' || var->str[var->i] == '|')
         {
             if (var->sep != 0)
@@ -116,5 +125,7 @@ int token_type(t_lexing *var, t_lexer **head)
             token_type(var, head);
         }
     }
+    if (var->str[var->i] == '$')
+        var->var = 1;
     return (1);
 }

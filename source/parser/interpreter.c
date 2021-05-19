@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 16:13:42 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/16 16:13:42 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/19 15:14:48 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void set_env_var(t_command *command, t_prompt *prompt)
         if(command->args[i] == '$')
         {
             start = i;
-            while(command->args[i] != ' ' && command->args[i] != '\0') {
+            while(command->args[i] != ' ' && command->args[i] != '\0' && command->args[i] > 0) {
                 i++;
                 pos++;
             }

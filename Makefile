@@ -64,15 +64,21 @@ SRCS =  main.c \
 		parser/linked_list.c \
 		parser/interpreter.c 
 
-SRCS_TEST = tester/lexer.c
+SRCS_TEST = Criterion/tester/lexer.c \
+			Criterion/tester/parser.c \
+			Criterion/tester/prompt.c
 
 OBJ = ${SRCS:.c=.o}
 
-OBJ_TESTS = $(addprefix $(OBJS_DIRECTORY),$(OBJ)) 
+#OBJ_TESTS = $(addprefix $(OBJS_DIRECTORY),$(OBJ)) $(SRCS_TEST)
+#OBJ_TEST= ${SRCS_TEST:.c=.o}
 
-OBJS = $(addprefix $(OBJS_DIRECTORY), $(filter-out test.o,$(OBJ)))
 
-OBJS_TEST = $(filter-out $(OBJS_DIRECTORY)main.o,$(OBJ_TESTS))
+#OBJS = $(addprefix $(OBJS_DIRECTORY), $(filter-out test.o,$(OBJ)))
+OBJS = $(addprefix $(OBJS_DIRECTORY), $(OBJ))
+
+
+OBJS_TEST = $(filter-out $(OBJS_DIRECTORY)main.o,$(OBJS))
 
 $(OBJS_DIRECTORY)%.o : $(SRCS_DIRECTORY)%.c
 	@$(CC) $(CFLAGS) $< -I$(HEADER) -c -o $@
@@ -88,6 +94,10 @@ $(NAME) : $(OBJS)
 	@$(CC) $(CLFAGS) $(OBJS) -lncurses -L$(PATH_LIB) -l$(LIBFT) -o $(NAME)
 
 action : fclean test
+
+
+test : $(FILE_LIB)
+	@$(CC) $(OBJS_TEST) $(SRCS_TEST) -I$(HEADER) -lcriterion -lncurses -L$(PATH_LIB) -l$(LIBFT) -o $(NAME_TEST)
 
 tester: re
 	@sh Criterion/build.sh

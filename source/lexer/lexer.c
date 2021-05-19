@@ -6,16 +6,16 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 16:53:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/15 19:04:20 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/19 15:25:48 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int token_character(char *str, int *i, char *sep)
+int token_character(char *str, int *i, char *sep, int *var)
 {
     escape_space(str, i, 1);
-    if (token_sep(str, i, sep) == 0)
+    if (token_sep(str, i, sep, var) == 0)
         return (0);
     token_backslash(str, i, *sep);
     return (1);
@@ -25,7 +25,7 @@ int create_token(t_lexer **head, t_lexing *var)
 {
     while (var->str[var->i])
     {
-        if (token_character(var->str, &var->i, &var->sep) == 0)
+        if (token_character(var->str, &var->i, &var->sep, &var->var) == 0)
             return (lexer_error(var->sep));
        // printf("c : %c     sep : %d\n", var->str[var->i] > 0 ? var->str[var->i] : -var->str[var->i], sep);
         if (token_type(var, head) == 0)
@@ -58,6 +58,7 @@ void init_struct_lexing(t_lexing *var, char *str)
     var->buffer = malloc(sizeof(char) * (var->len + 1));
     var->i = 0;
     var->sep = 0;
+    var->var = 0;
 }
 
 t_lexer *lexer(t_prompt *prompt, char *str)
