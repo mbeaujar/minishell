@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 20:18:04 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/16 16:18:30 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/19 20:44:14 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ t_command *parse(t_lexer *tokens)
     while (ptr != NULL)
     {
         current = create_token_range(&ptr);
-        // echo salut < file1 | cat
         if (ptr && ptr->key == PIP)
             current->key = PIP;
         if (ptr && (ptr->key == PIP || ptr->key == COMAT))

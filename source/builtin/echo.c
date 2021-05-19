@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:28:28 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/15 19:07:52 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/19 19:48:36 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void echoo(t_prompt *prompt, char **args)
     int i;
     int args_len;
 
+    // ft_printf("echo: in %d out %d", prompt->list->std_in, prompt->list->std_out);
+
     line_return = 0;
     args_len = ft_strlen_tab(args);
     i = 1;
@@ -33,13 +35,13 @@ void echoo(t_prompt *prompt, char **args)
             line_return = i++;
         while (args[i])
         {
-            ft_putstr_fd(args[i], prompt->list->std_out);
+            ft_putstr_fd(args[i], STDOUT_FILENO);
             if (args[i + 1])
-                ft_putchar_fd(' ', prompt->list->std_out);
+                ft_putchar_fd(' ', STDOUT_FILENO);
             i++;
         }
     }
     if (line_return == 0)
-        ft_putchar_fd('\n', prompt->list->std_out);
+        ft_putchar_fd('\n', STDOUT_FILENO);
     prompt->returned = 0;
 }

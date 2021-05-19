@@ -80,8 +80,8 @@ void freelstcommand(t_command **list)
 
     while((*list) != NULL)
     {
-        if((*list)->std_in != -1 && (*list)->std_in != 0)
-            close((*list)->std_in);
+        // if((*list)->std_in != -1 && (*list)->std_in != 0 )
+        //     close((*list)->std_in);
         tmp = *list;
         *list = (*list)->next;
         free(tmp->args);

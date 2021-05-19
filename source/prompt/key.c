@@ -23,6 +23,7 @@ char read_key(t_prompt *prompt)
 
     ret = 0;
     errno = 0;
+
     while ((ret = read(STDIN_FILENO, &c, 1)) != 1)
     {
         if (ret == -1 && errno != EAGAIN)
