@@ -54,6 +54,9 @@ void new_line(t_prompt *prompt)
     int len;
 
     old_indice = prompt->indice + 1;
+    create_termcap("dl");
+    display_prompt(prompt);
+    display_buffer(prompt);
     len = prompt->buffer->strlen - old_indice;
     prompt->indice = old_indice - 1;
     while (len--)

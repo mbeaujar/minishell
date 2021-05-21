@@ -39,7 +39,7 @@ int create_token(t_lexer **head, t_lexing *var)
                 break;
         }
         else if (var->sep != var->str[var->i])
-            var->buffer[var->y++] = var->str[var->i] == ' ' ? -32 : var->str[var->i++];
+            var->buffer[var->y++] = var->str[var->i] == ' ' ? -var->str[var->i++] : var->str[var->i++];
         if (!var->str[var->i])
             new_token(head, var->buffer, var->len, &var->y);
     }
