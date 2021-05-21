@@ -47,6 +47,25 @@ void close_redir(t_command *ptr)
     }
 }
 
+void space_to_neg_tab(char **args)
+{
+    int i;
+    int e;
+
+    i = 0;
+    while(args[i] != NULL)
+    {
+        e = 0;
+        while(args[i][e])
+        {
+            if(args[i][e] < 0)
+                args[i][e] = -args[i][e];
+            e++;
+        }
+        i++;
+    }
+}
+
 
 void interpreter(t_prompt *prompt)
 {
@@ -61,14 +80,8 @@ void interpreter(t_prompt *prompt)
     {
         i = 0;
         set_env_var(ptr, prompt);
-        while (ptr->args[i])
-        {
-            if (ptr->args[i] < 0)
-                ptr->args[i] = -ptr->args[i];
-            i++;
-        }
         args = ft_split(ptr->args, ' ');
-
+        space_to_neg_tab(args);
         if (ptr->key == PIP)
         {
             if (is_valid_command(ptr, prompt, 1) && is_valid_command(ptr->next, prompt, 0))

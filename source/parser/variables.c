@@ -53,14 +53,21 @@ void set_env_var(t_command *command, t_prompt *prompt)
             {
                 i++;
                 pos++;
+                if(command->args[i] == '$')
+                    break;
             }
             i = start;
-            env = search_env(prompt->env, ft_substr(command->args, start + 1, pos - 1));
-            command->args = replace_occurence(command->args, ft_substr(command->args, start, pos), env != NULL ? env->value : NULL);
-            if (env != NULL)
-                i += ft_strlen(env->value);
-            else
-                i += pos;
+
+            if(pos > 1)
+            {
+                env = search_env(prompt->env, ft_substr(command->args, start + 1, pos - 1));
+                command->args = replace_occurence(command->args, ft_substr(command->args, start, pos), env != NULL ? env->value : NULL);
+                if (env != NULL)
+                    i += ft_strlen(env->value);
+                i--;
+            }
+
+            pos = 0;
         }
         i++;
     }

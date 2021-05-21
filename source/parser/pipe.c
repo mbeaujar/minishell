@@ -95,4 +95,6 @@ void exec_pipe(t_prompt *prompt, t_command *ptr, t_command *next, char **args_pt
             free(args_next);
         }
     }
+
+    
 }
