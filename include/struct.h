@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 22:43:04 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/05/19 15:09:08 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/22 00:19:58 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ typedef struct s_setup
 typedef struct s_command
 {
     char *args;
+	char *path;
+	char **argv;
 	
     int std_out;
     int std_in;

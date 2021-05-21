@@ -6,113 +6,102 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:45:17 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/21 18:50:08 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/22 00:36:19 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int is_valid_command(t_command *list, t_prompt *prompt, int state)
+char **recup_path(t_prompt *prompt)
 {
-    char **args;
-    char **paths;
-    t_env *env;
-    struct stat file;
-    int i;
-    char *path;
+    t_env *find;
+    char **path;
 
-    args = ft_split(list->args, ' ');
-    if (args == NULL)
-        return (0);
-    if (!ft_strcmp(args[0], "echo") || !ft_strcmp(args[0], "cd") || !ft_strcmp(args[0], "export") || !ft_strcmp(args[0], "env") || !ft_strcmp(args[0], "exit") || !ft_strcmp(args[0], "pwd") || !ft_strcmp(args[0], "unset"))
-    {
-        free_tab(args);
-        return (1);
-    }
-    env = search_env(prompt->env, "PATH");
-    paths = NULL;
-    if (env != NULL)
-        paths = ft_split(env->value, ':');
-    i = 0;
     path = NULL;
-    while (paths[i])
-    {
-        path = ft_strdup(paths[i]);
-        ft_argv_strjoin(&path, 2, "/", args[0]);
-        if (stat(path, &file) != -1)
-        {
-            free(path);
-            free_tab(args);
-            return (1);
-        }
-        free(path);
-        i++;
-    }
-    if (state == 1)
-        printf("bash: %s : command not found\n", args[0]);
-    free_tab(args);
-    free_tab(paths);
+    find = search_env(prompt->env, "PATH");
+    if (!find || !find->value)
+        return (NULL);
+    path = ft_split(find->value, ':');
+    return (path);
+}
+
+int is_builtin(char **args)
+{
+    if (!ft_strcmp(args[0], "echo") || !ft_strcmp(args[0], "cd"))
+        return (1);
+    if (!ft_strcmp(args[0], "export") || !ft_strcmp(args[0], "env"))
+        return (1);
+    if (!ft_strcmp(args[0], "exit") || !ft_strcmp(args[0], "pwd"))
+        return (1);
+    if (!ft_strcmp(args[0], "unset"))
+        return (1);
     return (0);
 }
 
-void unbuiltin(t_prompt *prompt, char **args)
+int is_path_relative(t_command *list, char **args)
 {
-    char **paths;
-    t_env *env;
+    int len;
     struct stat file;
-    int status;
-    int i;
-    char *path;
 
-    env = search_env(prompt->env, "PATH");
-    paths = NULL;
-    if (env != NULL)
-        paths = ft_split(env->value, ':');
-    i = 0;
-    path = NULL;
-    while (paths[i])
+    len = (int)ft_strlen(args[0]);
+    if (len > 2 && args[0][0] == '.' && args[0][1] == '/')
     {
-        path = ft_strdup(paths[i]);
-        ft_argv_strjoin(&path, 2, "/", args[0]);
-        if (stat(path, &file) != -1)
+        if (stat(args[0], &file) != -1)
         {
-            errno = 0;
-            i = -1;
-            i = fork();
-            if (i == 0)
-            {
-                //printf("'%s'\n", path);
-                if (execve(path, args++, new_table_env(prompt->env)) == -1)
-                {
-                    printerrno_fd(1);
-                    kill(i, 0);
-                    exit(0);
-                }
-            }
-            free(path);
-            waitpid(i, &status, 0);
-            return;
+            list->path = ft_strdup(args[0]);
+            return (1);
         }
-        free(path);
-        i++;
     }
+    printf("bash: %s : command not found\n", args[0]);
+    return (0);
 }
 
-builtin_func which_command(char **args)
+int is_valid_command(t_prompt *prompt, t_command *list, char **args)
+{
+    struct stat file;
+    char **path;
+    int i;
+
+    if (!args)
+        return (0);
+    if (is_builtin(args))
+        return (1);
+    i = 0;
+    path = recup_path(prompt);
+    if (!path)
+        return (!printf("bash: %s : command not found\n", args[0]));
+    while (path[i])
+    {
+        path[i] = ft_strjoin_gnl(path[i], "/");
+        path[i] = ft_strjoin_gnl(path[i], args[0]);
+        if (stat(path[i], &file) != -1)
+        {
+            list->path = ft_strdup(path[i]);
+            free_tab(path);
+            return (1);
+        }
+        i++;
+    }
+    free_tab(path);
+    return (is_path_relative(list, args));
+}
+
+void    which_command(t_prompt *prompt, t_command *ptr, char **args)
 {
     if (ft_strcmp(args[0], "echo") == 0)
-        return (echoo);
-    if (ft_strcmp(args[0], "cd") == 0)
-        return (cd);
-    if (ft_strcmp(args[0], "export") == 0)
-        return (export);
-    if (ft_strcmp(args[0], "env") == 0)
-        return (env);
-    if (ft_strcmp(args[0], "exit") == 0)
-        return (exitt);
-    if (ft_strcmp(args[0], "pwd") == 0)
-        return (pwd);
-    if (ft_strcmp(args[0], "unset") == 0)
-        return (unset);
-    return (unbuiltin);
+        echoo(prompt, args);
+    else if (ft_strcmp(args[0], "cd") == 0)
+        cd(prompt, args);
+    else if (ft_strcmp(args[0], "export") == 0)
+        export(prompt, args);
+    else if (ft_strcmp(args[0], "env") == 0)
+        env(prompt, args);
+    else if (ft_strcmp(args[0], "exit") == 0)
+        exitt(prompt, args);
+    else if (ft_strcmp(args[0], "pwd") == 0)
+        pwd(prompt, args);
+    else if (ft_strcmp(args[0], "unset") == 0)
+        unset(prompt, args);
+    else 
+        unbuiltin(prompt, ptr, args);
 }

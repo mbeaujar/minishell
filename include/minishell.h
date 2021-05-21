@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/21 17:06:06 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/22 00:23:38 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 
 #include "struct.h"
 
-
-typedef void (*builtin_func)(t_prompt *, char **);
 /*
 ** SOURCE
 */
@@ -86,7 +84,6 @@ int check_token(t_lexer *head);
 int token_type(t_lexing *var, t_lexer **head);
 int lexer_error(char sep);
 
-
 /*
 ** PARSER
 */
@@ -97,14 +94,16 @@ char *replace_occurence(char *src, char *key, char *value);
 void set_env_var(t_command *command, t_prompt *prompt);
 void redir(t_command *ptr);
 void close_redir(t_command *ptr);
-void exec_pipe(t_prompt *prompt, t_command *ptr, t_command *next, char **args_ptr);
-builtin_func which_command(char **args);
-void unbuiltin(t_prompt *prompt, char **args);
-int is_valid_command(t_command *list, t_prompt *prompt, int state);
+void exec_pipe(t_prompt *prompt, t_command *ptr, t_command *next);
+void    which_command(t_prompt *prompt, t_command *ptr, char **args);
+//void unbuiltin(t_prompt *prompt, char **args);
+void unbuiltin(t_prompt *prompt, t_command *ptr, char **args);
 t_command *newlstcommand(char *args);
 void printlstcommand(t_command *list);
 void interpreter(t_prompt *prompt);
 void freelstcommand(t_command **list);
+int is_valid_command(t_prompt *prompt, t_command *list, char **args);
+
 /*
 ** PROMPT 
 */

@@ -65,7 +65,8 @@ SRCS =  main.c \
 		parser/interpreter.c \
 		parser/command.c \
 		parser/variables.c \
-		parser/pipe.c
+		parser/pipe.c \
+		parser/unbuiltin.c
 
 SRCS_TEST = Criterion/tester/lexer.c \
 			Criterion/tester/parser.c \

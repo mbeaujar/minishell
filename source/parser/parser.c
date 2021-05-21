@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 20:18:04 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/19 20:44:14 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/21 22:49:35 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** RIGHT = stdout
 */
 
-int open_path(char *path, type key)
+int open_path(char *path, type key, int curr_fd)
 {
     int fd;
     struct stat file;
@@ -26,7 +26,10 @@ int open_path(char *path, type key)
 
     fd = -1;
     tmp = -1;
-    if (key == RIGHT) {
+    if (key == RIGHT)
+    {
+        if (curr_fd != 1)
+            close(curr_fd);
         tmp = open(path, O_CREAT | O_RDWR, S_IRWXU);
         if(tmp == -1)
             fd = open(path, O_RDWR);
@@ -35,6 +38,8 @@ int open_path(char *path, type key)
     }
     else if (key == LEFT)
     {
+        if (curr_fd != 0)
+            close(curr_fd);
         if (stat(path, &file) == -1)
             return (-1);
         fd = open(path, O_RDONLY);
@@ -59,12 +64,12 @@ t_command *create_token_range(t_lexer **start)
         }
         if ((*start)->key == RIGHT)
         {
-            list->std_out = open_path((*start)->next->token, (*start)->key);
+            list->std_out = open_path((*start)->next->token, (*start)->key, list->std_out);
             (*start) = (*start)->next;
         }
         if ((*start)->key == LEFT)
         {
-            list->std_in = open_path((*start)->next->token, (*start)->key);
+            list->std_in = open_path((*start)->next->token, (*start)->key, list->std_in);
             (*start) = (*start)->next;
         }
         (*start) = (*start)->next;
