@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:28:30 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/16 13:12:03 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/21 17:52:33 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,7 @@ void exitt(t_prompt *prompt, char **args)
         free_all(prompt, args, 0);
     }
     if (len > 2 && valid_arg(args[1]))
-    {
-        ft_putstr_fd("exit\n", STDOUT_FILENO);
-        ft_putstr_fd("bash: exit: too many arguments\n", STDOUT_FILENO);
-        return ;
-    }
+        return ((void)printf("exit\nbash: exit: too many arguments\n"));
     if ((ret = check_args(args, valid_arg)) != NULL)
     {
         ft_putstr_fd("exit\n", STDOUT_FILENO);

@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/21 14:50:44 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/21 17:06:06 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,9 @@ t_command *parse(t_lexer *tokens);
 void lstaddbackcommand(t_command **list, t_command *new);
 char *replace_occurence(char *src, char *key, char *value);
 void set_env_var(t_command *command, t_prompt *prompt);
+void redir(t_command *ptr);
+void close_redir(t_command *ptr);
+void exec_pipe(t_prompt *prompt, t_command *ptr, t_command *next, char **args_ptr);
 builtin_func which_command(char **args);
 void unbuiltin(t_prompt *prompt, char **args);
 int is_valid_command(t_command *list, t_prompt *prompt, int state);
@@ -107,6 +110,7 @@ void freelstcommand(t_command **list);
 */
 
 void setup(t_prompt *prompt, int argc, char **argv);
+void exit_debug(t_prompt *prompt);
 
 int init_termcaps(void);
 int display_termcap(int c);

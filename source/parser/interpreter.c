@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 16:13:42 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/21 14:47:44 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/21 17:08:03 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void close_redir(t_command *ptr)
     }
 }
 
+
 void interpreter(t_prompt *prompt)
 {
     t_command *ptr;
@@ -73,7 +74,9 @@ void interpreter(t_prompt *prompt)
             if (is_valid_command(ptr, prompt, 1) && is_valid_command(ptr->next, prompt, 0))
             {
 
-                // printf("pip oui\n");
+                exec_pipe(prompt, ptr, ptr->next, args);
+                ptr = ptr->next->next;
+                //exit_debug(prompt);
             }
         }
         else
@@ -83,10 +86,10 @@ void interpreter(t_prompt *prompt)
                 redir(ptr);
                 which_command(args)(prompt, args);
                 close_redir(ptr);
-
             }
         }
         free(args);
-        ptr = ptr->next;
+        if (ptr)
+            ptr = ptr->next;
     }
 }

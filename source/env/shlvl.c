@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 19:29:51 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/21 14:38:15 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/21 16:25:50 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void find_env_shlvl(t_prompt *prompt)
     {
         free(find->value);
         find->value = ft_strdup("1");
-    }
+    } 
     else
     {
         nb = recup_shlvl(ft_strtrim(find->value, " "));

@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 19:47:29 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/07 22:23:22 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/21 18:33:47 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,6 @@ void new_line(t_prompt *prompt)
     int len;
 
     old_indice = prompt->indice + 1;
-    create_termcap("dl");
-    display_prompt(prompt);
-    display_buffer(prompt);
     len = prompt->buffer->strlen - old_indice;
     prompt->indice = old_indice - 1;
     while (len--)

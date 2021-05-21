@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:45:17 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/21 14:49:53 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/21 18:50:08 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void unbuiltin(t_prompt *prompt, char **args)
     char **paths;
     t_env *env;
     struct stat file;
+    int status;
     int i;
     char *path;
 
@@ -78,19 +79,18 @@ void unbuiltin(t_prompt *prompt, char **args)
             errno = 0;
             i = -1;
             i = fork();
-
             if (i == 0)
             {
-                /*                 dup2(prompt->list->std_out, STDOUT_FILENO);
-                dup2(prompt->list->std_in, STDIN_FILENO);  */
+                //printf("'%s'\n", path);
                 if (execve(path, args++, new_table_env(prompt->env)) == -1)
                 {
-                    ft_printf("%s", strerror(errno));
+                    printerrno_fd(1);
+                    kill(i, 0);
                     exit(0);
                 }
             }
             free(path);
-            wait(&i);
+            waitpid(i, &status, 0);
             return;
         }
         free(path);
