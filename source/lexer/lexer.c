@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 16:53:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/21 20:56:06 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/21 21:22:31 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int create_token(t_lexer **head, t_lexing *var)
                 break;
         }
         else if (var->sep != var->str[var->i])
-            var->buffer[var->y++] = var->str[var->i] == ' ' ? -32 : var->str[var->i++];
+            var->buffer[var->y++] = var->str[var->i] == ' ' ? -var->str[var->i++] : var->str[var->i++];
         if (!var->str[var->i])
             new_token(head, var->buffer, var->len, &var->y);
     }
@@ -92,7 +92,7 @@ t_lexer *lexer(t_prompt *prompt, char *str)
 /* int main(void)
 {
     //char str[] = "echo salut \"<\" \"|\" | '|' '<<<<<<' <<<<<>file1<file2";
-    char str[] = "echo $USER\"$USER\"m$USER";
+    char str[] = "echo $USER $USER $USER";
     t_lexer *head = lexer(NULL, str);
     if (!head)
         printf("error\n");
