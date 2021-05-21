@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 19:29:51 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/16 15:17:43 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/21 14:38:15 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,25 @@
 */
 
 
-int valid_shlvl(char *arg)
+int valid_shlvl(char *old_arg)
 {
     int i;
+    char *arg;
 
     i = 0;
+    arg = ft_strtrim(old_arg, " ");
     while (arg[i])
     {
         if (i == 0 && (arg[i] == '+' || arg[i] == '-'))
             i++;
         if (arg[i] < '0' || arg[i] > '9')
+        {
+            free(arg);
             return (0);
+        }
         i++;
     }
+    free(arg);
     return (1);
 }
 
@@ -59,6 +65,7 @@ size_t recup_shlvl(char *str)
     }
     while (str[i] >= '0' && str[i] <= '9')
         nb = (nb * 10) + (str[i++] - '0');
+    free(str);
     if ((int)(nb * sign) < 0)
         return (0);
     nb++;
@@ -87,7 +94,7 @@ void find_env_shlvl(t_prompt *prompt)
     }
     else
     {
-        nb = recup_shlvl(find->value);
+        nb = recup_shlvl(ft_strtrim(find->value, " "));
         free(find->value);
         find->value = ft_itoa((int)nb);
     }

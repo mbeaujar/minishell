@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/19 15:24:32 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/21 14:50:44 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,11 @@ int lexer_error(char sep);
 
 t_command *parse(t_lexer *tokens);
 void lstaddbackcommand(t_command **list, t_command *new);
+char *replace_occurence(char *src, char *key, char *value);
+void set_env_var(t_command *command, t_prompt *prompt);
+builtin_func which_command(char **args);
+void unbuiltin(t_prompt *prompt, char **args);
+int is_valid_command(t_command *list, t_prompt *prompt, int state);
 t_command *newlstcommand(char *args);
 void printlstcommand(t_command *list);
 void interpreter(t_prompt *prompt);
