@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:55:34 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/22 00:22:53 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/22 00:46:48 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,21 @@
 **
 ** valgrind --track-fds=yes
 */
+
+
+
+void create_child()
+{
+    int pid;
+
+    pid = fork();
+    if (pid == 0) // child
+    {
+        
+    }
+    else // parent 
+        create_child(); // recurisivité pour recrée un child + executer
+}
 
 void exec_pipe(t_prompt *prompt, t_command *ptr, t_command *next)
 {
