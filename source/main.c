@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:10:06 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/21 22:42:30 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/22 15:19:48 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,11 @@ int main(int argc, char **argv, char **envp)
 	tcgetattr(STDIN_FILENO, &prompt.orig_termios);
 	// check error tcgetattr
 	prompt.raw = prompt.orig_termios;
-	
 	if ((init_termcaps()) == -1)
 		return (3);
 	enablerawmode(prompt.raw);
 
-	prompt.env = fill_env(envp, &prompt);	
+	prompt.env = fill_env(envp, &prompt);
 	if (prompt.setup.debug == 1)
 		printlstenv(prompt.env);
 	// recup les env 

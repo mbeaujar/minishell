@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:55:34 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/22 00:46:48 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/22 17:15:23 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,13 @@
 ** valgrind --track-fds=yes
 */
 
+/* 
 
 
-void create_child()
-{
-    int pid;
-
-    pid = fork();
-    if (pid == 0) // child
-    {
-        
-    }
-    else // parent 
-        create_child(); // recurisivité pour recrée un child + executer
-}
+ in out | in out | in out | in out 
+ 0   3     4  5     6  7     8  1 
+ 
+ */
 
 void exec_pipe(t_prompt *prompt, t_command *ptr, t_command *next)
 {
@@ -61,6 +54,7 @@ void exec_pipe(t_prompt *prompt, t_command *ptr, t_command *next)
 
     if (pipe(fd) == -1)
         return ((void)printf("pipe error\n"));
+    //printf("nb : %d\nfd 0 : %d\t fd 1: %d\n", nbpipe(ptr), fd[0], fd[1]);
     redir(ptr);
     redir(next);
     pid[0] = fork();
@@ -101,6 +95,4 @@ void exec_pipe(t_prompt *prompt, t_command *ptr, t_command *next)
             close_redir(next);
         }
     }
-
-    
 }

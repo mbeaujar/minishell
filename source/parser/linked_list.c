@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 16:13:32 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/21 23:26:58 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/22 17:21:22 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_command *newlstcommand(char *args)
     new->key = DEFAULT;
     new->next = NULL;
     new->path = NULL;
+    new->argv = NULL;
     new->previous = NULL;
     return (new);
 }

@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 16:13:42 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/22 00:36:55 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/22 17:18:34 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,23 @@ void exec_command(t_prompt *prompt, t_command **ptr, char **args)
     (*ptr)->argv = args;
     if ((*ptr)->key == PIP)
     {
-        (*ptr)->next->argv = space_to_neg_tab(prompt, (*ptr)->next);
+/*         (*ptr)->next->argv = space_to_neg_tab(prompt, (*ptr)->next);
         if (is_valid_command(prompt, (*ptr), args) && is_valid_command(prompt, (*ptr)->next, (*ptr)->next->argv))
         {
+
             exec_pipe(prompt, (*ptr), (*ptr)->next);
-            (*ptr) = (*ptr)->next->next;
         }
+        if ((*ptr)->next->argv)
+        {
+            free((*ptr)->next->argv);
+            (*ptr)->next->argv = NULL;
+        }
+        free(args);
+        (*ptr)->argv = NULL;
+        (*ptr) = (*ptr)->next->next; */
+        build_pipe(prompt, (*ptr));
+        free(args);
+        (*ptr)->argv = NULL;
     }
     else
     {
@@ -91,6 +102,8 @@ void exec_command(t_prompt *prompt, t_command **ptr, char **args)
             redir((*ptr));
             which_command(prompt, (*ptr), args);
             close_redir((*ptr));
+            free(args);
+            (*ptr)->argv = NULL;
         }
     }
 }
@@ -109,7 +122,6 @@ void interpreter(t_prompt *prompt)
         if (args)
         {
             exec_command(prompt, &ptr, args);
-            free(args);
         }
         if (ptr)
             ptr = ptr->next;
