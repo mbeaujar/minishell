@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 16:13:42 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/22 17:18:34 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/23 17:36:20 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,41 +69,40 @@ char **space_to_neg_tab(t_prompt *prompt, t_command *ptr)
         }
         i++;
     }
+    free(ptr->args);
+    ptr->args = NULL;
     return (args);
 }
 
-void exec_command(t_prompt *prompt, t_command **ptr, char **args)
+void exec_command(t_prompt *prompt, t_command **ptr)
 {
-    (*ptr)->argv = args;
+    t_command *tmp;
+
     if ((*ptr)->key == PIP)
     {
-/*         (*ptr)->next->argv = space_to_neg_tab(prompt, (*ptr)->next);
-        if (is_valid_command(prompt, (*ptr), args) && is_valid_command(prompt, (*ptr)->next, (*ptr)->next->argv))
+        tmp = (*ptr);
+        while (tmp && tmp->key == PIP)
         {
-
-            exec_pipe(prompt, (*ptr), (*ptr)->next);
+            if (!tmp->argv)
+                tmp->argv = space_to_neg_tab(prompt, tmp);
+            if (!is_valid_command(prompt, tmp, tmp->argv))
+                return;
+            tmp = tmp->next;
         }
-        if ((*ptr)->next->argv)
-        {
-            free((*ptr)->next->argv);
-            (*ptr)->next->argv = NULL;
-        }
-        free(args);
-        (*ptr)->argv = NULL;
-        (*ptr) = (*ptr)->next->next; */
-        build_pipe(prompt, (*ptr));
-        free(args);
-        (*ptr)->argv = NULL;
+        if (!tmp->argv)
+            tmp->argv = space_to_neg_tab(prompt, tmp);
+        if (!is_valid_command(prompt, tmp, tmp->argv))
+            return;
+        build_pipe(prompt, *ptr);
+        *ptr = tmp->next;
     }
     else
     {
-        if (is_valid_command(prompt, (*ptr), args))
+        if (is_valid_command(prompt, (*ptr), (*ptr)->argv))
         {
             redir((*ptr));
-            which_command(prompt, (*ptr), args);
+            which_command(prompt, (*ptr), (*ptr)->argv);
             close_redir((*ptr));
-            free(args);
-            (*ptr)->argv = NULL;
         }
     }
 }
@@ -111,17 +110,14 @@ void exec_command(t_prompt *prompt, t_command **ptr, char **args)
 void interpreter(t_prompt *prompt)
 {
     t_command *ptr;
-    char **args;
 
     ptr = prompt->list;
     while (ptr != NULL)
     {
+        ptr->argv = space_to_neg_tab(prompt, ptr);
         if (ptr->argv)
-            free(ptr->argv);
-        args = space_to_neg_tab(prompt, ptr);
-        if (args)
         {
-            exec_command(prompt, &ptr, args);
+            exec_command(prompt, &ptr);
         }
         if (ptr)
             ptr = ptr->next;

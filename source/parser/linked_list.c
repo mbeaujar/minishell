@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 16:13:32 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/22 17:21:22 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/23 16:18:24 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,18 +75,19 @@ void printlstcommand(t_command *list)
 void freelstcommand(t_command **list)
 {
     t_command *tmp;
-    (void)tmp;
 
+    if (!*list)
+        return;
     while((*list)->previous != NULL)
         *list = (*list)->previous;
-
     while((*list) != NULL)
     {
-        // if((*list)->std_in != -1 && (*list)->std_in != 0 )
-        //     close((*list)->std_in);
         tmp = *list;
         *list = (*list)->next;
-        free(tmp->args);
+        if (tmp->argv)
+            free(tmp->argv);
+        if (tmp->path)
+            free(tmp->path);
         free(tmp);
         tmp = NULL;
     }

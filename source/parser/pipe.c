@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:55:34 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/22 17:15:23 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/23 17:36:42 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,9 @@
 ** valgrind --track-fds=yes
 */
 
-/* 
-
-
- in out | in out | in out | in out 
- 0   3     4  5     6  7     8  1 
- 
- */
-
+/*
+** Première fonction de test
+*/
 void exec_pipe(t_prompt *prompt, t_command *ptr, t_command *next)
 {
     int pid[2];

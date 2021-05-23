@@ -6,13 +6,13 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 16:34:57 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/22 18:02:21 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/23 17:35:34 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int add_child_process(t_prompt *prompt, t_command *ptr, int fd[2])
+int add_child_process(t_prompt *prompt, t_command *ptr, int in, int out)
 {
     int pid;
 
@@ -21,18 +21,14 @@ int add_child_process(t_prompt *prompt, t_command *ptr, int fd[2])
         return (pid);
     if (pid == 0)
     {
-        if (ptr->std_in == 0 && fd[0] != 0)
-        {
-            dup2(fd[0], 0);
-            printf("---  fd 0 : %d\n", fd[0]);
-        }
-        if (ptr->std_out == 1 && fd[1] != 1)
-        {
-            printf("---  fd 1 : %d\n", fd[1]);
-            dup2(fd[1], 1);
-        }
-        close(fd[0]);
-        close(fd[1]);
+        if (ptr->std_in == 0)
+            dup2(in, 0);
+        if (ptr->std_out == 1)
+            dup2(out, 1);
+        if (in != 0)
+            close(in);
+        if (out != 1)
+            close(out);
         which_command(prompt, ptr, ptr->argv);
         kill(pid, 0);
         exit(pid);
@@ -40,75 +36,69 @@ int add_child_process(t_prompt *prompt, t_command *ptr, int fd[2])
     return (pid);
 }
 
-int *fill_std(int len)
+void refill_std(int *std, int len)
 {
-    int *std;
     int fd[2];
     int i;
 
-    std = malloc(sizeof(int) * ((len * 2) + 1));
-    if (!std)
-        return (NULL);
-    i = 1;
     std[0] = 0;
-    while ((i + 2) <= len + 1)
+    i = 1;
+    while (i < (len * 2) - 1)
     {
-        pipe(fd); // to secure
-        std[i++] = fd[0];
-        std[i++] = fd[1];
-        //printf("fd 0 : %d\tfd 1 : %d\n", fd[0], fd[1]);
+        if (pipe(fd) == -1)
+            return ((void)printf("merde\n"));
+        std[i] = fd[1];
+        i++;
+        std[i] = fd[0];
+        i++;
+        fd[0] = 0;
+        fd[1] = 1;
     }
     std[i] = 1;
-    return (std);
 }
 
 void build_pipe(t_prompt *prompt, t_command *ptr)
 {
-    int fd[2];
-    int *std;
-    int *pointer;
-    int *pids;
-    int status;
+    t_command *tmp;
     int len;
+    int *std;
+    int *pid;
+    int status;
     int i;
+    int fd;
+    int cout[2];
 
-    len = nbpipe(ptr, prompt);
+    len = nbpipe(ptr);
     if (!len)
         return;
-    pids = malloc(sizeof(int) * len);
-    if (!pids)
-        return;
-    std = fill_std(len);
+    tmp = ptr;
+    printf("len : %d\n", len);
+    std = malloc(sizeof(int) * ((len * 2)));
     if (!std)
+        return ((void)printf("pitie\n"));
+    refill_std(std, len);
+    pid = malloc(sizeof(int) * len);
+    if (!pid)
         return;
-    pointer = std;
     i = 0;
-    (void)fd;
-    display_all_pipe_fd(std, len);
-    printf("\n");
+    fd = 0;
     while (i < len)
     {
-        fd[0] = *std++;
-        fd[1] = *std++;
-        printf("fd 0 : %d\tfd 1 : %d\nin : %d\t\tout : %d\n", fd[0], fd[1], ptr->std_in, ptr->std_out);
-        pids[i] = add_child_process(prompt, ptr, fd);
+        cout[0] = std[fd++];
+        cout[1] = std[fd++];
+        pid[i] = add_child_process(prompt, ptr, cout[0], cout[1]);
+        if (cout[0] != 0)
+            close(cout[0]);
+        if (cout[1] != 1)
+            close(cout[1]);
         ptr = ptr->next;
         i++;
     }
     i = 0;
     while (i < len)
     {
-        if (pointer[i] != 0 && pointer[i] != 1)
-            close(pointer[i]);
+        waitpid(pid[i], &status, 0);
         i++;
     }
-    i = 0;
-    (void)status;
-    while (i < len)
-    {
-        waitpid(pids[i], &status, 0);
-        i++;
-    }
-    free(pointer);
-    free(pids);
+    free(std);
 }
