@@ -78,3 +78,15 @@ bash: inconnu: No such file or directory
 
 
 - cat salut < file  -- affiche le contenu du fichier en arguments
+
+
+  cmd1 | cmd2
+
+Si stdin de cmd2 est redirigé : 
+    - stdout cmd1 est égal à stdout cmd2
+
+
+echo pourquoisqs > test | wc
+
+ in         out                 in                  out
+0           wc                test + echo ??        1

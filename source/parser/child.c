@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 16:34:57 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/23 19:10:29 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/23 20:36:53 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void build_pipe(t_prompt *prompt, t_command *ptr)
     {
         cout[0] = std[fd++];
         cout[1] = std[fd++];
+        redir(ptr);
         pid[i] = add_child_process(prompt, ptr, cout[0], cout[1]);
         if (cout[0] != 0)
             close(cout[0]);
