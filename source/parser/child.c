@@ -29,6 +29,7 @@ int add_child_process(t_prompt *prompt, t_command *ptr, int in, int out)
             close(in);
         if (out != 1)
             close(out);
+
         which_command(prompt, ptr, ptr->argv);
         kill(pid, 0);
         exit(pid);
@@ -89,6 +90,7 @@ void build_pipe(t_prompt *prompt, t_command *ptr)
         cout[0] = std[fd++];
         cout[1] = std[fd++];
         redir(ptr);
+
         pid[i] = add_child_process(prompt, ptr, cout[0], cout[1]);
         if (cout[0] != 0)
             close(cout[0]);

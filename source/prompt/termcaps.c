@@ -17,7 +17,7 @@ int init_termcaps(void)
 	int ret;
 	char *term_type;
 
-	term_type = getenv("TERM");
+	term_type = "xterm-256color";
 	if (!term_type)
 	{
 		ft_putstr_fd("TERM must be set (see 'env').\n", 0);

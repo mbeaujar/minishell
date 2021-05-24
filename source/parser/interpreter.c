@@ -94,7 +94,7 @@ void exec_command(t_prompt *prompt, t_command **ptr)
         if (!is_valid_command(prompt, tmp, tmp->argv))
             return;
         build_pipe(prompt, *ptr);
-        //exec_pipe(prompt, *ptr, (*ptr)->next);
+        // exec_pipe(prompt, *ptr, (*ptr)->next);
         *ptr = tmp->next;
     }
     else
