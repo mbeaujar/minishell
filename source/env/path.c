@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 17:50:00 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/21 22:38:02 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/25 01:13:21 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,19 @@
 ** mettre l'index de la variable _ à -2
 */
 
-char *recup_path(void)
+char *recup_real_path(void)
 {
     int fd;
     int ret;
     char *path;
-    char *ret;
+    char *new;
     
     fd = open("/etc/environment", O_RDONLY);
-    if (fd = -1)
+    if (fd == -1)
+    {
+        printerrno_fd(1);
         return (NULL);
+    }
     ret = get_next_line(fd, &path);
     if (ret == -1)
     {
@@ -53,9 +56,9 @@ char *recup_path(void)
         return (NULL);
     }
     close(fd);
-    ret = ft_strtrim(path, "\"");
+    new = ft_strtrim(path, "\"");
     free(path);
-    return (ret);
+    return (new);
 }
 
 void find_env_path(t_prompt *prompt)
@@ -64,7 +67,7 @@ void find_env_path(t_prompt *prompt)
 
     find = search_env(prompt->env, "PATH");
     if (!find)
-        addlstenv(&prompt->env, recup_path());
+        addlstenv(&prompt->env, recup_real_path());
     else if (!find->value)
-        find->value = recup_path();
+        find->value = recup_real_path();
 }

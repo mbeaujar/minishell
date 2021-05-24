@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:10:06 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/22 15:19:48 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/25 00:50:05 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,26 +49,34 @@ void init_prompt(t_prompt *prompt)
 int main(int argc, char **argv, char **envp)
 {
 	t_prompt prompt;
+	int ret;
+	errno = 0;
 
-
-	//settings minishell
 	init_prompt(&prompt);
 	setup(&prompt, argc, argv);
 
 	// isatty -- check si le fd link à un terminal 
 
-	tcgetattr(STDIN_FILENO, &prompt.orig_termios);
-	// check error tcgetattr
+	ret = tcgetattr(STDIN_FILENO, &prompt.orig_termios);
+	if (ret == -1)
+	{
+		printerrno_fd(1);
+		return (ret);
+	}
 	prompt.raw = prompt.orig_termios;
-	if ((init_termcaps()) == -1)
-		return (3);
+	ret = init_termcaps();
+	if (ret == -1)
+	{
+		printerrno_fd(1);
+		return (ret);
+	}
 	enablerawmode(prompt.raw);
 
 	prompt.env = fill_env(envp, &prompt);
 	if (prompt.setup.debug == 1)
 		printlstenv(prompt.env);
-	// recup les env 
 	find_env_shlvl(&prompt);
+	find_env_path(&prompt);
 	read_stdin(&prompt);
     g_buffer(FREE, NULL);
     freelstbuffer(&prompt.buffer);

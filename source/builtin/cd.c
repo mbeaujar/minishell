@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:28:25 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/14 02:33:45 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/25 01:08:33 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void change_directory(t_prompt *prompt, char *path)
     if ((ret = chdir(path)) == -1)
     {
         prompt->returned = 1;
-        return (printerrno_fd(0));
+        return (printerrno_fd(1));
     }
     refresh_pwd(prompt, "PWD");
     prompt->returned = 0;

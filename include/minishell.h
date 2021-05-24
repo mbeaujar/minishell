@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/23 16:34:57 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/25 00:49:58 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char *return_env_value(char *env);
 int is_value(char *env);
 t_env *newlstenvnull(char *env);
 int sizelstenv(t_env *head);
+void find_env_path(t_prompt *prompt);
 
 void free_tab(char **envp);
 char **new_table_env(t_env *head);

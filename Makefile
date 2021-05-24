@@ -43,6 +43,7 @@ SRCS =  main.c \
 		env/split.c \
 		env/create.c \
 		env/shlvl.c \
+		env/path.c \
 		utils/ft_create_env.c \
 		utils/ft_realloc.c \
 		utils/ft_strjoin_env.c \

@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 15:52:12 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/07 22:02:09 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/25 01:09:21 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void env(t_prompt *prompt, char **args)
     int len;
     char *ret;
 
-    //ft_printtab(args);
     len = ft_strlen_tab(args);
     if (len == 1)
     {

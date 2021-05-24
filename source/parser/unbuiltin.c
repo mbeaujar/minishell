@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 22:57:15 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/22 14:48:01 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/25 01:06:42 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void unbuiltin(t_prompt *prompt, t_command *ptr, char **args)
         return ((void)printf("problem no path in the fct unbuiltin\n"));
     pid = fork();
     if (pid == -1)
-        return ((void)printf("problem of pid in fct unbuiltin\n"));
+        return ((void)printerrno_fd(1));
     if (pid == 0)
     {
         status = execve(ptr->path, args, envp);

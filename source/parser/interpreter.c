@@ -6,28 +6,37 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 16:13:42 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/25 00:40:40 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/25 01:05:31 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int check_errno(int ret)
+{
+    if (ret == -1)
+        printerrno_fd(1);
+    errno = 0;
+    return (ret);
+}
+
 void redir(t_command *ptr)
 {
     int fd_out;
     int fd_in;
+    errno = 0;
 
     if (ptr->std_out != 1)
     {
-        fd_out = dup(1);
-        dup2(ptr->std_out, 1);
+        fd_out = check_errno(dup(1));
+        check_errno(dup2(ptr->std_out, 1));
         close(ptr->std_out);
         ptr->std_out = fd_out;
     }
     if (ptr->std_in != 0)
     {
-        fd_in = dup(0);
-        dup2(ptr->std_in, 0);
+        fd_in = check_errno(dup(0));
+        check_errno(dup2(ptr->std_in, 0));
         close(ptr->std_in);
         ptr->std_in = fd_in;
     }
@@ -35,14 +44,15 @@ void redir(t_command *ptr)
 
 void close_redir(t_command *ptr)
 {
+    errno = 0;
     if (ptr->std_out != 1)
     {
-        dup2(ptr->std_out, 1);
+        check_errno(dup2(ptr->std_out, 1));
         close(ptr->std_out);
     }
     if (ptr->std_in != 0)
     {
-        dup2(ptr->std_in, 0);
+        check_errno(dup2(ptr->std_in, 0));
         close(ptr->std_in);
     }
 }
@@ -97,7 +107,6 @@ void exec_command(t_prompt *prompt, t_command **ptr)
             return;
         }
         build_pipe(prompt, *ptr);
-        // exec_pipe(prompt, *ptr, (*ptr)->next);
         *ptr = tmp->next;
     }
     else

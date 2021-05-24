@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 16:34:57 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/23 20:36:53 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/25 01:07:26 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 int add_child_process(t_prompt *prompt, t_command *ptr, int in, int out)
 {
     int pid;
+    errno = 0;
 
     pid = fork();
+    if (pid == -1)
+        printerrno_fd(1);
     if (pid == -1)
         return (pid);
     if (pid == 0)
@@ -75,7 +78,6 @@ void build_pipe(t_prompt *prompt, t_command *ptr)
     if (!len)
         return;
     tmp = ptr;
-    printf("len : %d\n", len);
     std = malloc(sizeof(int) * ((len * 2)));
     if (!std)
         return ((void)printf("pitie\n"));

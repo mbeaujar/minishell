@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 20:18:04 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/25 00:14:03 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/25 01:01:08 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,18 @@ int open_path(char *path, type key, int curr_fd)
     return (fd);
 }
 
+int errno_open(char *path, type key, int curr_fd)
+{
+    int ret;
+    errno = 0;
+
+    ret = open_path(path, key, curr_fd);
+    if (ret == -1)
+        printerrno_fd(1);
+    return (ret);
+    
+}
+
 t_command *create_token_range(t_lexer **start)
 {
     char *args;
@@ -71,12 +83,12 @@ t_command *create_token_range(t_lexer **start)
         }
         if ((*start)->key == RIGHT || (*start)->key == DRIGHT)
         {
-            list->std_out = open_path((*start)->next->token, (*start)->key, list->std_out);
+            list->std_out = errno_open((*start)->next->token, (*start)->key, list->std_out);
             (*start) = (*start)->next;
         }
         if ((*start)->key == LEFT)
         {
-            list->std_in = open_path((*start)->next->token, (*start)->key, list->std_in);
+            list->std_in = errno_open((*start)->next->token, (*start)->key, list->std_in);
             (*start) = (*start)->next;
         }
         (*start) = (*start)->next;

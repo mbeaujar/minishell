@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 16:53:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/21 21:22:31 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/25 00:57:23 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,17 @@ int create_token(t_lexer **head, t_lexing *var)
     {
         if (token_character(var->str, &var->i, &var->sep, &var->var) == 0)
             return (lexer_error(var->sep));
-       // printf("c : %c     sep : %d\n", var->str[var->i] > 0 ? var->str[var->i] : -var->str[var->i], sep);
         if (token_type(var, head) == 0)
             break;
         if ((var->str[var->i] == ' ' && var->sep == 0))
         {
             escape_space(var->str, &var->i, 0);
-            // printf("var->buffer : %s c : %c sep : %d\n", var->buffer, var->str[var->i] > 0 ? var->str[var->i] : -var->str[var->i], sep);
             new_token(head, var->buffer, var->len, &var->y);
             if (!var->str[var->i])
                 break;
         }
         else if (var->sep != var->str[var->i])
-            var->buffer[var->y++] = var->str[var->i] == ' ' ? -var->str[var->i++] : var->str[var->i++];
+            var->buffer[var->y++] =var->str[var->i++];
         if (!var->str[var->i])
             new_token(head, var->buffer, var->len, &var->y);
     }
@@ -67,7 +65,6 @@ t_lexer *lexer(t_prompt *prompt, char *str)
     t_lexing var;
 
     head = NULL;
-    (void)prompt;
     init_struct_lexing(&var, str);
     if (!var.buffer)
         return (NULL);
@@ -75,14 +72,14 @@ t_lexer *lexer(t_prompt *prompt, char *str)
     {
         free(var.buffer);
         freelstlexer(&head);
-        //prompt->returned = 2;
+        prompt->returned = 2;
         return (NULL);
     }
     if (check_token(head) == 0)
     {
         free(var.buffer);
         freelstlexer(&head);
-        //prompt->returned = 2;
+        prompt->returned = 2;
         return (NULL);
     }
     free(var.buffer);

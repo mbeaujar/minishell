@@ -6,25 +6,17 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:28:28 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/19 19:48:36 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/25 01:09:09 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// go faire un printf
-// echo -n , print nothing
-// echo , print \n
-// echo -n salut, print salut et \n
-// echo je suis la, print les agrs avec un espace entre chaque
 
 void echoo(t_prompt *prompt, char **args)
 {
     int line_return;
     int i;
     int args_len;
-
-    // ft_printf("echo: in %d out %d", prompt->list->std_in, prompt->list->std_out);
 
     line_return = 0;
     args_len = ft_strlen_tab(args);

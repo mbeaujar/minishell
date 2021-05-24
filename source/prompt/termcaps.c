@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 16:11:10 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/02 15:12:03 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/25 00:47:22 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,4 @@ void create_termcap(char *termcap)
 
 	new_termcap = tgetstr(termcap, NULL);
 	tputs(new_termcap, 1, display_termcap);
-	//free(new_termcap);
 }
