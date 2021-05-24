@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 16:13:42 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/23 17:36:20 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/23 17:59:14 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void exec_command(t_prompt *prompt, t_command **ptr)
         if (!is_valid_command(prompt, tmp, tmp->argv))
             return;
         build_pipe(prompt, *ptr);
+        //exec_pipe(prompt, *ptr, (*ptr)->next);
         *ptr = tmp->next;
     }
     else

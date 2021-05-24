@@ -48,4 +48,45 @@ bash: inconnu: No such file or directory
 - cat <> STDIN    --- la redir STDOUT est ignoré , l'inverse "><" ne marche pas
 
 
+#### redir pipe
 
+- echo salut > salut | echo 
+- echo salut | echo > salut
+
+
+- echo salut | cat > file | cat | cat --- affiche salut + écrit salut dans file
+
+
+
+- echo bonjour > file | cat --- affiche bonjour + écrit bonjour dans file
+
+    in        out       in      out 
+    0         file      file      1
+
+
+- echo salut | cat < file -- affiche salut + contenu de file 
+
+    in         out      in      out
+    0            1 ?    file          1
+
+
+- echo salut | cat < file > salut --- affiche salut + contenu du file dans salut
+
+
+    in      out          in              out
+    0        salut?      file          salut
+
+
+- cat salut < file  -- affiche le contenu du fichier en arguments
+
+
+  cmd1 | cmd2
+
+Si stdin de cmd2 est redirigé : 
+    - stdout cmd1 est égal à stdout cmd2
+
+
+echo pourquoisqs > test | wc
+
+ in         out                 in                  out
+0           wc                test + echo ??        1

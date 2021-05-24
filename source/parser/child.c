@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 16:34:57 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/23 17:35:34 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/23 20:36:53 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,11 @@ int add_child_process(t_prompt *prompt, t_command *ptr, int in, int out)
     return (pid);
 }
 
-void refill_std(int *std, int len)
+void refill_std(int *std, int len, t_command *ptr)
 {
     int fd[2];
     int i;
+    (void)ptr;
 
     std[0] = 0;
     i = 1;
@@ -53,6 +54,7 @@ void refill_std(int *std, int len)
         i++;
         fd[0] = 0;
         fd[1] = 1;
+        ptr = ptr->next;
     }
     std[i] = 1;
 }
@@ -76,7 +78,7 @@ void build_pipe(t_prompt *prompt, t_command *ptr)
     std = malloc(sizeof(int) * ((len * 2)));
     if (!std)
         return ((void)printf("pitie\n"));
-    refill_std(std, len);
+    refill_std(std, len, ptr);
     pid = malloc(sizeof(int) * len);
     if (!pid)
         return;
@@ -86,11 +88,13 @@ void build_pipe(t_prompt *prompt, t_command *ptr)
     {
         cout[0] = std[fd++];
         cout[1] = std[fd++];
+        redir(ptr);
         pid[i] = add_child_process(prompt, ptr, cout[0], cout[1]);
         if (cout[0] != 0)
             close(cout[0]);
         if (cout[1] != 1)
             close(cout[1]);
+        close_redir(ptr);
         ptr = ptr->next;
         i++;
     }
