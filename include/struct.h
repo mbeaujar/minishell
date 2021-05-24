@@ -24,6 +24,7 @@ typedef enum type {
 	PIP,
 	COMAT,
 	PATH,
+	DRIGHT,
 	DEFAULT = -1,
 } type;
 

@@ -26,13 +26,20 @@ int open_path(char *path, type key, int curr_fd)
 
     fd = -1;
     tmp = -1;
-    if (key == RIGHT)
+    if (key == RIGHT || key == DRIGHT)
     {
         if (curr_fd != 1)
             close(curr_fd);
-        tmp = open(path, O_CREAT | O_RDWR, S_IRWXU);
-        if(tmp == -1)
-            fd = open(path, O_RDWR);
+        if(key == DRIGHT)
+            tmp = open(path, O_CREAT | O_RDWR, S_IRWXU, O_APPEND);
+        if(key == RIGHT)
+            tmp = open(path, O_CREAT | O_RDWR, S_IRWXU);
+        if(tmp == -1) {
+            if(key == DRIGHT)
+                fd = open(path, O_RDWR | O_APPEND);
+            if(key == RIGHT)
+                fd = open(path, O_RDWR);
+        } 
         else
             fd = tmp;
     }
