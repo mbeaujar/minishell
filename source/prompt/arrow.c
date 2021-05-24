@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 19:47:29 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/21 18:33:47 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/25 00:31:24 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void change_buffer(t_prompt *prompt, t_buffer *new)
     g_buffer(FREE, NULL);
     prompt->buffer = new;
     g_buffer(SET, prompt->buffer);
-    create_termcap("dl");
+    create_termcap("rc");
+    create_termcap("ce");
+    create_termcap("sc");
     ft_putstr_fd("minishell &> ", STDOUT_FILENO);
     display_buffer(prompt);
 }
@@ -36,7 +38,6 @@ char arrow_key(char c, t_prompt *prompt)
         change_buffer(prompt, prompt->buffer->previous);
     if (seq[0] == '[' && seq[1] == 'C' && (prompt->indice + 1) <= prompt->buffer->strlen)
     {
-        // ft_printf("'%d'", prompt->indice);
         prompt->indice++;
         create_termcap("nd");
     }
@@ -54,7 +55,9 @@ void new_line(t_prompt *prompt)
     int len;
 
     old_indice = prompt->indice + 1;
-    create_termcap("dl");
+    //create_termcap("dl");
+    create_termcap("rc");
+    create_termcap("ce");
     display_prompt(prompt);
     display_buffer(prompt);
     len = prompt->buffer->strlen - old_indice;

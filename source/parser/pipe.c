@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:55:34 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/23 17:36:42 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/25 00:25:26 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,53 +41,18 @@
 /*
 ** Première fonction de test
 */
-void exec_pipe(t_prompt *prompt, t_command *ptr, t_command *next)
-{
-    int pid[2];
-    int fd[2];
-    int status;
 
-    if (pipe(fd) == -1)
-        return ((void)printf("pipe error\n"));
-    //printf("nb : %d\nfd 0 : %d\t fd 1: %d\n", nbpipe(ptr), fd[0], fd[1]);
-    redir(ptr);
-    redir(next);
-    pid[0] = fork();
-    if (pid[0] == -1)
-        return ((void)printf("first child error\n"));
-    if (pid[0] == 0) // premier child
+int nbpipe(t_command *ptr)
+{
+    int i;
+
+    i = 0;
+    if (!ptr)
+        return (i);
+    while (ptr && ptr->key == PIP)
     {
-        if (ptr->std_out == 1)
-            dup2(fd[1], 1);
-        close(fd[0]);
-        close(fd[1]);
-        which_command(prompt, ptr, ptr->argv);
-        kill(pid[0], 0);
-        exit(9);
+        ptr = ptr->next;
+        i++;
     }
-    else
-    {
-        pid[1] = fork();
-        if (pid[1] == -1)
-            return ((void)printf("second child error\n"));
-        if (pid[1] == 0) // deuxième child
-        {
-            if (next->std_in == 0)
-                dup2(fd[0], 0);
-            close(fd[1]);
-            close(fd[0]);
-            which_command(prompt, next, next->argv);
-            kill(pid[1], 0);
-            exit(10);
-        }
-        else // parent
-        {
-            close(fd[0]);
-            close(fd[1]);
-            waitpid(pid[0], &status, 0);
-            waitpid(pid[1], &status, 0);
-            close_redir(ptr);
-            close_redir(next);
-        }
-    }
+    return (i + 1);
 }
