@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 02:24:43 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/15 18:52:53 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/25 00:10:50 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int double_sep(type key)
         ft_putchar_fd('<', 1);
     if (key == RIGHT)
         ft_putchar_fd('>', 1);
+    if (key == DRIGHT)
+        ft_putstr_fd(">>", 1);
     if (key == COMAT)
         ft_putchar_fd(';', 1);
     if (key == PIP)
@@ -50,13 +52,23 @@ int double_sep(type key)
     return (0);
 }
 
+int which_redir(char *str)
+{
+    if (str[0] == '>' && str[1] == '>')
+        return (DRIGHT);
+    if (str[0] == '>')
+        return (RIGHT);
+    return (LEFT);
+}
+
 int check_sep_token(t_lexer **head)
 {
     if ((*head) && ((*head)->token[0] == '<' || (*head)->token[0] == '>'))
     {
         if (count_redir((*head)->token, (*head)->token[0]) == 0)
             return (0);
-        (*head)->key = (*head)->token[0] == '<' ? LEFT : RIGHT;
+        (*head)->key = which_redir((*head)->token);
+        printf("key : %d\n", (*head)->key);
         if (!(*head)->next)
             return (endl_sep((*head)->key));          
     }

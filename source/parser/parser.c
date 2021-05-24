@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 20:18:04 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/21 22:49:35 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/25 00:14:03 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int open_path(char *path, type key, int curr_fd)
         if (curr_fd != 1)
             close(curr_fd);
         if(key == DRIGHT)
-            tmp = open(path, O_CREAT | O_RDWR, S_IRWXU, O_APPEND);
+            tmp = open(path, O_APPEND | O_CREAT | O_RDWR, S_IRWXU);
         if(key == RIGHT)
             tmp = open(path, O_CREAT | O_RDWR, S_IRWXU);
         if(tmp == -1) {
@@ -69,7 +69,7 @@ t_command *create_token_range(t_lexer **start)
             if ((*start)->next != NULL && (*start)->next->key == DEFAULT)
                 ft_unleak_strjoin(&args, " ");
         }
-        if ((*start)->key == RIGHT)
+        if ((*start)->key == RIGHT || (*start)->key == DRIGHT)
         {
             list->std_out = open_path((*start)->next->token, (*start)->key, list->std_out);
             (*start) = (*start)->next;

@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 16:24:11 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/15 19:03:09 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/25 00:09:24 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int count_redir(char *str, char redir)
     i = 0;
     while (str[i] && str[i] == redir)
         i++;
+    if (!str[i] && redir == '>' && i == 2)
+        return (1);
     if (i > 1)
     {
         ft_putstr_fd("bash: syntax error near unexpected token `", 1);
@@ -77,7 +79,7 @@ int count_pip(char *str)
 
 int is_redir(type key)
 {
-    if (key == LEFT || key == RIGHT)
+    if (key == LEFT || key == RIGHT || key == DRIGHT)
         return (1);
     return (0);
 }
