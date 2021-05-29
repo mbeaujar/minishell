@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 16:33:12 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/14 21:04:02 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/29 15:35:14 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void ft_printtab(char **args)
     while (args[i])
     {
         ft_putstr_fd(args[i++], STDOUT_FILENO);
-        ft_putchar_fd(' ', STDOUT_FILENO);
+        ft_putchar_fd('\n', STDOUT_FILENO);
     }
+    printf("\nlen : %d\n", i);
 }

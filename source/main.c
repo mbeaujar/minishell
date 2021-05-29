@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:10:06 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/25 00:50:05 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/29 17:38:47 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,23 +53,24 @@ int main(int argc, char **argv, char **envp)
 	errno = 0;
 
 	init_prompt(&prompt);
+	prompt.envp = envp;
 	setup(&prompt, argc, argv);
 
 	// isatty -- check si le fd link à un terminal 
 
 	ret = tcgetattr(STDIN_FILENO, &prompt.orig_termios);
-	if (ret == -1)
+/* 	if (ret == -1)
 	{
 		printerrno_fd(1);
 		return (ret);
-	}
+	} */
 	prompt.raw = prompt.orig_termios;
 	ret = init_termcaps();
-	if (ret == -1)
+/* 	if (ret == -1)
 	{
 		printerrno_fd(1);
 		return (ret);
-	}
+	} */
 	enablerawmode(prompt.raw);
 
 	prompt.env = fill_env(envp, &prompt);

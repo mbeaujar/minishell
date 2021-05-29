@@ -2,6 +2,8 @@
 
 ## LIEN :
 
+- termios : https://viewsourcecode.org/snaptoken/kilo/03.rawInputAndOutput.html
+
 - table ascii ctrl : http://www.physics.udel.edu/~watson/scen103/ascii.html
 
 - termcaps list : http://manpages.ubuntu.com/manpages/bionic/fr/man5/termcap.5.html

@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 21:59:13 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/05/25 00:49:09 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/29 19:05:32 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ void enablerawmode(struct termios raw)
     raw.c_lflag &= ~(ECHO | ICANON | IEXTEN | ISIG);
     raw.c_iflag &= ~(ICRNL | IXON);
     raw.c_cc[VMIN] = 0;
-    raw.c_cc[VTIME] = 1;
+    raw.c_cc[VTIME] = 1; 
 
     ret = tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
-    if (ret == -1)
+/*     if (ret == -1)
     {
         printerrno_fd(1);
         exit(ret);
-    }
+    } */
 }
 
 void disablerawmode(struct termios orig_termios)
@@ -40,6 +40,6 @@ void disablerawmode(struct termios orig_termios)
     errno = 0;
     
     ret = tcsetattr(STDIN_FILENO, TCSAFLUSH, &orig_termios);
-    if (ret == -1)
-        printerrno_fd(1);
+/*     if (ret == -1)
+        printerrno_fd(1); */
 }

@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 17:50:00 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/25 01:13:21 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/28 15:20:07 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,8 @@ void find_env_path(t_prompt *prompt)
         addlstenv(&prompt->env, recup_real_path());
     else if (!find->value)
         find->value = recup_real_path();
+    find = search_env(prompt->env, "_");
+    if (!find)
+        return;
+    find->index = -2;
 }

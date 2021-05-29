@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 16:13:32 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/23 16:18:24 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/29 17:39:18 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void freelstcommand(t_command **list)
 {
     t_command *tmp;
 
-    if (!*list)
+    if (!list || !(*list))
         return;
     while((*list)->previous != NULL)
         *list = (*list)->previous;
