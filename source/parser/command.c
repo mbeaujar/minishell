@@ -6,11 +6,13 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:45:17 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/22 00:36:19 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 00:08:54 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// EPERM
 
 char **recup_path(t_prompt *prompt)
 {
@@ -38,7 +40,14 @@ int is_builtin(char **args)
     return (0);
 }
 
-int is_path_relative(t_command *list, char **args)
+int command_not_found(t_prompt *prompt, char **args)
+{
+    printf("bash: %s : command not found\n", args[0]);
+    prompt->returned = 127;
+    return (0);
+}
+
+int is_path_relative(t_prompt *prompt, t_command *list, char **args)
 {
     int len;
     struct stat file;
@@ -49,9 +58,11 @@ int is_path_relative(t_command *list, char **args)
         if (stat(args[0], &file) != -1)
         {
             list->path = ft_strdup(args[0]);
+            prompt->returned = 0;
             return (1);
         }
     }
+    prompt->returned = 127;
     printf("bash: %s : command not found\n", args[0]);
     return (0);
 }
@@ -67,9 +78,10 @@ int is_valid_command(t_prompt *prompt, t_command *list, char **args)
     if (is_builtin(args))
         return (1);
     i = 0;
+    prompt->returned = 0;
     path = recup_path(prompt);
     if (!path)
-        return (!printf("bash: %s : command not found\n", args[0]));
+        return (command_not_found(prompt, args));
     while (path[i])
     {
         path[i] = ft_strjoin_gnl(path[i], "/");
@@ -77,16 +89,15 @@ int is_valid_command(t_prompt *prompt, t_command *list, char **args)
         if (stat(path[i], &file) != -1)
         {
             list->path = ft_strdup(path[i]);
-            free_tab(path);
-            return (1);
+            return (free_tab(path) + 1);
         }
         i++;
     }
     free_tab(path);
-    return (is_path_relative(list, args));
+    return (is_path_relative(prompt, list, args));
 }
 
-void    which_command(t_prompt *prompt, t_command *ptr, char **args)
+void which_command(t_prompt *prompt, t_command *ptr, char **args)
 {
     if (ft_strcmp(args[0], "echo") == 0)
         echoo(prompt, args);
@@ -102,6 +113,6 @@ void    which_command(t_prompt *prompt, t_command *ptr, char **args)
         pwd(prompt, args);
     else if (ft_strcmp(args[0], "unset") == 0)
         unset(prompt, args);
-    else 
+    else
         unbuiltin(prompt, ptr, args);
 }

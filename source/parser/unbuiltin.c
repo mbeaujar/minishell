@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 22:57:15 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/30 15:42:41 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 00:16:34 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,19 @@ void exec_child(t_command *ptr, char **args, char **envp, int pid)
     errno = 0;
 
     g_pid(pid, SET);
-    g_pid(0, SET_ERRNO);
     ret = execve(ptr->path, args, envp);
     if (ret == -1)
     {
-        g_pid(125 + errno, SET_ERRNO);
-        printerrno_fd(STDOUT_FILENO);
         kill(pid, 0);
+        if (errno == EACCES)
+        {
+            ft_putstr_fd("bash: ", 1);
+            ft_putstr_fd(ptr->path, 1);
+            ft_putstr_fd(": ", 1);
+            printerrno_fd(STDOUT_FILENO);
+            exit(126);
+        }
+        printerrno_fd(STDOUT_FILENO);
         exit(125 + errno);
     }
 }
@@ -80,7 +86,7 @@ void unbuiltin(t_prompt *prompt, t_command *ptr, char **args)
         exec_child(ptr, args, envp, pid);
     waitpid(pid, &status, 0);
     g_pid(-1, SET);
-    prompt->returned = g_pid(0, GET_ERRNO);
+    prompt->returned = WEXITSTATUS(status);
     free(envp);
     free(ptr->path);
     ptr->path = NULL;

@@ -6,25 +6,26 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:33:00 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/30 15:39:39 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/30 23:48:07 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void free_tab(char **envp)
+int free_tab(char **envp)
 {
 	int i;
 
 	i = 0;
 	if (!*envp || envp == NULL || !envp)
-		return ;
+		return (0);
 	while (envp[i])
 	{
 		free(envp[i]);
 		i++;
 	}
 	free(envp);
+	return (0);
 }
 
 char **new_table_env(t_env *head)
