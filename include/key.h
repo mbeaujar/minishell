@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 22:44:15 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/05/15 15:47:48 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/30 14:15:16 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 # define GET 0
 # define SET 1
 # define FREE 2
+# define GET_ERRNO 2
+# define SET_ERRNO 3
 
 # define FREE_NOT 0
 # define FREE_S1 1

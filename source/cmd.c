@@ -45,7 +45,9 @@ void cmd(t_prompt *prompt, char *str)
     prompt->list = parse(tokens);
     // check si il y a un fd à -1 (message d'erreur + $?)
     
+    disablerawmode(prompt->orig_termios);
     interpreter(prompt);
+    enablerawmode(prompt->raw);
     freelstlexer(&tokens);
     freelstcommand(&prompt->list);
     free(cmd);

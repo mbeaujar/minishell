@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 16:13:42 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/28 15:38:58 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/30 15:39:39 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char **space_to_neg_tab(t_prompt *prompt, t_command *ptr)
     int e;
 
     i = 0;
-    set_env_var(ptr, prompt);
+    search_variable(ptr, prompt);
     args = ft_split(ptr->args, ' ');
     if (!args)
         return (NULL);

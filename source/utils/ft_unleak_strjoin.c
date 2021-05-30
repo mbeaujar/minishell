@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 16:14:08 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/16 16:14:09 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/30 15:39:39 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	ft_unleak_strjoin(char **dst, char *src)
 {
 	char *tmp;
 
+	if (!src)
+		return;
 	if (!*dst)
 	{
 		*dst = ft_strdup(src);

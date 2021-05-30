@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/25 00:49:58 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/30 15:40:29 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,11 @@ int lexer_error(char sep);
 t_command *parse(t_lexer *tokens);
 void lstaddbackcommand(t_command **list, t_command *new);
 char *replace_occurence(char *src, char *key, char *value);
-void set_env_var(t_command *command, t_prompt *prompt);
+void search_variable(t_command *ptr, t_prompt *prompt);
+int is_endvar(char c);
+int is_return_var(char *str, int i);
+char *add_value_return_var(t_prompt *prompt, char *str, int i);
+void secure_free(char *str);
 void redir(t_command *ptr);
 void close_redir(t_command *ptr);
 void exec_pipe(t_prompt *prompt, t_command *ptr, t_command *next);

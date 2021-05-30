@@ -6,69 +6,85 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:44:48 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/22 22:51:45 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/30 15:40:54 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *replace_occurence(char *src, char *key, char *value)
+char *replace_env_to_value(char *src, char *key, t_env *env)
 {
     char *new;
     char *coord;
+    char *value;
+    char *tmp;
+    int len_key;
+    int len_src;
+    int len_coord;
 
     new = NULL;
-    coord = ft_strnstr(src, key, ft_strlen(src));
-    ft_unleak_strjoin(&new, ft_substr(src, 0, ft_strlen(src) - ft_strlen(coord)));
-    if (value != NULL)
-        ft_unleak_strjoin(&new, value);
-    ft_unleak_strjoin(&new, ft_substr(coord, ft_strlen(key), ft_strlen(coord) - ft_strlen(key)));
-
-    free(src);
+    value = NULL;
+    if (env)
+        value = env->value;
+    len_src = (int)ft_strlen(src);
+    len_key = (int)ft_strlen(key);
+    coord = ft_strnstr(src, key, len_src);
+    len_coord = (int)ft_strlen(coord);
+    tmp = ft_substr(src, 0, len_src - len_coord);
+    ft_unleak_strjoin(&new, tmp);
+    secure_free(tmp);
+    ft_unleak_strjoin(&new, value);
+    tmp = ft_substr(coord, len_key, len_coord - len_key);
+    ft_unleak_strjoin(&new, tmp);
+    secure_free(tmp);
+    secure_free(src);
     return (new);
 }
 
-void set_env_var(t_command *command, t_prompt *prompt)
+int is_endvar(char c)
+{
+    return (c != ' ' && c != 0 && c > 0);
+}
+
+void search_len(t_command *ptr, int *i, int *len, int *start)
+{
+    (*start) = (*i);
+    while (is_endvar(ptr->args[(*i)]))
+    {
+        (*i)++;
+        (*len)++;
+        if (ptr->args[(*i)] == '$')
+            break;
+    }
+    (*i) = (*start);
+}
+
+void search_variable(t_command *ptr, t_prompt *prompt)
 {
     t_env *env;
+    char *tmp;
     int i;
     int start;
-    int pos;
-
-    (void)prompt;
+    int len;
 
     i = 0;
-    start = 0;
-    pos = 0;
-    env = NULL;
-    if (!command->args)
-        exit(0);
-
-    while (command->args[i])
+    while (ptr->args[i++])
     {
-        if (command->args[i] == '$')
+        len = 0;
+        if (is_return_var(ptr->args, i))
+            ptr->args = add_value_return_var(prompt, ptr->args, i);
+        if (ptr->args[i] == '$' && is_endvar(ptr->args[i + 1]))
         {
-            start = i;
-            while (command->args[i] != ' ' && command->args[i] != '\0' && command->args[i] > 0)
-            {
-                i++;
-                pos++;
-                if(command->args[i] == '$')
-                    break;
-            }
-            i = start;
-
-            if(pos > 1)
-            {
-                env = search_env(prompt->env, ft_substr(command->args, start + 1, pos - 1));
-                command->args = replace_occurence(command->args, ft_substr(command->args, start, pos), env != NULL ? env->value : NULL);
-                if (env != NULL)
-                    i += ft_strlen(env->value);
-                i--;
-            }
-
-            pos = 0;
+            search_len(ptr, &i, &len, &start);
+            tmp = ft_substr(ptr->args, start + 1, len - 1);
+            env = search_env(prompt->env, tmp);
+            secure_free(tmp);
+            tmp = ft_substr(ptr->args, start, len);
+            ptr->args = replace_env_to_value(ptr->args, tmp, env);
+            secure_free(tmp);
+            if (env != NULL)
+                i += ft_strlen(env->value);
+            i--;
         }
-        i++;
     }
 }

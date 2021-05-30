@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 22:57:15 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/29 19:41:36 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/30 15:42:41 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,14 @@
 int g_pid(int raw, int state)
 {
     static int pid = -1;
+    static int ret_errno = 0;
 
     if (state == GET)
         pid = raw;
+    if (state == SET_ERRNO)
+        ret_errno = raw;
+    if (state == GET_ERRNO)
+        return (ret_errno);
     return (pid);
 }
 
@@ -32,19 +37,28 @@ void signalhandler(int sig)
     pid = g_pid(0, GET);
     if (pid == -1)
         return;
-    if (sig == SIGINT || sig == SIGQUIT)
+    if (sig == SIGINT)
     {
         printf("\n");
         kill(pid, 0);
     }
-    if (sig == SIGQUIT)
-        printf("core dump created.\n");
 }
 
-void signal_list(void)
+void exec_child(t_command *ptr, char **args, char **envp, int pid)
 {
-    signal(SIGINT, signalhandler);
-    signal(SIGQUIT, signalhandler);
+    int ret;
+    errno = 0;
+
+    g_pid(pid, SET);
+    g_pid(0, SET_ERRNO);
+    ret = execve(ptr->path, args, envp);
+    if (ret == -1)
+    {
+        g_pid(125 + errno, SET_ERRNO);
+        printerrno_fd(STDOUT_FILENO);
+        kill(pid, 0);
+        exit(125 + errno);
+    }
 }
 
 void unbuiltin(t_prompt *prompt, t_command *ptr, char **args)
@@ -52,30 +66,21 @@ void unbuiltin(t_prompt *prompt, t_command *ptr, char **args)
     int status;
     int pid;
     char **envp;
-    errno = 0;
 
     envp = new_table_env(prompt->env);
     if (!envp)
         return ((void)printf("problem in the fct unbuiltin with char **envp\n"));
     if (!ptr->path || !args)
         return ((void)printf("problem no path in the fct unbuiltin\n"));
-    disablerawmode(prompt->orig_termios);
-    signal_list();
+    signal(SIGINT, signalhandler);
     pid = fork();
     if (pid == -1)
         return ((void)printerrno_fd(1));
     if (pid == 0)
-    {
-        g_pid(pid, SET);
-        status = execve(ptr->path, args, envp);
-        if (status == -1)
-            printerrno_fd(STDOUT_FILENO);
-        kill(pid, 0);
-        exit(status);
-    }
+        exec_child(ptr, args, envp, pid);
     waitpid(pid, &status, 0);
-    enablerawmode(prompt->raw);
     g_pid(-1, SET);
+    prompt->returned = g_pid(0, GET_ERRNO);
     free(envp);
     free(ptr->path);
     ptr->path = NULL;
