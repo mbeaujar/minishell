@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 16:13:32 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/30 15:39:39 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 17:05:49 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ t_command *newlstcommand(char *args)
     if (!(new = malloc(sizeof(t_command) * 1)))
         return (NULL);
     new->args = args;
-    new->std_err = STDERR_FILENO;
+    new->code_errno = 0 ;
+    new->path_file = NULL;
     new->std_in = STDIN_FILENO;
     new->std_out = STDOUT_FILENO;
     new->key = DEFAULT;
@@ -50,28 +51,6 @@ void lstaddbackcommand(t_command **list, t_command *new)
     // *list = ptr;
 }
 
-void printlstcommand(t_command *list) 
-{
-
-    t_command *ptr;
-
-    ptr = list;
-
-    if(!list)
-        return;
-
-    while(ptr->previous != NULL)
-        ptr = ptr->previous;
-
-    while(ptr != NULL) 
-    {
-        ft_printf("----COMMAND----\n");
-        ft_putstr_fd(ptr->args, 0);
-        ft_printf("\nstd err: %d\nstd in: %d\nstd out: %d\n", ptr->std_err, ptr->std_in, ptr->std_out);
-        ptr = ptr->next;
-    }
-}
-
 void freelstcommand(t_command **list)
 {
     t_command *tmp;
@@ -84,10 +63,16 @@ void freelstcommand(t_command **list)
     {
         tmp = *list;
         *list = (*list)->next;
+        if (tmp->args)
+            free(tmp->args);
         if (tmp->argv)
-            free(tmp->argv);
+            free_tab(tmp->argv);
         if (tmp->path)
             free(tmp->path);
+        if (tmp->std_in != 0)
+            close(tmp->std_in);
+        if (tmp->std_out != 1)
+            close(tmp->std_out);
         free(tmp);
         tmp = NULL;
     }

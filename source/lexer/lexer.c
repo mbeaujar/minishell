@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 16:53:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/30 15:39:39 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 16:26:23 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,6 @@ int create_token(t_lexer **head, t_lexing *var)
     }
     return (lexer_error(var->sep));
 }
-
-/*
-** str -> liste chainée de token
-*/
 
 void init_struct_lexing(t_lexing *var, char *str)
 {

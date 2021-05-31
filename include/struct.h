@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 22:43:04 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/05/29 15:34:13 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 17:03:06 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ typedef struct s_command
 	
     int std_out;
     int std_in;
-    int std_err;
-
+	int code_errno;
+	char *path_file;
 	type key;
 
     struct s_command *previous;
@@ -99,6 +99,7 @@ typedef struct s_prompt
 	t_buffer *buffer;
 	int  indice;
 	t_setup setup;
+	t_lexer *lexer;
 	t_command *list;
 	t_env *env;
 	char **envp;

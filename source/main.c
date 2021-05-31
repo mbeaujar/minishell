@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:10:06 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/31 15:55:15 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 16:32:53 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void init_prompt(t_prompt *prompt)
 	prompt->env = NULL;
 	prompt->returned = 0;
 	prompt->list = NULL;
+	prompt->lexer = NULL;
 }
 
 int main(int argc, char **argv, char **envp)
@@ -54,7 +55,6 @@ int main(int argc, char **argv, char **envp)
 	errno = 0;
 
 	init_prompt(&prompt);
-	prompt.envp = envp;
 	setup(&prompt, argc, argv);
 
 	// isatty -- check si le fd link à un terminal 

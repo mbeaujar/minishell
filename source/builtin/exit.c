@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:28:30 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/21 17:52:33 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 17:09:45 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void free_all(t_prompt *prompt, char **args, unsigned char returned)
 {
     free_tab(args);
     freelstenv(prompt->env);
+    freelstlexer(&prompt->lexer);
+    freelstcommand(&prompt->list);
     freelstbuffer(&prompt->buffer);
     disablerawmode(prompt->orig_termios);
     exit(returned);
@@ -75,6 +77,7 @@ void exitt(t_prompt *prompt, char **args)
 
     len = ft_strlen_tab(args);
     nb = 0;
+    prompt->returned = 1;
     if (len == 1)
     {
         ft_putstr_fd("exit\n", STDOUT_FILENO);

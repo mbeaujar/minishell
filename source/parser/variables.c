@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:44:48 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/31 16:15:27 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 17:08:12 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,9 @@ void search_len(t_command *ptr, int *i, int *len, int *start)
     (*i) = (*start);
 }
 
-void normi_variable(t_prompt *prompt, t_command *ptr, int i)
+void normi_variable(t_prompt *prompt, t_command *ptr, int i, int *len)
 {
+    *len = 0;
     if (is_return_var(ptr->args, i))
         ptr->args = add_value_return_var(prompt, ptr->args, i);
     if (ptr->args[i] == '~' && (ptr->args[i + 1] == '/' || !is_endvar(ptr->args[i + 1])))
@@ -76,10 +77,9 @@ void search_variable(t_command *ptr, t_prompt *prompt)
     int len;
 
     i = 0;
-    while (ptr->args[i++])
+    while (ptr->args[i])
     {
-        len = 0;
-        normi_variable(prompt, ptr, i);
+        normi_variable(prompt, ptr, i, &len);
         if (ptr->args[i] == '$' && is_endvar(ptr->args[i + 1]))
         {
             search_len(ptr, &i, &len, &start);
@@ -93,5 +93,6 @@ void search_variable(t_command *ptr, t_prompt *prompt)
                 i += ft_strlen(env->value);
             i--;
         }
+        i++;
     }
 }

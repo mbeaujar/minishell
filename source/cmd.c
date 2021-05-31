@@ -42,6 +42,7 @@ void cmd(t_prompt *prompt, char *str)
         free(cmd);
         return ;
     }
+    prompt->lexer = tokens;
     prompt->list = parse(tokens);
     // check si il y a un fd à -1 (message d'erreur + $?)
     

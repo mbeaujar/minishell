@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:45:17 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/31 15:41:26 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 17:05:07 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,36 @@ int is_path_relative(t_prompt *prompt, t_command *list, char **args)
     return (0);
 }
 
+int check_fd(t_command *ptr)
+{
+    if (ptr->std_out != -1 && ptr->std_in != -1)
+        return (0);
+    if (ptr->std_in != -1 && ptr->std_in != 0)
+    {
+        close(ptr->std_in);
+        ptr->std_in = 0;
+    }
+    if (ptr->std_out != -1 && ptr->std_out != 1)
+    {
+        close(ptr->std_out);
+        ptr->std_out = 1;
+    }
+    ft_putstr_fd("bash: ", 1);
+    ft_putstr_fd(ptr->path_file, 1);
+    ft_putstr_fd(": ", 1);
+    errno = ptr->code_errno;
+    printerrno_fd(1);
+    errno = 0;
+    return (1);
+}
+
 int is_valid_command(t_prompt *prompt, t_command *list, char **args)
 {
     struct stat file;
     char **path;
     int i;
 
-    if (!args)
+    if (!args || check_fd(list))
         return (0);
     if (is_builtin(args))
         return (1);

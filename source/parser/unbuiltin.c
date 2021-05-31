@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 22:57:15 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/31 15:39:25 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 16:59:11 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void unbuiltin(t_prompt *prompt, t_command *ptr, char **args)
     waitpid(pid, &status, 0);
     g_pid(-1, SET);
     prompt->returned = WEXITSTATUS(status);
-    free(envp);
+    free_tab(envp);
     free(ptr->path);
     ptr->path = NULL;
 }

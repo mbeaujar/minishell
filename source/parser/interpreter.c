@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 16:13:42 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/30 15:39:39 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 16:55:35 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,13 @@ void close_redir(t_command *ptr)
     {
         check_errno(dup2(ptr->std_out, 1));
         close(ptr->std_out);
+        ptr->std_out = 1;
     }
     if (ptr->std_in != 0)
     {
         check_errno(dup2(ptr->std_in, 0));
         close(ptr->std_in);
+        ptr->std_out = 0;
     }
 }
 
@@ -84,31 +86,34 @@ char **space_to_neg_tab(t_prompt *prompt, t_command *ptr)
     return (args);
 }
 
-void exec_command(t_prompt *prompt, t_command **ptr)
+void exec_command_pipe(t_prompt *prompt, t_command **ptr)
 {
     t_command *tmp;
 
-    if ((*ptr)->key == PIP)
+    tmp = (*ptr);
+    while (tmp && tmp->key == PIP)
     {
-        tmp = (*ptr);
-        while (tmp && tmp->key == PIP)
-        {
-            if (!tmp->argv)
-                tmp->argv = space_to_neg_tab(prompt, tmp);
-            if (!is_valid_command(prompt, tmp, tmp->argv))
-                return;
-            tmp = tmp->next;
-        }
         if (!tmp->argv)
             tmp->argv = space_to_neg_tab(prompt, tmp);
         if (!is_valid_command(prompt, tmp, tmp->argv))
-        {
-            *ptr = tmp;
             return;
-        }
-        build_pipe(prompt, *ptr);
-        *ptr = tmp->next;
+        tmp = tmp->next;
     }
+    if (!tmp->argv)
+        tmp->argv = space_to_neg_tab(prompt, tmp);
+    if (!is_valid_command(prompt, tmp, tmp->argv))
+    {
+        *ptr = tmp;
+        return;
+    }
+    build_pipe(prompt, *ptr);
+    *ptr = tmp->next;
+}
+
+void exec_command(t_prompt *prompt, t_command **ptr)
+{
+    if ((*ptr)->key == PIP)
+        exec_command_pipe(prompt, ptr);
     else
     {
         if (is_valid_command(prompt, (*ptr), (*ptr)->argv))
@@ -129,9 +134,7 @@ void interpreter(t_prompt *prompt)
     {
         ptr->argv = space_to_neg_tab(prompt, ptr);
         if (ptr->argv)
-        {
             exec_command(prompt, &ptr);
-        }
         if (ptr)
             ptr = ptr->next;
     }
