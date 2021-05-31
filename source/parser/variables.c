@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:44:48 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/30 15:40:54 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 16:15:27 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,14 @@ void search_len(t_command *ptr, int *i, int *len, int *start)
     (*i) = (*start);
 }
 
+void normi_variable(t_prompt *prompt, t_command *ptr, int i)
+{
+    if (is_return_var(ptr->args, i))
+        ptr->args = add_value_return_var(prompt, ptr->args, i);
+    if (ptr->args[i] == '~' && (ptr->args[i + 1] == '/' || !is_endvar(ptr->args[i + 1])))
+        ptr->args = add_tildes_var(prompt, ptr->args, i);
+}
+
 void search_variable(t_command *ptr, t_prompt *prompt)
 {
     t_env *env;
@@ -71,8 +79,7 @@ void search_variable(t_command *ptr, t_prompt *prompt)
     while (ptr->args[i++])
     {
         len = 0;
-        if (is_return_var(ptr->args, i))
-            ptr->args = add_value_return_var(prompt, ptr->args, i);
+        normi_variable(prompt, ptr, i);
         if (ptr->args[i] == '$' && is_endvar(ptr->args[i + 1]))
         {
             search_len(ptr, &i, &len, &start);

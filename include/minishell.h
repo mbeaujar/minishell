@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/30 23:47:44 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 16:12:52 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void search_variable(t_command *ptr, t_prompt *prompt);
 int is_endvar(char c);
 int is_return_var(char *str, int i);
 char *add_value_return_var(t_prompt *prompt, char *str, int i);
+char *add_tildes_var(t_prompt *prompt, char *str, int i);
 void secure_free(char *str);
 void redir(t_command *ptr);
 void close_redir(t_command *ptr);

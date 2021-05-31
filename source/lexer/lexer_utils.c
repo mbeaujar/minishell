@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 17:45:45 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/25 00:57:30 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 16:00:21 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int token_type(t_lexing *var, t_lexer **head)
     char c;
 
     c = 0;
-    if (var->str[var->i] == ' ' && var->sep != 0)
+    if ((var->str[var->i] == ' ' && var->sep != 0) || (var->str[var->i] == '~' && var->sep == '"'))
         var->str[var->i] = -var->str[var->i];
     if (var->sep == 0 && ((var->str[var->i] == ';' || var->str[var->i] == '<' || var->str[var->i] == '>' || var->str[var->i] == '|')))
     {

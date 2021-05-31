@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 15:08:24 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/30 15:41:12 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 16:15:41 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,31 @@ char *add_value_return_var(t_prompt *prompt, char *str, int i)
     ft_unleak_strjoin(&prev, next);
     secure_free(next);
     secure_free(str);
+    return (prev);
+}
+
+char *add_tildes_var(t_prompt *prompt, char *str, int i)
+{
+    t_env *find;
+    char *prev;
+    int len_str;
+    char *ret;
+    char *next;
+
+    find = search_env(prompt->env, "HOME");
+    if (!find)
+        return (str);
+    next = NULL;
+    ret = "";
+    len_str = (int)ft_strlen(str);
+    if (str[i + 1] != 0)
+        next = ft_substr(str, i + 1, len_str - i);
+    prev = ft_substr(str, 0, i);
+    if (find->value)
+        ret = find->value;
+    ft_unleak_strjoin(&prev, ret);
+    ft_unleak_strjoin(&prev, next);
+    secure_free(str);
+    secure_free(next);
     return (prev);
 }

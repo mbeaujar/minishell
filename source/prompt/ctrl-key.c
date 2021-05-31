@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 18:39:11 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/30 15:39:39 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 16:02:56 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void isctrl(t_prompt *prompt, char c)
         freelstbuffer(&prompt->buffer);
         freelstenv(prompt->env);
         disablerawmode(prompt->orig_termios);
-        exit(4);
+        exit(0);
     }
     if (c == (('l') & 0x1f))
     {
