@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:45:17 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/31 00:08:54 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 15:41:26 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int is_path_relative(t_prompt *prompt, t_command *list, char **args)
     struct stat file;
 
     len = (int)ft_strlen(args[0]);
-    if (len > 2 && args[0][0] == '.' && args[0][1] == '/')
+    if ((len > 2 && args[0][0] == '.' && args[0][1] == '/') || (args[0][0] == '/'))
     {
         if (stat(args[0], &file) != -1)
         {

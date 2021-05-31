@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 22:57:15 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/31 00:16:34 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 15:39:25 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void exec_child(t_command *ptr, char **args, char **envp, int pid)
     ret = execve(ptr->path, args, envp);
     if (ret == -1)
     {
-        kill(pid, 0);
         if (errno == EACCES)
         {
             ft_putstr_fd("bash: ", 1);
