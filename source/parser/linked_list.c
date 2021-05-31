@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 16:13:32 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/31 17:05:49 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 21:46:03 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,5 @@ void freelstcommand(t_command **list)
         free(tmp);
         tmp = NULL;
     }
+    *list = NULL;
 }

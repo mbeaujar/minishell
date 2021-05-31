@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 22:43:04 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/05/31 17:03:06 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 21:38:09 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef struct	s_env
 	int				index;
 	struct s_env	*next;
 } t_env;
-
 
 typedef struct s_buffer
 {
@@ -98,6 +97,7 @@ typedef struct s_prompt
 	struct termios orig_termios;
 	t_buffer *buffer;
 	int  indice;
+	int isatty;
 	t_setup setup;
 	t_lexer *lexer;
 	t_command *list;

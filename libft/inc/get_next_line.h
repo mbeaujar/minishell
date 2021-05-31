@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbeaujar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 15:33:20 by mbeaujar          #+#    #+#             */
-/*   Updated: 2020/12/11 18:36:39 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 22:01:22 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define MAX_FD 1024
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
+#  define BUFFER_SIZE 1
 
 # endif
 

@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 18:39:11 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/31 17:09:38 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 21:44:52 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void isctrl(t_prompt *prompt, char c)
         g_buffer(FREE, NULL);
         write(STDOUT_FILENO, "exit\n", 5);
         freelstbuffer(&prompt->buffer);
-        freelstenv(prompt->env);
+        freelstenv(&prompt->env);
         disablerawmode(prompt->orig_termios);
         //system("leaks minishell");
         exit(0);

@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 12:02:07 by atinseau          #+#    #+#             */
-/*   Updated: 2021/05/21 17:05:58 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 21:44:52 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void setup(t_prompt *prompt, int argc, char **argv)
 void exit_debug(t_prompt *prompt)
 {
     freelstbuffer(&prompt->buffer);
-    freelstenv(prompt->env);
+    freelstenv(&prompt->env);
     disablerawmode(prompt->orig_termios);
     exit(4);
 }

@@ -30,26 +30,25 @@ void printerrno_fd(int fd)
 
 void cmd(t_prompt *prompt, char *str)
 {
-    t_lexer *tokens;
     char *cmd;
 
     cmd = ft_secure_strdup(str);
     if (!cmd)
         return ;
-    tokens = lexer(prompt, cmd);
-    if (tokens == NULL)
+    prompt->lexer = lexer(prompt, cmd);
+    if (prompt->lexer == NULL)
     {
         free(cmd);
         return ;
     }
-    prompt->lexer = tokens;
-    prompt->list = parse(tokens);
+    prompt->list = parse(prompt->lexer);
     // check si il y a un fd à -1 (message d'erreur + $?)
-    
-    disablerawmode(prompt->orig_termios);
+    if (prompt->isatty == 1)
+        disablerawmode(prompt->orig_termios);
     interpreter(prompt);
-    enablerawmode(prompt->raw);
-    freelstlexer(&tokens);
+    if (prompt->isatty == 1)
+        enablerawmode(prompt->raw);
+    freelstlexer(&prompt->lexer);
     freelstcommand(&prompt->list);
     free(cmd);
 }

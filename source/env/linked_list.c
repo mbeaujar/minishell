@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 13:50:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/30 15:39:39 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 21:45:21 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,20 @@ void printlstenv(t_env *head)
 	}
 }
 
-void freelstenv(t_env *head)
+void freelstenv(t_env **head)
 {
 	t_env *tmp;
 
-	while (head)
+	while (*head)
 	{
-		tmp = head;
-		head = head->next;
+		tmp = *head;
+		*head = (*head)->next;
 		if (tmp->value)
 			free(tmp->value);
 		free(tmp->name);
 		free(tmp);
 	}
+	*head = NULL;
 }
 
 t_env *search_env(t_env *head, char *env_name)
@@ -61,9 +62,10 @@ t_env *fill_env(char **envp, t_prompt *prompt)
 	{
 		if (!(addlstenv(&head, envp[i])))
 		{
-			freelstenv(head);
+			freelstenv(&head);
 			freelstbuffer(&prompt->buffer);
-			disablerawmode(prompt->orig_termios);
+			if (prompt->isatty == 1)
+				disablerawmode(prompt->orig_termios);
 			exit(5);
 		}
 		i++;

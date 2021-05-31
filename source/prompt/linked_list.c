@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 19:04:55 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/05/30 15:39:39 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 21:37:17 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_buffer *newlstbuffer(char *buff)
 {
     t_buffer *new;
 
-    if (!(new = malloc(sizeof(t_buffer) * 1)))
+    if (!(new = malloc(sizeof(t_buffer))))
         return (NULL);
     new->buff = buff;
     new->buff[0] = 0;
@@ -86,6 +86,8 @@ void freelstbuffer(t_buffer **begin)
     t_buffer *head;
 
     head = *begin;
+    if (!begin || !*begin)
+        return;
     while (head->previous)
         head = head->previous;
     while (head)

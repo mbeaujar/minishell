@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:28:30 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/31 17:09:45 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 21:56:26 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,13 @@ unsigned char mini_atoi(char *arg)
 
 void free_all(t_prompt *prompt, char **args, unsigned char returned)
 {
-    free_tab(args);
-    freelstenv(prompt->env);
+    (void)args;
+    freelstenv(&prompt->env);
     freelstlexer(&prompt->lexer);
     freelstcommand(&prompt->list);
     freelstbuffer(&prompt->buffer);
-    disablerawmode(prompt->orig_termios);
+    if (prompt->isatty == 1)
+        disablerawmode(prompt->orig_termios);
     exit(returned);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/31 16:12:52 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 21:45:06 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 ** SOURCE
 */
 
-void cmd(t_prompt *prompt, char *cmd);
+void cmd(t_prompt *prompt, char *str);
 void printerrno_fd(int fd);
 
 /*
@@ -36,6 +36,7 @@ void env(t_prompt *prompt, char **args);
 char *check_args(char **args, int (*fct)());
 void export(t_prompt *prompt, char **args);
 void exitt(t_prompt *prompt, char **args);
+void free_all(t_prompt *prompt, char **args, unsigned char returned);
 void echoo(t_prompt *prompt, char **args);
 
 /*
@@ -47,7 +48,7 @@ void delete_env(t_prompt *var, t_env *to_delete);
 t_env *newlstenv(char *env);
 int addlstenv(t_env **head, char *env);
 void printlstenv(t_env *head);
-void freelstenv(t_env *head);
+void freelstenv(t_env **head);
 t_env *search_env(t_env *head, char *env_name);
 char *return_env_name(char *env);
 char *return_env_value(char *env);
@@ -154,7 +155,7 @@ char read_key(t_prompt *prompt);
 void printbuffer(char *str);
 void debug_prompt(t_buffer *buffer, int indice);
 void new_line(t_prompt *prompt);
-
+void prompt_tty(t_prompt *prompt);
 
 /*
 ** UTILS 

@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 19:21:58 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/30 15:39:39 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/05/31 21:49:54 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void freelstlexer(t_lexer **begin)
     t_lexer *head;
 
     head = *begin;
-    if (!head)
+    if (!begin || !*begin)
         return;
     while (head->previous)
         head = head->previous;
@@ -68,11 +68,10 @@ void printlexer(char *str)
         return;
     while (*str)
     {
-/*         if (*str > 0)
+        if (*str > 0)
             ft_putchar_fd(*str, STDOUT_FILENO);
         else
-            ft_putchar_fd(-(*str), STDOUT_FILENO); */
-        ft_putchar_fd(*str, STDOUT_FILENO);
+            ft_putchar_fd(-(*str), STDOUT_FILENO);
         str++;
     }
 }
@@ -86,18 +85,18 @@ void printlstlexer(t_lexer *head)
     while (head)
     {
         ft_putstr_fd("token : ", 0);
-       // ft_putchar_fd('\'', 0);
+        // ft_putchar_fd('\'', 0);
         printlexer(head->token);
         ft_putchar_fd('\t', 0);
-        if(head->key == PIP)
+        if (head->key == PIP)
             ft_putstr_fd("PIP", 1);
-        if(head->key == COMAT)
+        if (head->key == COMAT)
             ft_putstr_fd("COMAT", 1);
-        if(head->key == LEFT)
+        if (head->key == LEFT)
             ft_putstr_fd("LEFT", 1);
-        if(head->key == RIGHT)
+        if (head->key == RIGHT)
             ft_putstr_fd("RIGHT", 1);
-        if(head->key == DEFAULT)
+        if (head->key == DEFAULT)
             ft_putstr_fd("DEFAULT", 1);
         if (head->key == PATH)
             ft_putstr_fd("PATH", 1);
