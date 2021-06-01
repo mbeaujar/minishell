@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 17:36:43 by beaujardm         #+#    #+#             */
-/*   Updated: 2021/04/14 22:01:29 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 17:17:52 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	ft_strlen(const char *s)
 {
-	unsigned int i;
+	unsigned int	i;
 
 	i = 0;
 	if (!s)

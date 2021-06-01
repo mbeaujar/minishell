@@ -6,32 +6,31 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 22:23:49 by beaujardm         #+#    #+#             */
-/*   Updated: 2021/05/30 15:39:39 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 17:20:58 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
 
-static int		count_word(char const *str, char c)
+static int	count_word(char const *str, char c)
 {
-	int i;
-	int count;
+	int	i;
+	int	count;
 
 	i = 0;
 	count = 0;
 	while (str[i])
 	{
-		if (str[i] != c &&
-				(str[i + 1] == c || str[i + 1] == '\0'))
+		if (str[i] != c && (str[i + 1] == c || str[i + 1] == '\0'))
 			count++;
 		i++;
 	}
 	return (count);
 }
 
-static int		len_word(char const *str, char c)
+static int	len_word(char const *str, char c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -43,9 +42,9 @@ static int		len_word(char const *str, char c)
 	return (i);
 }
 
-static char		**free_malloc(char **tab)
+static char	**free_malloc(char **tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tab[i])
@@ -57,11 +56,11 @@ static char		**free_malloc(char **tab)
 	return (NULL);
 }
 
-static char		**fill(char const *str, char **tab, int len, char c)
+static char	**fill(char const *str, char **tab, int len, char c)
 {
-	int i;
-	int y;
-	int word;
+	int	i;
+	int	y;
+	int	word;
 
 	i = -1;
 	while (++i < len)
@@ -72,7 +71,8 @@ static char		**fill(char const *str, char **tab, int len, char c)
 		if (str[y - 1] == c)
 			str = str + y;
 		word = len_word(str, c);
-		if (!(tab[i] = malloc(sizeof(char) * (word + 1))))
+		tab[i] = malloc(sizeof(char) * (word + 1));
+		if (!tab[i])
 			return (free_malloc(tab));
 		y = 0;
 		while (y < word)
@@ -83,7 +83,7 @@ static char		**fill(char const *str, char **tab, int len, char c)
 	return (tab);
 }
 
-char			**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	int		len;
 	char	**tab;
@@ -91,7 +91,8 @@ char			**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	len = count_word(s, c);
-	if (!(tab = malloc(sizeof(char*) * (len + 1))))
+	tab = malloc(sizeof(char*) * (len + 1));
+	if (!tab)
 		return (NULL);
 	tab = fill(s, tab, len, c);
 	return (tab);

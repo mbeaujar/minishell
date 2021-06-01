@@ -11,12 +11,11 @@ NAME=minishell
 NAME_TEST=test
 CC=clang
 RM=rm -f
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g
 SRCS_DIRECTORY=source/
 HEADER=include
 PATH_LIB=libft/
 FILE_LIB= $(addprefix $(PATH_LIB), lib$(LIBFT).a)
-#FILE_LIB=libft/libft.a
 OBJS_DIRECTORY=objects/
 
 SRCS =  main.c \
@@ -78,13 +77,7 @@ SRCS_TEST = Criterion/tester/lexer.c \
 
 OBJ = ${SRCS:.c=.o}
 
-#OBJ_TESTS = $(addprefix $(OBJS_DIRECTORY),$(OBJ)) $(SRCS_TEST)
-#OBJ_TEST= ${SRCS_TEST:.c=.o}
-
-
-#OBJS = $(addprefix $(OBJS_DIRECTORY), $(filter-out test.o,$(OBJ)))
 OBJS = $(addprefix $(OBJS_DIRECTORY), $(OBJ))
-
 
 OBJS_TEST = $(filter-out $(OBJS_DIRECTORY)main.o,$(OBJS))
 
@@ -109,9 +102,6 @@ test : $(FILE_LIB) $(OBJS)
 
 tester: re
 	@sh Criterion/build.sh
-
-
-# --verbose
 
 clean : 
 	@$(RM) $(NAME)

@@ -6,13 +6,11 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:45:17 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 13:37:11 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 15:10:30 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// EPERM
 
 char **recup_path(t_prompt *prompt)
 {

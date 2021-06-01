@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbeaujar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 18:24:12 by mbeaujar          #+#    #+#             */
-/*   Updated: 2020/12/11 18:10:23 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 17:22:21 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
 
-static int			len(int n)
+static int	len(int n)
 {
 	unsigned int	nb;
 	int				i;
@@ -44,18 +44,19 @@ static unsigned int	value(int n)
 	return (nb);
 }
 
-static char			*zero(void)
+static char	*zero(void)
 {
-	char *tab;
+	char	*tab;
 
-	if (!(tab = malloc(sizeof(char) * 2)))
+	tab = malloc(sizeof(char) * 2);
+	if (!tab)
 		return (NULL);
 	tab[0] = '0';
 	tab[1] = '\0';
 	return (tab);
 }
 
-char				*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	unsigned int	nb;
 	int				i;
@@ -68,7 +69,8 @@ char				*ft_itoa(int n)
 		tab = zero();
 		return (tab);
 	}
-	if (!(tab = malloc(sizeof(char) * (i + 1))))
+	tab = malloc(sizeof(char) * (i + 1));
+	if (!tab)
 		return (NULL);
 	tab[i] = '\0';
 	i--;

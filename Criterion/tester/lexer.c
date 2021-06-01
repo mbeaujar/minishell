@@ -31,19 +31,10 @@ int test_token(t_prompt *prompt, char *str, char *expected[])
 	t_lexer *head = lexer(prompt, str);
 	t_lexer *tmp = head;
 	if (!head)
-	{
-/* 		printlexer(&prompt, str);
-		printf("\n"); */
 		return(-1);
-	}
 	int len = ft_strlen_tab(expected);
 	if (len != lstsizelexer(head))
 	{
-/* 		printf("\n-------------\nexpected : \n");
-		for(int i = 0; expected[i]; i++)
-			printf("'%s'\n", expected[i]);
-		printf("output : \n");
-		printlstlexer(head); */
 		freelstlexer(&head);
 		return (0);
 	}

@@ -6,16 +6,16 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 15:33:11 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/30 15:39:39 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 17:27:31 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/get_next_line.h"
 #include <stdio.h>
 
-size_t		ft_strlen_gnl(const char *s)
+size_t	ft_strlen_gnl(const char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!s)
@@ -29,9 +29,9 @@ size_t		ft_strlen_gnl(const char *s)
 ** check si le buffer contient un retour à la ligne
 */
 
-int			is_endl(char *save)
+int	is_endl(char *save)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!save)
@@ -45,10 +45,10 @@ int			is_endl(char *save)
 	return (0);
 }
 
-void		*ft_memmove_gnl(void *dst, const void *src, size_t len)
+void	*ft_memmove_gnl(void *dst, const void *src, size_t len)
 {
-	char *d;
-	char *s;
+	char	*d;
+	char	*s;
 
 	d = (char *)dst;
 	s = (char *)src;
@@ -65,13 +65,14 @@ void		*ft_memmove_gnl(void *dst, const void *src, size_t len)
 	return (dst);
 }
 
-char		*ft_strjoin_gnl(char *s1, char *s2)
+char	*ft_strjoin_gnl(char *s1, char *s2)
 {
 	char	*tab;
 
 	if (!s1 && !s2)
 		return (NULL);
-	if (!(tab = malloc(sizeof(char) * ((ft_strlen_gnl(s1) + ft_strlen_gnl(s2)) + 1))))
+	tab = malloc(sizeof(char) * ((ft_strlen_gnl(s1) + ft_strlen_gnl(s2)) + 1));
+	if (!tab)
 		return (NULL);
 	ft_memmove_gnl(tab, s1, ft_strlen_gnl(s1));
 	ft_memmove_gnl(tab + ft_strlen_gnl(s1), s2, ft_strlen_gnl(s2));

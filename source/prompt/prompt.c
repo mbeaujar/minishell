@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 19:15:27 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/05/30 15:39:39 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 17:08:37 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void read_stdin(t_prompt *prompt)
     while (1)
     {
         c = read_key(prompt);
-        if (ft_isprint(c))
+        if (c >= 32 && c <= 126)
         {
             write(STDOUT_FILENO, &c, 1);
             expand_buffer(prompt, c);

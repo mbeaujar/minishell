@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbeaujar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 16:10:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2020/12/11 18:08:42 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 17:17:08 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	uwrite(int fd, unsigned char c)
 	write(fd, &c, 1);
 }
 
-void		ft_putchar_fd(int c, int fd)
+void	ft_putchar_fd(int c, int fd)
 {
 	if (c <= 0x7f)
 		write(fd, &c, 1);

@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 15:32:57 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/30 15:39:39 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 17:29:53 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** la fonction return la ligne du fichier txt
 */
 
-char		*ret_line(char *save)
+char	*ret_line(char *save)
 {
 	int		i;
 	char	*n_line;
@@ -27,7 +27,8 @@ char		*ret_line(char *save)
 		return (0);
 	while (save[i] && save[i] != '\n')
 		i++;
-	if (!(n_line = malloc(sizeof(char) * (i + 1))))
+	n_line = malloc(sizeof(char) * (i + 1));
+	if (!n_line)
 		return (0);
 	i = 0;
 	while (save[i] && save[i] != '\n')
@@ -44,7 +45,7 @@ char		*ret_line(char *save)
 ** garde en memoire les restes du buffer
 */
 
-char		*next_line_buff(char *save)
+char	*next_line_buff(char *save)
 {
 	char	*n_save;
 	int		i;
@@ -61,7 +62,8 @@ char		*next_line_buff(char *save)
 		free(save);
 		return (0);
 	}
-	if (!(n_save = malloc(sizeof(char) * ((ft_strlen_gnl(save) - i) + 1))))
+	n_save = malloc(sizeof(char) * ((ft_strlen_gnl(save) - i) + 1));
+	if (!n_save)
 		return (0);
 	i++;
 	while (save[i])
@@ -71,7 +73,14 @@ char		*next_line_buff(char *save)
 	return (n_save);
 }
 
-int			get_next_line(int fd, char **line)
+int	which_return(int ret)
+{
+	if (ret == 0)
+		return (0);
+	return (1);
+}
+
+int	get_next_line(int fd, char **line)
 {
 	char		*buff;
 	static char	*save[MAX_FD];
@@ -80,11 +89,13 @@ int			get_next_line(int fd, char **line)
 	ret = 1;
 	if (fd < 0 || !line || BUFFER_SIZE <= 0)
 		return (-1);
-	if (!(buff = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buff)
 		return (-1);
 	while (!is_endl(save[fd]) && ret != 0)
 	{
-		if ((ret = read(fd, buff, BUFFER_SIZE)) == -1)
+		ret = read(fd, buff, BUFFER_SIZE);
+		if (ret == -1)
 		{
 			free(buff);
 			return (-1);
@@ -95,5 +106,5 @@ int			get_next_line(int fd, char **line)
 	free(buff);
 	*line = ret_line(save[fd]);
 	save[fd] = next_line_buff(save[fd]);
-	return (ret == 0 ? 0 : 1);
+	return (which_return(ret));
 }

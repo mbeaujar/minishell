@@ -17,7 +17,8 @@ void printerrno_fd(int fd)
     char *ret_error;
 
     ret_error = strerror(errno);
-    ft_putendl_fd(ret_error, fd);
+    ft_putstr_fd(ret_error, fd);
+    ft_putchar_fd('\n', 1);
     return;
 }
 

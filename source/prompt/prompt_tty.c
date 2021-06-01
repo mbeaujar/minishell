@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 17:19:23 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 13:35:31 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 17:14:49 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void prompt_tty(t_prompt *prompt)
 {
     int ret;
     char *line;
+    errno = 0;
 
     line = NULL;
     ret = 1;
@@ -39,7 +40,10 @@ void prompt_tty(t_prompt *prompt)
         if (ret == 0)
             exit_tty(prompt);
         if (ret == -1)
+        {
+            printerrno_fd(1);
             exit_tty(prompt);
+        }
         cmd(prompt, line);
         free(line);
         prompt->indice++;
