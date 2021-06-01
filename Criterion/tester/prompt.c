@@ -23,7 +23,7 @@ Test(export, search)
 	t_prompt prompt = create_prompt_with_env();
 	t_env *find = search_min(prompt.env);
 	int diff = ft_strcmp(expected, find->name);
-	freelstenv(prompt.env);
+	freelstenv(&prompt.env);
 	cr_expect(diff == 0);
 }
 
@@ -79,12 +79,12 @@ Test(env, new_table_env)
 		if ((strcmp(envp[i], expected[i])) != 0)
 		{
 			free_tab(envp);
-			freelstenv(prompt.env);
+			freelstenv(&prompt.env);
 			cr_assert(0);
 		}
 		i++;
 	}
-	freelstenv(prompt.env);
+	freelstenv(&prompt.env);
 	free_tab(envp);
 	cr_assert(1);
 }

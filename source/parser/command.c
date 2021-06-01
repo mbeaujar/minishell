@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:45:17 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/31 17:05:07 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 13:37:11 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ int is_builtin(char **args)
 
 int command_not_found(t_prompt *prompt, char **args)
 {
-    printf("bash: %s : command not found\n", args[0]);
+    if (prompt->isatty == 1)
+        printf("bash: %s : command not found\n", args[0]);
+    else
+        printf("bash: line %d: %s: command not found\n", prompt->indice, args[0]);
     prompt->returned = 127;
     return (0);
 }
@@ -62,9 +65,7 @@ int is_path_relative(t_prompt *prompt, t_command *list, char **args)
             return (1);
         }
     }
-    prompt->returned = 127;
-    printf("bash: %s : command not found\n", args[0]);
-    return (0);
+    return (command_not_found(prompt, args));
 }
 
 int check_fd(t_command *ptr)

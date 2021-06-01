@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:10:06 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/31 21:56:57 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 15:08:44 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int main(int argc, char **argv, char **envp)
 	find_env_path(&prompt);
 
 	// isatty -- check si le fd link à un terminal
-	//if (isatty(0))
-	//	prompt.isatty = 1;
+	if (isatty(0))
+		prompt.isatty = 1;
 
 	if (prompt.isatty)
 	{
