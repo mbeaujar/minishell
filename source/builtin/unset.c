@@ -6,47 +6,32 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:28:35 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/14 17:50:28 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 18:13:23 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-** bash: unset: `ro=salut': not a valid identifier
-** bash-4.4# unset :
-** bash: unset: `:': not a valid identifier
-** bash-4.4# unset %
-** bash: unset: `%': not a valid identifier
-** bash-4.4# unset ,
-** bash: unset: `,': not a valid identifier
-** bash-4.4# unset 1
-** bash: unset: `1': not a valid identifier
-** bash-4.4# unset 2
-** bash: unset: `2': not a valid identifier
-** bash-4.4# unset RaEZZ
-** bash-4.4# 
-*/
-
-int is_valid_identifier(char *str)
+int	is_valid_identifier(char *str)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (str[i])
-    {
-        if ((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z') || (str[i] == '_'))
-			i++; 
-        else
+	i = 0;
+	while (str[i])
+	{
+		if ((str[i] >= 'a' && str[i] <= 'z')
+			|| (str[i] >= 'A' && str[i] <= 'Z') || (str[i] == '_'))
+			i++;
+		else
 			return (0);
-    }
-    return (1);
+	}
+	return (1);
 }
 
-void unset_args(t_prompt *prompt, char **args)
+void	unset_args(t_prompt *prompt, char **args)
 {
-	int i;
-	t_env *find;
+	int		i;
+	t_env	*find;
 
 	i = 1;
 	while (args[i])
@@ -68,14 +53,14 @@ void unset_args(t_prompt *prompt, char **args)
 	}
 }
 
-void unset(t_prompt *prompt, char **args)
+void	unset(t_prompt *prompt, char **args)
 {
-	int len;
+	int	len;
 
 	len = ft_strlen_tab(args);
 	prompt->returned = 0;
 	if (len == 1)
-		return;
+		return ;
 	else
 		unset_args(prompt, args);
 }

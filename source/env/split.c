@@ -6,13 +6,13 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:17:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/14 18:10:39 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 18:20:09 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *return_env_name(char *env)
+char	*return_env_name(char *env)
 {
 	int		i;
 	char	*name;
@@ -20,7 +20,8 @@ char *return_env_name(char *env)
 	i = 0;
 	while (env[i] && env[i] != '=')
 		i++;
-	if (!(name = malloc(sizeof(char) * (i + 1))))
+	name = malloc(sizeof(char) * (i + 1));
+	if (!name)
 		return (NULL);
 	i = 0;
 	while (env[i] && env[i] != '=')
@@ -32,15 +33,16 @@ char *return_env_name(char *env)
 	return (name);
 }
 
-char *return_env_value(char *env)
+char	*return_env_value(char *env)
 {
 	int		i;
 	char	*value;
-	
+
 	i = 0;
 	while (*env && *env != '=')
 		env++;
-	if (!(value = malloc(sizeof(char) * ((int)ft_strlen(++env) + 1))))
+	value = malloc(sizeof(char) * ((int)ft_strlen(++env) + 1));
+	if (!value)
 		return (NULL);
 	while (*env != 0)
 	{
@@ -52,7 +54,7 @@ char *return_env_value(char *env)
 	return (value);
 }
 
-int is_value(char *env)
+int	is_value(char *env)
 {
 	while (*env)
 	{

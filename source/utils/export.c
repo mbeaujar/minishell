@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 18:44:07 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/14 18:10:18 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 18:10:58 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,17 @@ int is_indexable(t_env *head)
         head = head->next;
     }
     return (0);
+}
+
+t_env	*search_index(t_env *head, int index)
+{
+	while (head)
+	{
+		if (head->index == index)
+			return (head);
+		head = head->next;
+	}
+	return (NULL);
 }
 
 int max_index(t_env *head)

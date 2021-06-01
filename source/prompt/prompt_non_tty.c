@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_tty.c                                       :+:      :+:    :+:   */
+/*   prompt_non_tty.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 17:19:23 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 17:14:49 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 17:37:29 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void sighandler(int sig)
     printf("\n");
 }
 
-void prompt_tty(t_prompt *prompt)
+void prompt_non_tty(t_prompt *prompt)
 {
     int ret;
     char *line;

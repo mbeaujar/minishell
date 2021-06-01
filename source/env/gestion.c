@@ -6,15 +6,15 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:33:00 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/30 23:48:07 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 18:17:28 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int free_tab(char **envp)
+int	free_tab(char **envp)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!*envp || envp == NULL || !envp)
@@ -28,21 +28,23 @@ int free_tab(char **envp)
 	return (0);
 }
 
-char **new_table_env(t_env *head)
+char	**new_table_env(t_env *head)
 {
-    char **envp;
-	int i;
-	int l;
+	char	**envp;
+	int		i;
+	int		l;
 
 	l = sizelstenv(head);
 	if (!l)
 		return (NULL);
 	i = 0;
-	if (!(envp = malloc(sizeof(char*) * (l + 1))))
+	envp = malloc(sizeof(char*) * (l + 1));
+	if (!envp)
 		return (NULL);
 	while (i < l && head)
 	{
-		if (!(envp[i] = ft_strjoin_env(head->name, head->value)))
+		envp[i] = ft_strjoin_env(head->name, head->value);
+		if (!envp[i])
 		{
 			free_tab(envp);
 			return (NULL);

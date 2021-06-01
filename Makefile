@@ -37,7 +37,7 @@ SRCS =  main.c \
 		prompt/prompt.c \
 		prompt/termcaps.c \
 		prompt/termios.c \
-		prompt/prompt_tty.c \
+		prompt/prompt_non_tty.c \
 		env/gestion.c \
 		env/linked_list.c \
 		env/split.c \

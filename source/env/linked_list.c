@@ -6,13 +6,13 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 13:50:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/31 21:45:21 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 18:20:57 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void printlstenv(t_env *head)
+void	printlstenv(t_env *head)
 {
 	while (head)
 	{
@@ -21,9 +21,9 @@ void printlstenv(t_env *head)
 	}
 }
 
-void freelstenv(t_env **head)
+void	freelstenv(t_env **head)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	while (*head)
 	{
@@ -37,9 +37,9 @@ void freelstenv(t_env **head)
 	*head = NULL;
 }
 
-t_env *search_env(t_env *head, char *env_name)
+t_env	*search_env(t_env *head, char *env_name)
 {
-	size_t len;
+	size_t	len;
 
 	len = ft_strlen(env_name) + 1;
 	while (head)
@@ -51,10 +51,10 @@ t_env *search_env(t_env *head, char *env_name)
 	return (NULL);
 }
 
-t_env *fill_env(char **envp, t_prompt *prompt)
+t_env	*fill_env(char **envp, t_prompt *prompt)
 {
-	int i;
-	t_env *head;
+	int		i;
+	t_env	*head;
 
 	i = 0;
 	head = NULL;
@@ -73,10 +73,10 @@ t_env *fill_env(char **envp, t_prompt *prompt)
 	return (head);
 }
 
-void delete_env(t_prompt *var, t_env *to_delete)
+void	delete_env(t_prompt *var, t_env *to_delete)
 {
-	t_env *tmp;
-	t_env *head;
+	t_env	*tmp;
+	t_env	*head;
 
 	head = var->env;
 	if (to_delete->name != NULL)
@@ -88,12 +88,12 @@ void delete_env(t_prompt *var, t_env *to_delete)
 		tmp = var->env;
 		var->env = var->env->next;
 		free(tmp);
-		return;
+		return ;
 	}
 	while (head->next != NULL && head->next != to_delete)
 		head = head->next;
 	if (head->next == NULL)
-		return;
+		return ;
 	tmp = head->next;
 	head->next = head->next->next;
 	free(tmp);

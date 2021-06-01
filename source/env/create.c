@@ -6,29 +6,27 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 17:44:01 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/30 15:39:39 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 18:20:54 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env *newlstenv(char *env)
+t_env	*newlstenv(char *env)
 {
-	t_env *new;
-	char *name;
-	char *value;
+	t_env	*new;
+	char	*name;
+	char	*value;
 
-	if (!(new = malloc(sizeof(t_env) * 1)))
+	new = malloc(sizeof(t_env) * 1);
+	if (!new)
 		return (NULL);
-	if (!(name = return_env_name(env)))
+	name = return_env_name(env);
+	value = return_env_value(env);
+	if (!value || !name)
 	{
-		free(new);
-		return (NULL);
-	}
-	if (!(value = return_env_value(env)))
-	{
-		free(new);
-		free(name);
+		secure_free(new);
+		secure_free(name);
 		return (NULL);
 	}
 	new->name = name;
@@ -38,24 +36,26 @@ t_env *newlstenv(char *env)
 	return (new);
 }
 
-int addlstenvnull(t_env **head, char *env)
+int	addlstenvnull(t_env **head, char *env)
 {
 	if (is_value(env))
 	{
-		if (!(*head = newlstenv(env)))
+		*head = newlstenv(env);
+		if (!*head)
 			return (0);
 	}
 	else
 	{
-		if (!(*head = newlstenvnull(env)))
+		*head = newlstenvnull(env);
+		if (!*head)
 			return (0);
 	}
 	return (1);
 }
 
-int addlstenv(t_env **head, char *env)
+int	addlstenv(t_env **head, char *env)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	if (!*head)
 		return (addlstenvnull(head, env));
@@ -64,41 +64,44 @@ int addlstenv(t_env **head, char *env)
 		tmp = tmp->next;
 	if (is_value(env))
 	{
-		if (!(tmp->next = newlstenv(env)))
+		tmp->next = newlstenv(env);
+		if (!tmp->next)
 			return (0);
 	}
 	else
 	{
-		if (!(tmp->next = newlstenvnull(env)))
+		tmp->next = newlstenvnull(env);
+		if (!tmp->next)
 			return (0);
 	}
 	return (1);
 }
 
-t_env *newlstenvnull(char *env)
+t_env	*newlstenvnull(char *env)
 {
-	t_env *new;
+	t_env	*new;
 
-	if (!(new = malloc(sizeof(t_env) * 1)))
+	new = malloc(sizeof(t_env) * 1);
+	if (!new)
 		return (NULL);
 	new->name = env;
 	new->value = NULL;
 	new->index = -1;
 	new->next = NULL;
-	return(new);
+	return (new);
 }
 
-int sizelstenv(t_env *head)
+int	sizelstenv(t_env *head)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    if (!head)
-        return (0);
-    while (head)
-    {
-        head = head->next;
-        i++;
-    }
-    return (i);
+	i = 0;
+	if (!head)
+		return (0);
+	while (head)
+	{
+		head = head->next;
+		i++;
+	}
+	return (i);
 }
