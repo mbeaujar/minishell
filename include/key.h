@@ -6,31 +6,31 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 22:44:15 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/05/30 16:27:47 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 20:40:14 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEY_H
 # define KEY_H
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h> 
-#include "../libft/inc/libft.h"
-#include <limits.h>
-#include <sys/errno.h>
-#include <string.h>
-#include <curses.h>
-#include <term.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <signal.h>
- #include <sys/stat.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include "../libft/inc/libft.h"
+# include <limits.h>
+# include <sys/errno.h>
+# include <string.h>
+# include <curses.h>
+# include <term.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <signal.h>
+# include <sys/stat.h>
 
 # ifndef PATH_MAX
 #  define PATH_MAX 1024
-# endif 
+# endif
 
 # define DELETE 127
 # define ENTER 13
@@ -47,20 +47,4 @@
 # define FREE_S2 2
 # define FREE_ALL 3
 
-
-/* # define TOP 9165
-# define BOT 9166
-# define LEFT 9168
-# define RIGHT 9167 */
-
-/// TERMCAPS \\\
-
-// le -- move cursor left
-// dc -- character delete
-// cl -- clear term
-// nd -- move cursor right
-// ce -- delete to end line
-
-
-
-#endif 
+#endif

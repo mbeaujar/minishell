@@ -1,5 +1,9 @@
 # MINISHELL
 
+### problem :
+
+- echo salut | cat ; echo < file
+
 ## LIEN :
 
 - termios : https://viewsourcecode.org/snaptoken/kilo/03.rawInputAndOutput.html

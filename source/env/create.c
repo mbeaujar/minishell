@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 17:44:01 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 18:20:54 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 18:23:10 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ t_env	*newlstenv(char *env)
 	value = return_env_value(env);
 	if (!value || !name)
 	{
-		secure_free(new);
+		free(new);
+		secure_free(value);
 		secure_free(name);
 		return (NULL);
 	}

@@ -59,14 +59,16 @@ SRCS =  main.c \
 		lexer/lexer.c \
 		lexer/linked_list.c \
 		lexer/lexer_utils.c \
+		lexer/lexer_char.c \
 		lexer/count_char.c \
 		lexer/search_type.c \
 		parser/parser.c \
 		parser/linked_list.c \
 		parser/interpreter.c \
+		parser/redir.c \
 		parser/command.c \
 		parser/variables.c \
-		parser/pipe.c \
+		parser/cmd_utils.c \
 		parser/unbuiltin.c \
 		parser/child.c \
 		parser/return.c 

@@ -6,120 +6,119 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 20:18:04 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/31 17:04:31 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 20:39:36 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-** check file -- stat
-** LEFT = stdin
-** RIGHT = stdout
-*/
-
-int open_path(char *path, type key, int curr_fd)
+int	check_path(char *path, t_type key, int curr_fd)
 {
-    int fd;
-    struct stat file;
-    int tmp;
+	int	tmp;
+	int	fd;
 
-    fd = -1;
-    tmp = -1;
-    if (key == RIGHT || key == DRIGHT)
-    {
-        if (curr_fd != 1)
-            close(curr_fd);
-        if(key == DRIGHT)
-            tmp = open(path, O_APPEND | O_CREAT | O_RDWR, S_IRWXU);
-        if(key == RIGHT)
-            tmp = open(path, O_CREAT | O_RDWR, S_IRWXU);
-        if(tmp == -1) {
-            if(key == DRIGHT)
-                fd = open(path, O_RDWR | O_APPEND);
-            if(key == RIGHT)
-                fd = open(path, O_RDWR);
-        } 
-        else
-            fd = tmp;
-    }
-    else if (key == LEFT)
-    {
-        if (curr_fd != 0)
-            close(curr_fd);
-        if (stat(path, &file) == -1)
-            return (-1);
-        fd = open(path, O_RDONLY);
-    }
-    return (fd);
+	tmp = -1;
+	fd = -1;
+	if (curr_fd != 1)
+		close(curr_fd);
+	if (key == DRIGHT)
+		tmp = open(path, O_APPEND | O_CREAT | O_RDWR, S_IRWXU);
+	if (key == RIGHT)
+		tmp = open(path, O_CREAT | O_RDWR, S_IRWXU);
+	if (tmp == -1)
+	{
+		if (key == DRIGHT)
+			fd = open(path, O_RDWR | O_APPEND);
+		if (key == RIGHT)
+			fd = open(path, O_RDWR);
+	}
+	else
+		fd = tmp;
+	return (fd);
 }
 
-int errno_open(t_command *ptr, char *path, type key, int curr_fd)
+int	open_path(char *path, t_type key, int curr_fd)
 {
-    int ret;
-    errno = 0;
+	int			fd;
+	struct stat	file;
+	int			tmp;
 
-    ret = open_path(path, key, curr_fd);
-    if (ret == -1)
-    {
-        ptr->code_errno = errno;
-        ptr->path_file = path;
-    }
-    return (ret);
-    
+	fd = -1;
+	tmp = -1;
+	if (key == RIGHT || key == DRIGHT)
+		fd = check_path(path, key, curr_fd);
+	else if (key == LEFT)
+	{
+		if (curr_fd != 0)
+			close(curr_fd);
+		if (stat(path, &file) == -1)
+			return (-1);
+		fd = open(path, O_RDONLY);
+	}
+	return (fd);
 }
 
-t_command *create_token_range(t_lexer **start)
+int	errno_open(t_cmd *ptr, t_lexer **start, t_type key, int curr_fd)
 {
-    char *args;
-    t_command *list;
-    
-    args = NULL;
-    list = newlstcommand(NULL);
-    while ((*start) != NULL && (*start)->key != COMAT && (*start)->key != PIP)
-    {
-        if ((*start)->key == DEFAULT)
-        {
-            ft_unleak_strjoin(&args, (*start)->token);
-            if ((*start)->next != NULL && (*start)->next->key == DEFAULT)
-                ft_unleak_strjoin(&args, " ");
-        }
-        if ((*start)->key == RIGHT || (*start)->key == DRIGHT)
-        {
-            list->std_out = errno_open(list, (*start)->next->token, (*start)->key, list->std_out);
-            (*start) = (*start)->next;
-        }
-        if ((*start)->key == LEFT)
-        {
-            list->std_in = errno_open(list, (*start)->next->token, (*start)->key, list->std_in);
-            (*start) = (*start)->next;
-        }
-        (*start) = (*start)->next;
-    }
-    list->args = args;
-    return (list);
+	int		ret;
+	char	*path;
+
+	errno = 0;
+	path = (*start)->next->token;
+	ret = open_path(path, key, curr_fd);
+	if (ret == -1)
+	{
+		ptr->code_errno = errno;
+		ptr->path_file = path;
+	}
+	(*start) = (*start)->next;
+	return (ret);
 }
 
-t_command *parse(t_lexer *tokens)
+t_cmd	*create_token_range(t_lexer **start)
 {
-    t_lexer *ptr;
-    t_command *list = NULL;
-    t_command *current = NULL;
-    char *args;
+	char		*args;
+	t_cmd		*list;
 
-    ptr = tokens;
+	args = NULL;
+	list = newlstcommand(NULL);
+	while ((*start) != NULL && (*start)->key != COMAT && (*start)->key != PIP)
+	{
+		if ((*start)->key == DEFAULT)
+		{
+			ft_unleak_strjoin(&args, (*start)->token);
+			if ((*start)->next != NULL && (*start)->next->key == DEFAULT)
+				ft_unleak_strjoin(&args, " ");
+		}
+		if ((*start)->key == RIGHT || (*start)->key == DRIGHT)
+			list->std_out = errno_open(list, start, (*start)->key, list->std_out);
+		if ((*start)->key == LEFT)
+			list->std_in = errno_open(list, start, (*start)->key, list->std_in);
+		(*start) = (*start)->next;
+	}
+	list->args = args;
+	return (list);
+}
 
-    args = NULL;
-    while (ptr != NULL)
-    {
-        current = create_token_range(&ptr);
-        if (ptr && ptr->key == PIP)
-            current->key = PIP;
-        if (ptr && (ptr->key == PIP || ptr->key == COMAT))
-            ptr = ptr->next;
+t_cmd	*parse(t_lexer *tokens)
+{
+	t_lexer		*ptr;
+	t_cmd		*list;
+	t_cmd		*current;
+	char		*args;
 
-        lstaddbackcommand(&list, current);
-    }
-
-    return (list);
+	ptr = tokens;
+	list = NULL;
+	current = NULL;
+	args = NULL;
+	while (ptr != NULL)
+	{
+		current = create_token_range(&ptr);
+		if (ptr && ptr->key == PIP)
+			current->key = PIP;
+		if (ptr && (ptr->key == PIP || ptr->key == COMAT))
+			ptr = ptr->next;
+		lstaddbackcommand(&list, current);
+	}
+	return (list);
 }

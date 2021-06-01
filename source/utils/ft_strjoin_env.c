@@ -6,13 +6,13 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 17:51:05 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/03 18:04:30 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 20:07:04 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char		*ft_strjoin_env(char const *s1, char const *s2)
+char	*ft_strjoin_env(char const *s1, char const *s2)
 {
 	char	*new;
 	int		i;
@@ -21,14 +21,15 @@ char		*ft_strjoin_env(char const *s1, char const *s2)
 	if (!s1)
 		return (NULL);
 	i = 0;
-	if (!(new = malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2)) + 2))))
+	new = malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2)) + 2));
+	if (!new)
 		return (NULL);
 	while (s1[i])
 	{
 		new[i] = s1[i];
 		i++;
 	}
-    new[i++] = '=';
+	new[i++] = '=';
 	y = 0;
 	while (s2 != NULL && s2[y])
 	{

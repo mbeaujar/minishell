@@ -6,16 +6,16 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 16:11:10 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/28 15:40:29 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 20:03:11 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int init_termcaps(void)
+int	init_termcaps(void)
 {
-	int ret;
-	char *term_type;
+	int		ret;
+	char	*term_type;
 
 	term_type = getenv("TERM");
 	if (!term_type)
@@ -31,23 +31,23 @@ int init_termcaps(void)
 	}
 	else if (ret == 0)
 	{
-		ft_putstr_fd("Terminal type '%s' is not defined in termcap database.\n", 0);
+		printf("Terminal type is not defined in termcap database.\n");
 		return (-1);
 	}
 	return (0);
 }
 
-int display_termcap(int c)
+int	display_termcap(int c)
 {
-	char cast;
+	char	cast;
 
 	cast = (char)c;
 	return (write(1, &cast, 1));
 }
 
-void create_termcap(char *termcap)
+void	create_termcap(char *termcap)
 {
-	char *new_termcap;
+	char	*new_termcap;
 
 	new_termcap = tgetstr(termcap, NULL);
 	tputs(new_termcap, 1, display_termcap);

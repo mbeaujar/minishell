@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 16:22:36 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/30 15:39:39 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 20:05:29 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@
 ** state = FREE_S1 FREE_S2 FREE_ALL FREE_NO
 */
 
-char *ft_create_env(char *s1, char *s2, int state)
+char	*ft_create_env(char *s1, char *s2, int state)
 {
-    char *env;
-    
-    env = ft_strjoin_env(s1, s2);
-    if (state == FREE_S1 || state == FREE_ALL)
-        free(s1);
-    if (state == FREE_S2 || state == FREE_ALL)
-        free(s2);
-    return (env);
+	char	*env;
+
+	env = ft_strjoin_env(s1, s2);
+	if (state == FREE_S1 || state == FREE_ALL)
+		free(s1);
+	if (state == FREE_S2 || state == FREE_ALL)
+		free(s2);
+	return (env);
 }

@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 16:14:03 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/16 16:14:04 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/01 20:04:12 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ void	ft_argv_strjoin(char **dst, int count, ...)
 		ft_unleak_strjoin(dst, va_arg(list, char *));
 		i++;
 	}
-    va_end(list);
+	va_end(list);
 }
