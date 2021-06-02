@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 20:38:57 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/02 18:10:13 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	echoo(t_prompt *prompt, char **args);
 ** ENV
 */
 
-t_env	*fill_env(char **envp, t_prompt *prompt);
+t_env	*fill_env(char **envp);
 void	delete_env(t_prompt *var, t_env *to_delete);
 t_env	*newlstenv(char *env);
 int		addlstenv(t_env **head, char *env);

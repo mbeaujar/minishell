@@ -1,10 +1,8 @@
 # MINISHELL
 
-### problem :
-
-- echo salut | cat ; echo < file
-
 ## LIEN :
+
+- open flags + options  : https://www.tutorialspoint.com/unix_system_calls/open.htm
 
 - termios : https://viewsourcecode.org/snaptoken/kilo/03.rawInputAndOutput.html
 

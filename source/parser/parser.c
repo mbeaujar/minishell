@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 20:18:04 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 20:39:36 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/02 22:25:57 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,15 @@
 
 int	check_path(char *path, t_type key, int curr_fd)
 {
-	int	tmp;
 	int	fd;
 
-	tmp = -1;
 	fd = -1;
 	if (curr_fd != 1)
 		close(curr_fd);
 	if (key == DRIGHT)
-		tmp = open(path, O_APPEND | O_CREAT | O_RDWR, S_IRWXU);
+		fd = open(path, O_APPEND | O_CREAT | O_RDWR, S_IRWXU);
 	if (key == RIGHT)
-		tmp = open(path, O_CREAT | O_RDWR, S_IRWXU);
-	if (tmp == -1)
-	{
-		if (key == DRIGHT)
-			fd = open(path, O_RDWR | O_APPEND);
-		if (key == RIGHT)
-			fd = open(path, O_RDWR);
-	}
-	else
-		fd = tmp;
+		fd = open(path, O_CREAT | O_RDWR | O_TRUNC, S_IRWXU);
 	return (fd);
 }
 

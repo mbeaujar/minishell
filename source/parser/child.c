@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 16:34:57 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/02 14:49:07 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/02 22:13:22 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,12 @@ void	exec_child_process(t_prompt *prompt, t_cmd *ptr, int *std, int *pid)
 	{
 		redir(ptr);
 		pid[i] = add_child_process(prompt, ptr, std[fd], std[fd + 1]);
-		if (std[fd] != 0)
+		if (std[fd] != 0 && std[fd] != 1)
 			close(std[fd]);
-		if (std[fd + 1] != 1)
+		if (std[fd + 1] != 1 && std[fd + 1] != 0)
 			close(std[fd + 1]);
-		fd += 2;
 		close_redir(ptr);
+		fd += 2;
 		ptr = ptr->next;
 		i++;
 	}

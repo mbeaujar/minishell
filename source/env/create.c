@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 17:44:01 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 18:23:10 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/02 18:15:37 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_env	*newlstenv(char *env)
 	char	*name;
 	char	*value;
 
-	new = malloc(sizeof(t_env) * 1);
+	new = malloc(sizeof(t_env));
 	if (!new)
 		return (NULL);
 	name = return_env_name(env);

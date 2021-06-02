@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/15 19:29:51 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 18:20:43 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/02 17:53:56 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ size_t	recup_shlvl(char *str)
 	free(str);
 	if ((int)(nb * sign) < 0)
 		return (0);
-	if ((int)++nb > 998)
+	if ((int)nb > 998)
 	{
 		printf("bash: warning: shell level (");
-		printf("%zu) too high, resetting to 1\n", nb);
+		printf("%zu) too high, resetting to 1\n", nb + 1);
 		nb = 1;
 	}
-	return (nb);
+	return (nb + 1);
 }
 
 void	find_env_shlvl(t_prompt *prompt)

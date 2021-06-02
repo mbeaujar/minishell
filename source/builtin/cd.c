@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 17:59:35 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 18:05:37 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/02 18:43:22 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ void	change_directory(t_prompt *prompt, char *path)
 	if (ret == -1)
 	{
 		prompt->returned = 1;
+		ft_putstr_fd("bash: cd: ", 1);
+		ft_putstr_fd(path, 1);
+		ft_putstr_fd(": ", 1);
 		return (printerrno_fd(1));
 	}
 	refresh_pwd(prompt, "PWD");

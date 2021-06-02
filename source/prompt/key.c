@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 19:51:16 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 20:38:52 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/02 19:09:25 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ char	read_key(t_prompt *prompt)
 		ret = read(STDIN_FILENO, &c, 1);
 		if (ret == -1 && errno != EAGAIN)
 		{
-			printlstbuffer(prompt->buffer);
 			g_buffer(FREE, NULL);
 			freelstbuffer(&prompt->buffer);
 			disablerawmode(prompt->orig_termios);

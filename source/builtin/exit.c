@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:28:30 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 18:08:52 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/02 18:34:53 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ unsigned char	mini_atoi(char *arg)
 			sign = -1;
 		i++;
 	}
-	while (arg[i])
-		nb = (nb * 10) + (arg[i++] + 48);
-	return (nb);
+	while (arg[i] >= '0' && arg[i] <= '9')
+		nb = (nb * 10) + (arg[i++] - 48);
+	return (nb * sign);
 }
 
 void	free_all(t_prompt *prompt, char **args, unsigned char returned)
@@ -87,7 +87,7 @@ void	exitt(t_prompt *prompt, char **args)
 	if (len > 2 && valid_arg(args[1]))
 		return ((void)printf("exit\nbash: exit: too many arguments\n"));
 	ret = check_args(args, valid_arg);
-	if (ret == NULL)
+	if (ret != NULL)
 	{
 		ft_putstr_fd("exit\n", STDOUT_FILENO);
 		ft_putstr_fd("bash: exit: ", STDOUT_FILENO);
@@ -95,5 +95,6 @@ void	exitt(t_prompt *prompt, char **args)
 		ft_putstr_fd(": numeric argument required\n", STDOUT_FILENO);
 		free_all(prompt, args, 2);
 	}
+	ft_putstr_fd("exit\n", 1);
 	free_all(prompt, args, mini_atoi(args[1]));
 }

@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:45:17 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 20:37:59 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/02 22:26:43 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	is_path_relative(t_prompt *prompt, t_cmd *list, char **args)
 	return (command_not_found(prompt, args));
 }
 
-int	check_fd(t_cmd *ptr)
+int	check_fd(t_prompt *prompt, t_cmd *ptr)
 {
 	if (ptr->std_out != -1 && ptr->std_in != -1)
 		return (0);
@@ -76,6 +76,7 @@ int	check_fd(t_cmd *ptr)
 	ft_putstr_fd(": ", 1);
 	errno = ptr->code_errno;
 	printerrno_fd(1);
+	prompt->returned = 1;
 	errno = 0;
 	return (1);
 }
@@ -86,7 +87,7 @@ int	is_valid_command(t_prompt *prompt, t_cmd *list, char **args)
 	char		**path;
 	int			i;
 
-	if (!args || check_fd(list))
+	if (!args || check_fd(prompt, list))
 		return (0);
 	if (is_builtin(args))
 		return (1);

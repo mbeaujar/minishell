@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 15:52:12 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 18:07:19 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/02 18:40:18 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	env(t_prompt *prompt, char **args)
 		return ;
 	}
 	ret = check_args(args, is_value);
-	if (ret == NULL)
+	if (ret != NULL)
 	{
 		ft_putstr_fd("env: '", STDOUT_FILENO);
 		ft_putstr_fd(ret, STDOUT_FILENO);
