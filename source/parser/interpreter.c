@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 16:13:42 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 20:37:59 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/02 14:48:48 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	**space_to_neg_tab(t_prompt *prompt, t_cmd *ptr)
 
 void	exec_command_pipe(t_prompt *prompt, t_cmd **ptr)
 {
-	t_cmd*tmp;
+	t_cmd	*tmp;
 
 	tmp = (*ptr);
 	while (tmp && tmp->key == PIP)
@@ -60,7 +60,7 @@ void	exec_command_pipe(t_prompt *prompt, t_cmd **ptr)
 		return ;
 	}
 	build_pipe(prompt, *ptr);
-	*ptr = tmp->next;
+	*ptr = tmp;
 }
 
 void	exec_command(t_prompt *prompt, t_cmd **ptr)
@@ -69,6 +69,8 @@ void	exec_command(t_prompt *prompt, t_cmd **ptr)
 		exec_command_pipe(prompt, ptr);
 	else
 	{
+		if (!(*ptr)->argv)
+			(*ptr)->argv = space_to_neg_tab(prompt, *ptr);
 		if (is_valid_command(prompt, (*ptr), (*ptr)->argv))
 		{
 			redir((*ptr));
@@ -85,7 +87,8 @@ void	interpreter(t_prompt *prompt)
 	ptr = prompt->list;
 	while (ptr != NULL)
 	{
-		ptr->argv = space_to_neg_tab(prompt, ptr);
+		if (!ptr->argv)
+			ptr->argv = space_to_neg_tab(prompt, ptr);
 		if (ptr->argv)
 			exec_command(prompt, &ptr);
 		if (ptr)

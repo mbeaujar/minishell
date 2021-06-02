@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 16:34:57 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 20:37:59 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/02 14:49:07 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	refill_std(int *std, int len)
 	while (i < (len * 2) - 1)
 	{
 		if (pipe(fd) == -1)
-			return ((void)printf("merde\n"));
+			return ((void)printf("error pipe\n"));
 		std[i] = fd[1];
 		i++;
 		std[i] = fd[0];
@@ -83,7 +83,7 @@ void	exec_child_process(t_prompt *prompt, t_cmd *ptr, int *std, int *pid)
 	}
 	while (len)
 	{
-		waitpid(pid[len - i], &fd, 0);
+		waitpid(pid[i - len], &fd, 0);
 		len--;
 	}
 }

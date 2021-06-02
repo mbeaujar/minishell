@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:10:06 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 18:00:49 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/02 14:37:09 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,9 @@ int	main(int argc, char **argv, char **envp)
 	init_prompt(&prompt);
 	setup(&prompt, argc, argv);
 	prompt.env = fill_env(envp, &prompt);
-	if (prompt.setup.debug == 1)
-		printlstenv(prompt.env);
 	find_env_shlvl(&prompt);
 	find_env_path(&prompt);
-	if (isatty(0))
+	if (isatty(0) && prompt.setup.debug == 0)
 		prompt.isatty = 1;
 	if (prompt.isatty)
 		return (prompt_tty(&prompt));
