@@ -26,14 +26,14 @@ void	redir(t_cmd *ptr)
 	int	fd_in;
 
 	errno = 0;
-	if (ptr->std_out != 1)
+	if (ptr->std_out != 1 && ptr->std_out != -1)
 	{
 		fd_out = check_errno(dup(1));
 		check_errno(dup2(ptr->std_out, 1));
 		close(ptr->std_out);
 		ptr->std_out = fd_out;
 	}
-	if (ptr->std_in != 0)
+	if (ptr->std_in != 0 && ptr->std_in != -1)
 	{
 		fd_in = check_errno(dup(0));
 		check_errno(dup2(ptr->std_in, 0));
@@ -45,13 +45,13 @@ void	redir(t_cmd *ptr)
 void	close_redir(t_cmd *ptr)
 {
 	errno = 0;
-	if (ptr->std_out != 1)
+	if (ptr->std_out != 1 && ptr->std_out != -1)
 	{
 		check_errno(dup2(ptr->std_out, 1));
 		close(ptr->std_out);
 		ptr->std_out = 1;
 	}
-	if (ptr->std_in != 0)
+	if (ptr->std_in != 0 && ptr->std_in != -1)
 	{
 		check_errno(dup2(ptr->std_in, 0));
 		close(ptr->std_in);

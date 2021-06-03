@@ -11,17 +11,25 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 void free_fork(t_prompt *prompt)
 {
-			freelstbuffer(&prompt->buffer);
-		freelstenv(&prompt->env);
-		freelstcommand(&prompt->list);
-		freelstlexer(&prompt->lexer);
-		g_buffer(FREE, NULL);
-		free(prompt->std);
-		free(prompt->pid);
-		free(prompt->cmd);
+	int i;
+
+	i = 0;
+	freelstbuffer(&prompt->buffer);
+	freelstenv(&prompt->env);
+	freelstcommand(&prompt->list);
+	freelstlexer(&prompt->lexer);
+	g_buffer(FREE, NULL);
+	while (prompt->std && i < prompt->len_pipe)
+	{
+		if (prompt->std[i] != 0 && prompt->std[i] != 1 && prompt->std[i] != -1)
+			close(prompt->std[i]);
+		i++;
+	}
+	free(prompt->std);
+	free(prompt->pid);
+	secure_free(prompt->cmd);
 }
 
 int	add_child_process(t_prompt *prompt, t_cmd *ptr, int in, int out)
@@ -36,13 +44,13 @@ int	add_child_process(t_prompt *prompt, t_cmd *ptr, int in, int out)
 		return (pid);
 	if (pid == 0)
 	{
-		if (ptr->std_in == 0)
+		if (ptr->std_in == 0 && in != -1)
 			dup2(in, 0);
-		if (ptr->std_out == 1)
+		if (ptr->std_out == 1 && out != -1)
 			dup2(out, 1);
-		if (in != 0)
+		if (in != 0 && in != -1)
 			close(in);
-		if (out != 1)
+		if (out != 1 && out != -1)
 			close(out);
 		which_command(prompt, ptr, ptr->argv);
 		free_fork(prompt);
@@ -78,16 +86,16 @@ void	exec_child_process(t_prompt *prompt, t_cmd *ptr, int *std, int *pid)
 	int	i;
 	int	fd;
 
-	len = nbpipe(ptr);
+	len = prompt->len_pipe;
 	i = 0;
 	fd = 0;
 	while (i < len)
 	{
 		redir(ptr);
 		pid[i] = add_child_process(prompt, ptr, std[fd], std[fd + 1]);
-		if (std[fd] != 0 && std[fd] != 1)
+		if (std[fd] != 0 && std[fd] != 1 && std[fd] != -1)
 			close(std[fd]);
-		if (std[fd + 1] != 1 && std[fd + 1] != 0)
+		if (std[fd + 1] != 1 && std[fd + 1] != 0 && std[fd + 1] != -1)
 			close(std[fd + 1]);
 		close_redir(ptr);
 		fd += 2;
@@ -110,6 +118,7 @@ void	build_pipe(t_prompt *prompt, t_cmd *ptr)
 	len = nbpipe(ptr);
 	if (!len)
 		return ;
+	prompt->len_pipe = len;
 	std = malloc(sizeof(int) * ((len * 2)));
 	if (!std)
 		return ((void)printf("problem malloc unbuiltin\n"));
@@ -122,4 +131,6 @@ void	build_pipe(t_prompt *prompt, t_cmd *ptr)
 	exec_child_process(prompt, ptr, std, pid);
 	free(pid);
 	free(std);
+	prompt->std = NULL;
+	prompt->pid = NULL;
 }

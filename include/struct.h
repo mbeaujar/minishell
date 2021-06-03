@@ -100,6 +100,7 @@ typedef struct s_prompt
 	int *std;
 	char *cmd;
 	char **args;
+	int len_pipe;
 	char			**envp;
 	int				returned;
 }			t_prompt;

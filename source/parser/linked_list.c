@@ -66,9 +66,9 @@ void	freelstcommand(t_cmd **list)
 			free_tab(tmp->argv);
 		if (tmp->path)
 			free(tmp->path);
-		if (tmp->std_in != 0)
+		if (tmp->std_in != 0 && tmp->std_in != -1)
 			close(tmp->std_in);
-		if (tmp->std_out != 1)
+		if (tmp->std_out != 1 && tmp->std_out != -1)
 			close(tmp->std_out);
 		free(tmp);
 		tmp = NULL;

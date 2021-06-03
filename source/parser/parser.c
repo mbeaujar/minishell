@@ -17,7 +17,7 @@ int	check_path(char *path, t_type key, int curr_fd)
 	int	fd;
 
 	fd = -1;
-	if (curr_fd != 1)
+	if (curr_fd != 1 && curr_fd != -1)
 		close(curr_fd);
 	if (key == DRIGHT)
 		fd = open(path, O_APPEND | O_CREAT | O_RDWR, S_IRWXU);
@@ -38,7 +38,7 @@ int	open_path(char *path, t_type key, int curr_fd)
 		fd = check_path(path, key, curr_fd);
 	else if (key == LEFT)
 	{
-		if (curr_fd != 0)
+		if (curr_fd != 0 && curr_fd != -1)
 			close(curr_fd);
 		if (stat(path, &file) == -1)
 			return (-1);
