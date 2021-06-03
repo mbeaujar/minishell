@@ -26,8 +26,8 @@ Test(parser, ft_secure_strdup_2)
     dup = ft_secure_strdup(str);
 
     
-    ft_printf("%s\n", dup);
-    ft_printf("%s", str);
+    printf("%s\n", dup);
+    printf("%s", str);
 
 
     cr_assert_arr_eq_cmp(dup, "alut", 4, strcmp, "expected: |alut|, returned |%s|", dup);
