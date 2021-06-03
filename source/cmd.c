@@ -28,6 +28,7 @@ void	cmd(t_prompt *prompt, char *str)
 	cmd = ft_secure_strdup(str);
 	if (!cmd)
 		return ;
+	prompt->cmd = cmd;
 	prompt->lexer = lexer(prompt, cmd);
 	if (prompt->lexer == NULL)
 	{
@@ -43,4 +44,5 @@ void	cmd(t_prompt *prompt, char *str)
 	freelstlexer(&prompt->lexer);
 	freelstcommand(&prompt->list);
 	free(cmd);
+	prompt->cmd = NULL;
 }

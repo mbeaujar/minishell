@@ -40,15 +40,16 @@ void	signalhandler(int sig)
 	}
 }
 
-void	exec_child(t_cmd *ptr, char **args, char **envp, int pid)
+void	exec_child(t_cmd *ptr, t_prompt *prompt, char **envp, int pid)
 {
 	int	ret;
 
 	errno = 0;
 	g_pid(pid, SET);
-	ret = execve(ptr->path, args, envp);
+	ret = execve(ptr->path, prompt->args, envp);
 	if (ret == -1)
 	{
+		free_fork(prompt);
 		if (errno == EACCES)
 		{
 			ft_putstr_fd("bash: ", 1);
@@ -74,11 +75,12 @@ void	unbuiltin(t_prompt *prompt, t_cmd *ptr, char **args)
 	if (!ptr->path || !args)
 		return ((void)printf("problem no path in the fct unbuiltin\n"));
 	signal(SIGINT, signalhandler);
+	prompt->args = args;
 	pid = fork();
 	if (pid == -1)
 		return ((void)printerrno_fd(1));
 	if (pid == 0)
-		exec_child(ptr, args, envp, pid);
+		exec_child(ptr, prompt, envp, pid);
 	waitpid(pid, &status, 0);
 	g_pid(-1, SET);
 	prompt->returned = WEXITSTATUS(status);

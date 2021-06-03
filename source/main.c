@@ -21,6 +21,9 @@ void	init_prompt(t_prompt *prompt)
 	prompt->list = NULL;
 	prompt->lexer = NULL;
 	prompt->isatty = 0;
+	prompt->pid = NULL;
+	prompt->std = NULL;
+	prompt->cmd = NULL;
 }
 
 int	prompt_tty(t_prompt *prompt)

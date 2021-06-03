@@ -14,7 +14,7 @@
 
 int	endl_sep(t_type key)
 {
-	if (key == LEFT || key == RIGHT)
+	if (key == LEFT || key == RIGHT || key == DRIGHT)
 		ft_putstr_fd("bash: syntax error near unexpected token `newline'\n", 1);
 	if (key == PIP)
 		ft_putstr_fd("bash: syntax error multiline\n", STDOUT_FILENO);

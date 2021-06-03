@@ -71,7 +71,7 @@ int	extra_token_type(t_lexing *var, t_lexer **head)
 	char	c;
 
 	c = 0;
-	if (var->buffer[0] != 0)
+	if (var->buffer && var->buffer[0] != 0)
 		new_token(head, var->buffer, var->len, &var->y);
 	c = var->str[var->i];
 	while (var->str[var->i] == c)

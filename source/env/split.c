@@ -18,13 +18,13 @@ char	*return_env_name(char *env)
 	char	*name;
 
 	i = 0;
-	while (env[i] && env[i] != '=')
+	while (env && env[i] && env[i] != '=')
 		i++;
 	name = malloc(sizeof(char) * (i + 1));
 	if (!name)
 		return (NULL);
 	i = 0;
-	while (env[i] && env[i] != '=')
+	while (env && env[i] && env[i] != '=')
 	{
 		name[i] = env[i];
 		i++;
@@ -39,7 +39,7 @@ char	*return_env_value(char *env)
 	char	*value;
 
 	i = 0;
-	while (*env && *env != '=')
+	while (env && *env && *env != '=')
 		env++;
 	value = malloc(sizeof(char) * ((int)ft_strlen(++env) + 1));
 	if (!value)

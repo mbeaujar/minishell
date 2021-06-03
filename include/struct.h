@@ -96,6 +96,10 @@ typedef struct s_prompt
 	t_lexer			*lexer;
 	t_cmd			*list;
 	t_env			*env;
+	int *pid;
+	int *std;
+	char *cmd;
+	char **args;
 	char			**envp;
 	int				returned;
 }			t_prompt;

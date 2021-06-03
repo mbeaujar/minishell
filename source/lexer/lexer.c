@@ -47,9 +47,11 @@ int	create_token(t_lexer **head, t_lexing *var)
 void	init_struct_lexing(t_lexing *var, char *str)
 {
 	var->len = (int)ft_strlen(str);
+	var->buffer = NULL;
 	var->str = str;
 	var->y = 0;
 	var->buffer = malloc(sizeof(char) * (var->len + 1));
+	ft_bzero(var->buffer, var->len + 1);
 	var->i = 0;
 	var->sep = 0;
 	var->var = 0;

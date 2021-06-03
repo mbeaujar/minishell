@@ -12,6 +12,18 @@
 
 #include "minishell.h"
 
+void free_fork(t_prompt *prompt)
+{
+			freelstbuffer(&prompt->buffer);
+		freelstenv(&prompt->env);
+		freelstcommand(&prompt->list);
+		freelstlexer(&prompt->lexer);
+		g_buffer(FREE, NULL);
+		free(prompt->std);
+		free(prompt->pid);
+		free(prompt->cmd);
+}
+
 int	add_child_process(t_prompt *prompt, t_cmd *ptr, int in, int out)
 {
 	int	pid;
@@ -33,6 +45,7 @@ int	add_child_process(t_prompt *prompt, t_cmd *ptr, int in, int out)
 		if (out != 1)
 			close(out);
 		which_command(prompt, ptr, ptr->argv);
+		free_fork(prompt);
 		exit(pid);
 	}
 	return (pid);
@@ -100,10 +113,12 @@ void	build_pipe(t_prompt *prompt, t_cmd *ptr)
 	std = malloc(sizeof(int) * ((len * 2)));
 	if (!std)
 		return ((void)printf("problem malloc unbuiltin\n"));
+	prompt->std = std;
 	refill_std(std, len);
 	pid = malloc(sizeof(int) * len);
 	if (!pid)
 		return ;
+	prompt->pid = pid;
 	exec_child_process(prompt, ptr, std, pid);
 	free(pid);
 	free(std);

@@ -25,6 +25,5 @@ void	ft_unleak_strjoin(char **dst, char *src)
 	}
 	tmp = ft_strdup(*dst);
 	free(*dst);
-	*dst = ft_strjoin(tmp, src);
-	free(tmp);
+	*dst = ft_strjoin_gnl(tmp, src);
 }

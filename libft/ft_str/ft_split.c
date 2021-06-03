@@ -62,22 +62,23 @@ static char	**fill(char const *str, char **tab, int len, char c)
 	int	y;
 	int	word;
 
-	i = -1;
-	while (++i < len)
+	i = 0;
+	while (i < len)
 	{
 		y = 0;
 		while (str[y] == c)
 			y++;
-		if (str[y - 1] == c)
+		if (y > 0 && str[y - 1] == c)
 			str = str + y;
 		word = len_word(str, c);
 		tab[i] = malloc(sizeof(char) * (word + 1));
 		if (!tab[i])
 			return (free_malloc(tab));
 		y = 0;
-		while (y < word)
+		while (y < word && *str)
 			tab[i][y++] = *str++;
 		tab[i][y] = '\0';
+		i++;
 	}
 	tab[i] = 0;
 	return (tab);

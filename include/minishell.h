@@ -113,6 +113,7 @@ int		is_valid_command(t_prompt *prompt, t_cmd *list, char **args);
 char	**space_to_neg_tab(t_prompt *prompt, t_cmd *ptr);
 
 int		nbpipe(t_cmd *ptr);
+void    free_fork(t_prompt *prompt);
 
 void	build_pipe(t_prompt *prompt, t_cmd *ptr);
 
