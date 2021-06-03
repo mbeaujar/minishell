@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 void free_fork(t_prompt *prompt)
 {
 	int i;
@@ -21,7 +22,7 @@ void free_fork(t_prompt *prompt)
 	freelstcommand(&prompt->list);
 	freelstlexer(&prompt->lexer);
 	g_buffer(FREE, NULL);
-	while (prompt->std && i < prompt->len_pipe)
+	while (prompt->std && i < prompt->len_pipe * 2)
 	{
 		if (prompt->std[i] != 0 && prompt->std[i] != 1 && prompt->std[i] != -1)
 			close(prompt->std[i]);
@@ -54,6 +55,9 @@ int	add_child_process(t_prompt *prompt, t_cmd *ptr, int in, int out)
 			close(out);
 		which_command(prompt, ptr, ptr->argv);
 		free_fork(prompt);
+		close(2);
+		close(1);
+		close(0);
 		exit(pid);
 	}
 	return (pid);

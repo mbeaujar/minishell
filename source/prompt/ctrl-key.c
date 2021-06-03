@@ -34,6 +34,9 @@ void	leave(t_prompt *prompt)
 	freelstbuffer(&prompt->buffer);
 	freelstenv(&prompt->env);
 	disablerawmode(prompt->orig_termios);
+	close(2);
+	close(1);
+	close(0);
 	exit(0);
 }
 

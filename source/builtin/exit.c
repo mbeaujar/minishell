@@ -67,6 +67,9 @@ void	free_all(t_prompt *prompt, char **args, unsigned char returned)
 	freelstbuffer(&prompt->buffer);
 	if (prompt->isatty == 1)
 		disablerawmode(prompt->orig_termios);
+	close(2);
+	close(1);
+	close(0);
 	exit(returned);
 }
 
