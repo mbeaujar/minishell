@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 22:43:04 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/06/01 20:40:25 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/04 14:28:58 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,11 @@ typedef struct s_prompt
 	t_lexer			*lexer;
 	t_cmd			*list;
 	t_env			*env;
-	int *pid;
-	int *std;
-	char *cmd;
-	char **args;
-	int len_pipe;
+	int				*pid;
+	int				*std;
+	char			*cmd;
+	char			**args;
+	int				len_pipe;
 	char			**envp;
 	int				returned;
 }			t_prompt;

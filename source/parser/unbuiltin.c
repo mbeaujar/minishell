@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 22:57:15 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 20:37:59 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/04 14:28:29 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,11 @@ void	exec_child(t_cmd *ptr, t_prompt *prompt, char **envp, int pid)
 			ft_putstr_fd(ptr->path, 1);
 			ft_putstr_fd(": ", 1);
 			printerrno_fd(STDOUT_FILENO);
+			close(1);
 			exit(126);
 		}
 		printerrno_fd(STDOUT_FILENO);
+		close(1);
 		exit(125 + errno);
 	}
 }

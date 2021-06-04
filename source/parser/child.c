@@ -6,15 +6,15 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 16:34:57 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/02 22:13:22 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/04 14:28:27 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void free_fork(t_prompt *prompt)
+void	free_fork(t_prompt *prompt)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	freelstbuffer(&prompt->buffer);
@@ -31,6 +31,8 @@ void free_fork(t_prompt *prompt)
 	free(prompt->std);
 	free(prompt->pid);
 	secure_free(prompt->cmd);
+	close(0);
+	close(2);
 }
 
 int	add_child_process(t_prompt *prompt, t_cmd *ptr, int in, int out)
@@ -55,9 +57,7 @@ int	add_child_process(t_prompt *prompt, t_cmd *ptr, int in, int out)
 			close(out);
 		which_command(prompt, ptr, ptr->argv);
 		free_fork(prompt);
-		close(2);
 		close(1);
-		close(0);
 		exit(pid);
 	}
 	return (pid);
@@ -137,4 +137,5 @@ void	build_pipe(t_prompt *prompt, t_cmd *ptr)
 	free(std);
 	prompt->std = NULL;
 	prompt->pid = NULL;
+	prompt->len_pipe = 0;
 }

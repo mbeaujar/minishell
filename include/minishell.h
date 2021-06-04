@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/02 18:10:13 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/04 14:29:10 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int		is_valid_command(t_prompt *prompt, t_cmd *list, char **args);
 char	**space_to_neg_tab(t_prompt *prompt, t_cmd *ptr);
 
 int		nbpipe(t_cmd *ptr);
-void    free_fork(t_prompt *prompt);
+void	free_fork(t_prompt *prompt);
 
 void	build_pipe(t_prompt *prompt, t_cmd *ptr);
 
