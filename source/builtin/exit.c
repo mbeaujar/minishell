@@ -61,6 +61,8 @@ unsigned char	mini_atoi(char *arg)
 void	free_all(t_prompt *prompt, char **args, unsigned char returned)
 {
 	(void)args;
+	g_buffer(FREE, NULL);
+	secure_free(prompt->cmd);
 	freelstenv(&prompt->env);
 	freelstlexer(&prompt->lexer);
 	freelstcommand(&prompt->list);
