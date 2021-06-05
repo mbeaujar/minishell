@@ -6,20 +6,11 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 15:52:12 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/02 18:40:18 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/05 13:04:44 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-** env              -- affiche les variables d'environments qui ont une values
-** env RA           -- env: 'RA': No such file or directory
-** env RO=salut     -- affiche 'RO=salut' dans env mais que temporairement (si on fait env après il disparait) 
-** env RO=salut RA  -- env: 'RA': No such file or directory
-** env RE=          -- affiche 'RE=' dans env mais que temporairement
-** env r f g h      -- env: 'r': No such file or directory
-*/
 
 void	display_env(t_env *head)
 {

@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:28:30 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/04 14:33:54 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/04 15:43:09 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	free_all(t_prompt *prompt, char **args, unsigned char returned)
 	(void)args;
 	g_buffer(FREE, NULL);
 	secure_free(prompt->cmd);
+	secure_free(prompt->line);
 	freelstenv(&prompt->env);
 	freelstlexer(&prompt->lexer);
 	freelstcommand(&prompt->list);

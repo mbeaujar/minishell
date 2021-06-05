@@ -18,7 +18,10 @@ debug.c
 
 # Prerequisites
 *.d
-
+*2.h
+*3.h
+*2.c
+*3.c
 # Object files
 #*.o
 *2.o

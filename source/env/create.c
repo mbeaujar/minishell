@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 17:44:01 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/02 18:15:37 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/04 21:21:08 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	addlstenv(t_env **head, char *env)
 	tmp = *head;
 	while (tmp->next)
 		tmp = tmp->next;
-	if (is_value(env))
+	if (env && is_value(env))
 	{
 		tmp->next = newlstenv(env);
 		if (!tmp->next)
@@ -85,7 +85,7 @@ t_env	*newlstenvnull(char *env)
 	new = malloc(sizeof(t_env) * 1);
 	if (!new)
 		return (NULL);
-	new->name = env;
+	new->name = ft_strdup(env);
 	new->value = NULL;
 	new->index = -1;
 	new->next = NULL;

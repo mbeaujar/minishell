@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:10:06 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/02 22:30:41 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/04 15:44:06 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	init_prompt(t_prompt *prompt)
 	prompt->isatty = 0;
 	prompt->pid = NULL;
 	prompt->std = NULL;
+	prompt->line = NULL;
 	prompt->cmd = NULL;
 }
 

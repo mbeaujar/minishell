@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 19:15:27 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/06/01 20:38:52 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/05 13:06:06 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	reset_buff(t_prompt *prompt)
 	prompt->buffer->len = new->len;
 	prompt->buffer->modified = new->modified;
 	free(new);
-	lstaddfrontbuffer(&prompt->buffer, newlstbuffer(ft_calloc(10, sizeof(char))));
+	lstaddfrontbuffer(&prompt->buffer,
+		newlstbuffer(ft_calloc(10, sizeof(char))));
 }
 
 void	read_stdin(t_prompt *prompt)

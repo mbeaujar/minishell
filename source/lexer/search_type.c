@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 02:24:43 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 20:09:28 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/05 13:09:56 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ int	check_token(t_lexer *head)
 			return (double_sep(head->key));
 		if (head && (is_redir(head->key) || head->key == PIP) && !head->next)
 			return (endl_sep(head->key));
-		if (head && head->previous && is_double_sep(head->previous->key, head->key))
+		if (head && head->previous
+			&& is_double_sep(head->previous->key, head->key))
 			return (double_sep(head->key));
 		if (head && head->previous
 			&& is_redir(head->key) && is_redir(head->previous->key))

@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 21:41:05 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/06/01 20:03:36 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/05 13:06:58 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,10 @@ char	*delete_char_buffer(char *str, int len)
 
 void	decrease_buffer(t_prompt *prompt)
 {
-	prompt->buffer->buff[prompt->indice - 1] = -prompt->buffer->buff[prompt->indice - 1];
+	int	normi;
+
+	normi = prompt->indice - 1;
+	prompt->buffer->buff[normi] = -prompt->buffer->buff[normi];
 	if (prompt->buffer->strlen < ((prompt->buffer->len) / 4)
 		&& ((prompt->buffer->len) / 4) > 10)
 	{

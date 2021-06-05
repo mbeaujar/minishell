@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 21:54:05 by beaujardm         #+#    #+#             */
-/*   Updated: 2021/06/01 17:26:18 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/05 13:04:22 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ void	*ft_calloc(size_t count, size_t size)
 		return (NULL);
 	if (s)
 		ft_bzero(s, (count * size));
-	return ((void*)s);
+	return ((void *)s);
 }

@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 13:50:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/02 18:10:46 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/04 20:59:17 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,8 @@ void	freelstenv(t_env **head)
 
 t_env	*search_env(t_env *head, char *env_name)
 {
-	size_t	len;
-
-	len = ft_strlen(env_name) + 1;
+	if (!env_name)
+		return (NULL);
 	while (head)
 	{
 		if (!ft_strcmp(head->name, env_name))

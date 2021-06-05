@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 15:32:57 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 17:29:53 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/04 17:34:50 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,16 @@ int	which_return(int ret)
 	return (1);
 }
 
+char	*free_gnl(char *save)
+{
+	free(save);
+	return (NULL);
+}
+
 int	get_next_line(int fd, char **line)
 {
 	char		*buff;
-	static char	*save[MAX_FD];
+	static char	*save;
 	int			ret;
 
 	ret = 1;
@@ -92,7 +98,7 @@ int	get_next_line(int fd, char **line)
 	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buff)
 		return (-1);
-	while (!is_endl(save[fd]) && ret != 0)
+	while (!is_endl(save) && ret != 0)
 	{
 		ret = read(fd, buff, BUFFER_SIZE);
 		if (ret == -1)
@@ -101,10 +107,10 @@ int	get_next_line(int fd, char **line)
 			return (-1);
 		}
 		buff[ret] = '\0';
-		save[fd] = ft_strjoin_gnl(save[fd], buff);
+		save = ft_strjoin_gnl(save, buff);
 	}
 	free(buff);
-	*line = ret_line(save[fd]);
-	save[fd] = next_line_buff(save[fd]);
+	*line = ret_line(save);
+	save = free_gnl(save);
 	return (which_return(ret));
 }

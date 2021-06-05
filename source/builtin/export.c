@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:28:32 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 18:11:42 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/04 19:21:29 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,22 +57,21 @@ void	new_var(t_prompt *prompt, char *args, char *name, char *value)
 {
 	t_env	*find;
 
-	find = NULL;
 	find = search_env(prompt->env, name);
-	if (find == NULL)
+	if (!find)
 	{
-		free(name);
-		if (value != NULL)
-			free(value);
-		addlstenv(&prompt->env, ft_strdup(args));
+		secure_free(name);
+		secure_free(value);
+		addlstenv(&prompt->env, args);
 	}
-	else if (value != NULL)
+	else if (find && value)
 	{
-		if (find->value != NULL)
-			free(find->value);
+		secure_free(find->value);
 		find->value = value;
-		free(name);
+		secure_free(name);
 	}
+	else
+		secure_free(name);
 }
 
 void	export_var(t_prompt *prompt, char **args)
@@ -87,17 +86,16 @@ void	export_var(t_prompt *prompt, char **args)
 	while (args[i])
 	{
 		name = return_env_name(args[i]);
-		if (is_value(args[i]))
+		if (name && is_value(args[i]))
 			value = return_env_value(args[i]);
-		if (args[i][0] == '=' || is_valid_identifier(name) == 0)
+		if (name && (args[i][0] == '=' || is_valid_identifier(name) == 0))
 		{
 			printf("bash: export: `%s': not a valid identifier\n", args[i]);
-			free(name);
-			if (value)
-				free(value);
+			secure_free(name);
+			secure_free(value);
 			prompt->returned = 1;
 		}
-		else if (name != NULL && name[0] != 0)
+		else if (name && name[0] != 0)
 			new_var(prompt, args[i], name, value);
 		i++;
 	}

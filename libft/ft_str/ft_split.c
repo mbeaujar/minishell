@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 22:23:49 by beaujardm         #+#    #+#             */
-/*   Updated: 2021/06/01 17:20:58 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/05 13:03:29 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	len = count_word(s, c);
-	tab = malloc(sizeof(char*) * (len + 1));
+	tab = malloc(sizeof(char *) * (len + 1));
 	if (!tab)
 		return (NULL);
 	tab = fill(s, tab, len, c);

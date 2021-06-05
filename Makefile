@@ -79,6 +79,13 @@ SRCS_TEST = Criterion/tester/lexer.c \
 
 OBJ = ${SRCS:.c=.o}
 
+OBJECTS = objects/builtin \
+		objects/env \
+		objects/lexer \
+		objects/parser \
+		objects/prompt \
+		objects/utils
+
 OBJS = $(addprefix $(OBJS_DIRECTORY), $(OBJ))
 
 OBJS_TEST = $(filter-out $(OBJS_DIRECTORY)main.o,$(OBJS))
@@ -86,7 +93,10 @@ OBJS_TEST = $(filter-out $(OBJS_DIRECTORY)main.o,$(OBJS))
 $(OBJS_DIRECTORY)%.o : $(SRCS_DIRECTORY)%.c
 	@$(CC) $(CFLAGS) $< -I$(HEADER) -c -o $@
 
-all : $(FILE_LIB) $(NAME)
+all : $(FILE_LIB) $(OBJECTS) $(NAME)
+
+$(OBJECTS) : 
+	@mkdir -p objects $(OBJECTS)
 
 $(FILE_LIB) : 
 ifeq ("$(wildcard $(FILE_LIB))","")

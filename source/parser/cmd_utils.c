@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:55:34 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 20:37:59 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/05 13:08:08 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,13 @@ int	nbpipe(t_cmd *ptr)
 
 int	command_not_found(t_prompt *prompt, char **args)
 {
+	int	normi;
+
+	normi = prompt->indice;
 	if (prompt->isatty == 1)
 		printf("bash: %s : command not found\n", args[0]);
 	else
-		printf("bash: line %d: %s: command not found\n", prompt->indice, args[0]);
+		printf("bash: line %d: %s: command not found\n", normi, args[0]);
 	prompt->returned = 127;
 	return (0);
 }

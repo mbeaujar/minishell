@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 15:33:20 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/05/31 22:01:22 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/04 16:06:29 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
-# define MAX_FD 1024
+# define MAX_FD 5
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1

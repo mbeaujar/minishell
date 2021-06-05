@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 16:34:57 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/04 14:28:27 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/04 15:53:20 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	free_fork(t_prompt *prompt)
 	free(prompt->std);
 	free(prompt->pid);
 	secure_free(prompt->cmd);
+	secure_free(prompt->line);
 	close(0);
 	close(2);
 }

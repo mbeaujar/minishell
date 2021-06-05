@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:33:00 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 18:17:28 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/05 13:07:19 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	**new_table_env(t_env *head)
 	if (!l)
 		return (NULL);
 	i = 0;
-	envp = malloc(sizeof(char*) * (l + 1));
+	envp = malloc(sizeof(char *) * (l + 1));
 	if (!envp)
 		return (NULL);
 	while (i < l && head)

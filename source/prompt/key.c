@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 19:51:16 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/02 19:09:25 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/05 13:05:28 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	execute_commande(t_prompt *prompt)
 			prompt->buffer->modified = 0;
 			cmd(prompt, prompt->buffer->buff);
 			lstaddfrontbuffer(&prompt->buffer,
-					newlstbuffer(ft_calloc(10, sizeof(char))));
+				newlstbuffer(ft_calloc(10, sizeof(char))));
 			g_buffer(FREE, NULL);
 			g_buffer(SET, prompt->buffer);
 		}

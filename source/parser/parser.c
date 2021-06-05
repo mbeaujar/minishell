@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 20:18:04 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/02 22:25:57 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/05 13:09:31 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,43 +47,43 @@ int	open_path(char *path, t_type key, int curr_fd)
 	return (fd);
 }
 
-int	errno_open(t_cmd *ptr, t_lexer **start, t_type key, int curr_fd)
+int	errno_open(t_cmd *ptr, t_lexer **st, t_type key, int curr_fd)
 {
 	int		ret;
 	char	*path;
 
 	errno = 0;
-	path = (*start)->next->token;
+	path = (*st)->next->token;
 	ret = open_path(path, key, curr_fd);
 	if (ret == -1)
 	{
 		ptr->code_errno = errno;
 		ptr->path_file = path;
 	}
-	(*start) = (*start)->next;
+	(*st) = (*st)->next;
 	return (ret);
 }
 
-t_cmd	*create_token_range(t_lexer **start)
+t_cmd	*create_token_range(t_lexer **st)
 {
 	char		*args;
 	t_cmd		*list;
 
 	args = NULL;
 	list = newlstcommand(NULL);
-	while ((*start) != NULL && (*start)->key != COMAT && (*start)->key != PIP)
+	while ((*st) != NULL && (*st)->key != COMAT && (*st)->key != PIP)
 	{
-		if ((*start)->key == DEFAULT)
+		if ((*st)->key == DEFAULT)
 		{
-			ft_unleak_strjoin(&args, (*start)->token);
-			if ((*start)->next != NULL && (*start)->next->key == DEFAULT)
+			ft_unleak_strjoin(&args, (*st)->token);
+			if ((*st)->next != NULL && (*st)->next->key == DEFAULT)
 				ft_unleak_strjoin(&args, " ");
 		}
-		if ((*start)->key == RIGHT || (*start)->key == DRIGHT)
-			list->std_out = errno_open(list, start, (*start)->key, list->std_out);
-		if ((*start)->key == LEFT)
-			list->std_in = errno_open(list, start, (*start)->key, list->std_in);
-		(*start) = (*start)->next;
+		if ((*st)->key == RIGHT || (*st)->key == DRIGHT)
+			list->std_out = errno_open(list, st, (*st)->key, list->std_out);
+		if ((*st)->key == LEFT)
+			list->std_in = errno_open(list, st, (*st)->key, list->std_in);
+		(*st) = (*st)->next;
 	}
 	list->args = args;
 	return (list);

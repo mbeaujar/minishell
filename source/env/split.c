@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 14:17:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 18:20:09 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/04 21:17:03 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*return_env_value(char *env)
 	value = malloc(sizeof(char) * ((int)ft_strlen(++env) + 1));
 	if (!value)
 		return (NULL);
-	while (*env != 0)
+	while (env && *env != 0)
 	{
 		value[i] = *env;
 		i++;
@@ -56,6 +56,8 @@ char	*return_env_value(char *env)
 
 int	is_value(char *env)
 {
+	if (!env || !*env)
+		return (0);
 	while (*env)
 	{
 		if (*env == '=')
