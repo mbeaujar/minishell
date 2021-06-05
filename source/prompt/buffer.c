@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 21:41:05 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/06/05 13:06:58 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/05 21:42:52 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	expand_buffer(t_prompt *prompt, char c)
 		prompt->buffer->strlen = (int)ft_strlen(prompt->buffer->buff);
 		new_line(prompt);
 	}
-	else if (prompt->indice == prompt->buffer->strlen)
+	else if (prompt->indice + 1 == prompt->buffer->strlen)
 	{
 		prompt->buffer->buff[prompt->buffer->strlen++] = c;
 		prompt->buffer->buff[prompt->buffer->strlen] = 0;

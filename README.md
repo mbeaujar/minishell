@@ -2,6 +2,8 @@
 
 ## LIEN :
 
+- signal : https://en.wikipedia.org/wiki/Signal_(IPC)
+
 - open flags + options  : https://www.tutorialspoint.com/unix_system_calls/open.htm
 
 - termios : https://viewsourcecode.org/snaptoken/kilo/03.rawInputAndOutput.html
@@ -111,3 +113,35 @@ special characters : https://tldp.org/LDP/abs/html/special-chars.html
 - tgoto : déplacer le curseur a des coordonnées 
 
 - tputs : 
+
+## ERROR : 
+
+###### error prompt : 
+
+minishell &> echo ola ; echo somd ;;
+bash: syntax error near unexpected token ;;'
+minishell &> echo ola ; echo somd ;
+ola
+somd
+minishell &> echo ola ; echo somd;
+ola
+somd
+minishell &> echo ola ; echo somd;;
+ola
+somd
+minishell &> echo ola;echo somd;
+ola cho somd
+minishell &> echo ola gateAU
+ola gateAU
+minishell &> echo ola  gateAU;
+ola gateAU
+minishell &> echo ola  gateAU;;
+bash: syntax error near unexpected token ;;'
+minishell &> echo ola ; gateAU;;
+bash: syntax error near unexpected token ;;'
+minishell &> echo ola ; echo gateAU;;
+bash: syntax error near unexpected token ;;'
+minishell &> echo ola;echo gateAU;;
+bash: syntax error near unexpected token ;;'
+minishell &> echo ola;echo ga
+bash: syntax error near unexpected token ;;'

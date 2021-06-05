@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 17:19:23 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/04 15:54:39 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/05 21:24:43 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	exit_tty(t_prompt *prompt, int state)
 
 void	sighandler(int sig)
 {
-	(void)sig;
-	printf("\n");
+	if (sig == SIGINT)
+		printf("\n");
 }
 
 void	prompt_non_tty(t_prompt *prompt)
@@ -39,6 +39,7 @@ void	prompt_non_tty(t_prompt *prompt)
 	ret = 1;
 	prompt->indice = 1;
 	signal(SIGINT, sighandler);
+	signal(SIGQUIT, sighandler);
 	while (ret)
 	{
 		ret = get_next_line(0, &line);

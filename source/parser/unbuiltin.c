@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 22:57:15 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/04 14:28:29 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/05 21:23:46 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,12 @@ void	exec_child(t_cmd *ptr, t_prompt *prompt, char **envp, int pid)
 	}
 }
 
+void	list_signal(void)
+{
+	signal(SIGINT, signalhandler);
+	signal(SIGQUIT, signalhandler);
+}
+
 void	unbuiltin(t_prompt *prompt, t_cmd *ptr, char **args)
 {
 	int		status;
@@ -76,7 +82,7 @@ void	unbuiltin(t_prompt *prompt, t_cmd *ptr, char **args)
 		return ((void)printf("problem in the fct unbuiltin with char **envp\n"));
 	if (!ptr->path || !args)
 		return ((void)printf("problem no path in the fct unbuiltin\n"));
-	signal(SIGINT, signalhandler);
+	list_signal();
 	prompt->args = args;
 	pid = fork();
 	if (pid == -1)
