@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 13:49:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/06 14:12:44 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/06 14:28:09 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,20 @@
 /*
 ** [1;5D     [1;5C
 */
+
+void    search_word_left(t_prompt *prompt)
+{
+    while (prompt->buffer->buff[prompt->indice] != ' ')
+    {
+        prompt->indice--;
+        create_termcap("nd");
+    }
+    while (prompt->buffer->buff[prompt->indice] == ' ')
+    {
+        prompt->indice--;
+        create_termcap("nd");
+    }
+}
 
 char is_ctrl_arrow(t_prompt *prompt, char c, char first, char second)
 {
@@ -30,14 +44,8 @@ char is_ctrl_arrow(t_prompt *prompt, char c, char first, char second)
     if ((read(0, &seq[2], 1) != 1))
         return (c);
     if (seq[0] == ';' && seq[1] == '5' && seq[2] == 'D')
-        printf("oui\n");
+        search_word_left(prompt);
     if (seq[0] == ';' && seq[1] == '5' && seq[2] == 'C')
         printf("non\n");
     return (c);
 }
-
-/*
-void    search_word(t_prompt *prompt)
-{
-    
-}*/
