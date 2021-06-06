@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 19:47:29 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/05 21:46:47 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/06 14:05:33 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	arrow_key(char c, t_prompt *prompt)
 		prompt->indice--;
 		create_termcap("le");
 	}
-	return (c);
+	return (is_ctrl_arrow(prompt, c, seq[0], seq[1]));
 }
 
 void	new_line(t_prompt *prompt)
