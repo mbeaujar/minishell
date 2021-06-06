@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 19:47:29 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/06 17:09:22 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/06 17:12:52 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void move_to_start(t_prompt *prompt)
 
 void move_to_end(t_prompt *prompt)
 {
-	while (prompt->indice + 1 < prompt->buffer->strlen)
+	while (prompt->indice < prompt->buffer->strlen)
 		move_right(prompt);
 }
 
