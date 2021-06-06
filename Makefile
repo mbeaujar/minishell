@@ -120,6 +120,11 @@ clean :
 	@$(RM) $(NAME)
 	@$(RM) $(NAME_TEST)
 
+bonus : 
+	git add -A
+	git commit -m "update bonus"
+	git push -u origin bonus
+
 fclean : clean
 	@$(RM) $(OBJS)
 	@$(RM) $(OBJS_TEST)
