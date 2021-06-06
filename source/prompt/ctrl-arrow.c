@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 13:49:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/06 15:46:46 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/06 16:02:18 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void search_word_left(t_prompt *prompt)
 {
     if (prompt->indice == 0)
         return;
+    printf("\nind : %d\n", prompt->indice);
     while (prompt->buffer->buff[prompt->indice - 1] != ' ' && prompt->indice > 0)
     {
         prompt->indice--;
