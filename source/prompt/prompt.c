@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/29 19:15:27 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/06/06 14:00:09 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/06 14:00:41 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	read_stdin(t_prompt *prompt)
 			write(STDOUT_FILENO, &c, 1);
 			expand_buffer(prompt, c);
 		}
-		printf("ici : %s\n", c);
+		printf("ici : %c\n", c);
 		if (c == '^')
 			is_ctrl_arrow(prompt);
 		if (c == DELETE)
