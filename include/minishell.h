@@ -155,6 +155,7 @@ void	printbuffer(char *str);
 void	debug_prompt(t_buff *buffer, int indice);
 void	new_line(t_prompt *prompt);
 void	prompt_non_tty(t_prompt *prompt);
+void    is_ctrl_arrow(t_prompt *prompt);
 
 /*
 ** UTILS 

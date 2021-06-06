@@ -28,6 +28,7 @@ SRCS =  main.c \
 		builtin/exit.c \
 		builtin/echo.c \
 		prompt/setup.c \
+		prompt/ctrl-arrow.c \
 		prompt/arrow.c \
 		prompt/buffer.c \
 		prompt/ctrl-key.c \

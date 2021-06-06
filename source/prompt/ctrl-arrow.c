@@ -16,6 +16,7 @@
 void    is_ctrl_arrow(t_prompt *prompt)
 {
     char seq[6];
+    (void)prompt;
     int i;
 
     i = 0;

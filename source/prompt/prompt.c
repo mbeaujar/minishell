@@ -50,6 +50,8 @@ void	read_stdin(t_prompt *prompt)
 			write(STDOUT_FILENO, &c, 1);
 			expand_buffer(prompt, c);
 		}
+		if (c == '^')
+			is_ctrl_arrow(prompt);
 		if (c == DELETE)
 			delete_char_prompt(prompt);
 		isctrl(prompt, c);
