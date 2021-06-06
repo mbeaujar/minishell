@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 13:49:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/06 16:43:12 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/06 16:48:34 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void search_word_left(t_prompt *prompt)
         while (prompt->buffer->buff[prompt->indice] != ' ' && prompt->indice > 0)
         {
             if (prompt->buffer->buff[prompt->indice - 1] == ' ')
-                break ;
+                break;
             move_left(prompt);
         }
     }
@@ -46,6 +46,40 @@ void search_word_left(t_prompt *prompt)
             if (prompt->buffer->buff[prompt->indice - 1] == ' ')
                 break;
             move_left(prompt);
+        }
+    }
+}
+
+void move_right(t_prompt *prompt)
+{
+    prompt->indice++;
+    create_termcap("nd");
+}
+
+void search_word_right(t_prompt *prompt)
+{
+    if (prompt->indice == prompt->buffer->strlen)
+        return;
+    if (prompt->buffer->buff[prompt->indice] != ' ' && prompt->buffer->buff[prompt->indice + 1] != ' ')
+    {
+        while (prompt->buffer->buff[prompt->indice] != ' ' && prompt->indice < prompt->buffer->strlen)
+        {
+            if (prompt->buffer->buff[prompt->indice + 1] == ' ')
+                break;
+            move_right(prompt);
+        }
+    }
+    else
+    {
+        if (prompt->buffer->buff[prompt->indice + 1] == ' ')
+            move_right(prompt);
+        while (prompt->buffer->buff[prompt->indice] == ' ' && prompt->indice < prompt->buffer->strlen)
+            move_right(prompt);
+        while (prompt->buffer->buff[prompt->indice] != ' ' && prompt->indice < prompt->buffer->strlen)
+        {
+            if (prompt->buffer->buff[prompt->indice + 1] == ' ')
+                break;
+            move_right(prompt);
         }
     }
 }
@@ -66,6 +100,6 @@ char is_ctrl_arrow(t_prompt *prompt, char c, char first, char second)
     if (seq[0] == ';' && seq[1] == '5' && seq[2] == 'D')
         search_word_left(prompt);
     if (seq[0] == ';' && seq[1] == '5' && seq[2] == 'C')
-        printf("non\n");
+        search_word_right(prompt);
     return (c);
 }
