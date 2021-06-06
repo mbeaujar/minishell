@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 13:49:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/06 14:40:57 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/06 14:42:50 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,17 @@
 
 void    search_word_left(t_prompt *prompt)
 {
-    int len;
-
-    len = 0;
     if (prompt->indice == 0)
         return ;
     while (prompt->buffer->buff[prompt->indice] == ' ' && prompt->indice - 1 > 0)
     {
         prompt->indice--;
-        len++;
+        create_termcap("le");
     }
     while (prompt->buffer->buff[prompt->indice] != ' ' && prompt->indice - 1 > 0)
     {
         prompt->indice--;
-        len++;
-    }
-    //printf("len : %d\n", len);
-    while (len - 1 > 0)
-    {
         create_termcap("le");
-        len--;
     }
 }
 
