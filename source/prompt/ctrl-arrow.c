@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 13:49:37 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/06 15:09:47 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/06 15:12:37 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,15 @@
 ** [1;5D     [1;5C
 */
 
-void    search_word_left(t_prompt *prompt)
+void search_word_left(t_prompt *prompt)
 {
     if (prompt->indice == 0)
-        return ;
+        return;
+    while (prompt->buffer->buff[prompt->indice] != ' ' && prompt->indice > 0)
+    {
+        prompt->indice--;
+        create_termcap("le");
+    }
     while (prompt->buffer->buff[prompt->indice] == ' ' && prompt->indice > 0)
     {
         prompt->indice--;
