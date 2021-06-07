@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/06 17:02:21 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/07 15:09:00 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,9 +155,11 @@ void	printbuffer(char *str);
 void	debug_prompt(t_buff *buffer, int indice);
 void	new_line(t_prompt *prompt);
 void	prompt_non_tty(t_prompt *prompt);
-char    is_ctrl_arrow(t_prompt *prompt, char c, char first, char second);
-void move_right(t_prompt *prompt);
-void move_left(t_prompt *prompt);
+char	is_ctrl_arrow(t_prompt *prompt, char c, char first, char second);
+void	move_right(t_prompt *prompt);
+void	move_left(t_prompt *prompt);
+void	move_to_start(t_prompt *prompt);
+void	move_to_end(t_prompt *prompt);
 
 /*
 ** UTILS 

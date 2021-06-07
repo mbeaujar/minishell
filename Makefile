@@ -34,6 +34,7 @@ SRCS =  main.c \
 		prompt/ctrl-key.c \
 		prompt/display.c \
 		prompt/key.c \
+		prompt/move.c \
 		prompt/linked_list.c \
 		prompt/prompt.c \
 		prompt/termcaps.c \

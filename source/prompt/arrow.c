@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 19:47:29 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/06 18:40:51 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/07 15:06:57 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** H home F end
 */
 
-void change_buffer(t_prompt *prompt, t_buff *new)
+void	change_buffer(t_prompt *prompt, t_buff *new)
 {
 	g_buffer(FREE, NULL);
 	prompt->buffer = new;
@@ -28,21 +28,9 @@ void change_buffer(t_prompt *prompt, t_buff *new)
 	display_buffer(prompt);
 }
 
-void move_to_start(t_prompt *prompt)
+char	arrow_key(char c, t_prompt *prompt)
 {
-	while (prompt->indice > 0)
-		move_left(prompt);
-}
-
-void move_to_end(t_prompt *prompt)
-{
-	while (prompt->indice < prompt->buffer->strlen)
-		move_right(prompt);
-}
-
-char arrow_key(char c, t_prompt *prompt)
-{
-	char seq[3];
+	char	seq[3];
 
 	if ((read(STDIN_FILENO, &seq[0], 1)) != 1)
 		return (c);
@@ -52,7 +40,8 @@ char arrow_key(char c, t_prompt *prompt)
 		change_buffer(prompt, prompt->buffer->next);
 	if (seq[0] == '[' && seq[1] == 'B' && prompt->buffer->previous != NULL)
 		change_buffer(prompt, prompt->buffer->previous);
-	if (seq[0] == '[' && seq[1] == 'C' && (prompt->indice + 1) <= prompt->buffer->strlen)
+	if (seq[0] == '[' && seq[1] == 'C'
+		&& (prompt->indice + 1) <= prompt->buffer->strlen)
 		move_right(prompt);
 	if (seq[0] == '[' && seq[1] == 'D' && (prompt->indice - 1) >= 0)
 		move_left(prompt);
@@ -63,10 +52,10 @@ char arrow_key(char c, t_prompt *prompt)
 	return (is_ctrl_arrow(prompt, c, seq[0], seq[1]));
 }
 
-void new_line(t_prompt *prompt)
+void	new_line(t_prompt *prompt)
 {
-	int old_indice;
-	int len;
+	int	old_indice;
+	int	len;
 
 	old_indice = prompt->indice + 1;
 	create_termcap("rc");
