@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 20:05:41 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/07 15:09:00 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/07 17:24:46 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,9 @@ void	move_right(t_prompt *prompt);
 void	move_left(t_prompt *prompt);
 void	move_to_start(t_prompt *prompt);
 void	move_to_end(t_prompt *prompt);
+void	find_word(t_prompt *prompt);
+void	isctrl_bonus(t_prompt *prompt, char c);
+void	paste_word(t_prompt *prompt);
 
 /*
 ** UTILS 

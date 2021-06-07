@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 18:39:11 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 20:38:52 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/07 17:23:47 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	leave(t_prompt *prompt)
 	write(STDOUT_FILENO, "exit\n", 5);
 	freelstbuffer(&prompt->buffer);
 	freelstenv(&prompt->env);
+	secure_free(prompt->word);
 	disablerawmode(prompt->orig_termios);
 	close(2);
 	close(1);
@@ -42,6 +43,7 @@ void	leave(t_prompt *prompt)
 
 void	isctrl(t_prompt *prompt, char c)
 {
+	isctrl_bonus(prompt, c);
 	if (c == (('c') & 0x1f))
 	{
 		write(STDOUT_FILENO, "^C\n", 3);

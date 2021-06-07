@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 22:43:04 by beaujardmae       #+#    #+#             */
-/*   Updated: 2021/06/04 15:43:12 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/07 16:37:00 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ typedef struct s_prompt
 	struct termios	orig_termios;
 	t_buff			*buffer;
 	int				indice;
+	int				a;
+	int				b;
 	int				isatty;
 	t_setup			setup;
 	t_lexer			*lexer;
@@ -104,6 +106,7 @@ typedef struct s_prompt
 	int				len_pipe;
 	char			**envp;
 	int				returned;
+	char			*word;
 }			t_prompt;
 
 #endif

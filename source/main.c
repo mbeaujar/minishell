@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 15:10:06 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/04 15:44:06 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/07 16:37:08 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ void	init_prompt(t_prompt *prompt)
 	prompt->std = NULL;
 	prompt->line = NULL;
 	prompt->cmd = NULL;
+	prompt->a = -1;
+	prompt->b = -1;
+	prompt->word = NULL;
 }
 
 int	prompt_tty(t_prompt *prompt)

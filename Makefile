@@ -37,6 +37,8 @@ SRCS =  main.c \
 		prompt/move.c \
 		prompt/linked_list.c \
 		prompt/prompt.c \
+		prompt/cut.c \
+		prompt/copy_paste.c \
 		prompt/termcaps.c \
 		prompt/termios.c \
 		prompt/prompt_non_tty.c \
