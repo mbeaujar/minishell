@@ -111,7 +111,7 @@ $(NAME) : $(OBJS)
 action : fclean test
 
 
-test : $(FILE_LIB) $(OBJS)
+test : $(FILE_LIB) $(OBJECTS) $(OBJS)
 	@$(CC) $(OBJS_TEST) $(SRCS_TEST) -I$(HEADER) -lcriterion -lncurses -L$(PATH_LIB) -l$(LIBFT) -o $(NAME_TEST)
 
 tester: re
