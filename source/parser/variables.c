@@ -6,7 +6,7 @@
 /*   By: mbeaujar <mbeaujar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 14:44:48 by mbeaujar          #+#    #+#             */
-/*   Updated: 2021/06/01 20:37:59 by mbeaujar         ###   ########.fr       */
+/*   Updated: 2021/06/07 17:57:16 by mbeaujar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,15 @@ char	*replace_env_to_value(char *src, char *key, t_env *env)
 
 int	is_endvar(char c)
 {
-	return (c != ' ' && c != 0 && c > 0);
+	if (c == ' ' || c == 0 || c < 0)
+		return (0);
+	if (c >= 'A' && c <= 'Z')
+		return (1);
+	if (c >= 'a' && c <= 'z')
+		return (1);
+	if (c == '$' || c == '_')
+		return (1);
+	return (0);
 }
 
 void	search_len(t_cmd *ptr, int *i, int *len, int *start)
