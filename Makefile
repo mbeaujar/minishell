@@ -28,6 +28,7 @@ SRCS =  main.c \
 		builtin/exit.c \
 		builtin/echo.c \
 		prompt/setup.c \
+		prompt/ctrl-arrow.c \
 		prompt/arrow.c \
 		prompt/buffer.c \
 		prompt/ctrl-key.c \
@@ -118,6 +119,11 @@ tester: re
 clean : 
 	@$(RM) $(NAME)
 	@$(RM) $(NAME_TEST)
+
+bonus : 
+	git add -A
+	git commit -m "update bonus"
+	git push -u origin bonus
 
 fclean : clean
 	@$(RM) $(OBJS)
