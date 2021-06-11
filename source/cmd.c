@@ -26,6 +26,8 @@ void	cmd(t_prompt *prompt, char *str)
 	char	*cmd;
 
 	cmd = ft_secure_strdup(str);
+	parse_star(cmd);
+
 	if (!cmd)
 		return ;
 	prompt->cmd = cmd;
