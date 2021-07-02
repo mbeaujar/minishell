@@ -62,16 +62,6 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }		t_cmd;
 
-typedef struct s_dir
-{
-	struct dirent *dir;
-	char *path;
-
-	struct s_dir *next;
-	struct s_dir *previous;
-
-}	t_dir;			
-
 /*
 ** returned == $? -- code de retour de la commande
 */
